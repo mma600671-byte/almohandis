@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المهندس للتسويق العقاري</title>
+  <style>
+    :root {
+      --primary: #1b365d;
+      --secondary: #d97706;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --whatsapp: #25d366;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a, var(--primary));
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: -25px auto 40px;
+      padding: 0 15px;
+    }
+
+    /* شريط البحث والفلترة */
+    .filter-box {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .filter-box select, .filter-box input {
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .filter-box select:focus, .filter-box input:focus {
+      border-color: var(--primary);
+    }
+
+    /* شبكة عرض العقارات */
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .property-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .property-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .image-container {
+      position: relative;
+      height: 200px;
+      background: #e2e8f0;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--primary);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .property-content {
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price {
+      color: var(--secondary);
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .details {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-whatsapp {
+      background-color: var(--whatsapp);
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      width: 100%;
+      transition: opacity 0.2s;
+    }
+
+    .btn-whatsapp:hover {
+      opacity: 0.9;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      background: #0f172a;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ترويسة الموقع -->
+  <header>
+    <h1>المهندس للتسويق العقاري</h1>
+    <p>دليلك الموثوق لأفضل العقارات والفرص الاستثمارية</p>
+  </header>
+
+  <div class="container">
+    <!-- شريط البحث والفلترة السريعة -->
+    <div class="filter-box">
+      <input type="text" id="searchInput" placeholder="ابحث بالاسم أو الحي..." />
+      <select id="typeFilter">
+        <option value="all">كل الأنواع</option>
+        <option value="بيع">بيع</option>
+        <option value="إيجار">إيجار</option>
+      </select>
+      <select id="cityFilter">
+        <option value="all">كل المحافظات / المدن</option>
+        <option value="النجف">النجف</option>
+        <option value="بغداد">بغداد</option>
+        <option value="كربلاء">كربلاء</option>
+      </select>
+    </div>
+
+    <!-- شبكة العقارات المعروضة -->
+    <div class="properties-grid" id="propertiesList">
+      <!-- يتم توليد البطاقات عبر JavaScript -->
+    </div>
+  </div>
+
+  <footer>
+    <p>جميع الحقوق محفوظة &copy; <span id="year"></span> - المهندس للتسويق العقاري</p>
+  </footer>
+
+  <script>
+    // ضع رقم هاتفك هنا بصيغة دولية بدون أصفار أو علامة + (مثال للعراق: 9647XXXXXXXX)
+    const WHATSAPP_PHONE = "964785599252";
+
+    // قائمة العقارات (يمكنك إضافة أو تعديل العقارات هنا مباشرة)
+    const properties = [
+      {
+        id: 1,
+        title: "منزل حديث طابقين بناء درجة أولى",
+        type: "بيع",
+        city: "النجف",
+        location: "حي الغدير",
+        area: "200 م²",
+        price: "180,000,000 د.ع",
+        image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop&q=60"
+      },
+      {
+        id: 2,
+        title: "شقة سكنية ممتازة للعوائل",
+        type: "إيجار",
+        city: "بغداد",
+        location: "المنصور",
+        area: "140 م²",
+        price: "750,000 د.ع / شهر",
+        image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop&q=60"
+      },
+      {
+        id: 3,
+        title: "قطعة أرض ركن موقع تجاري سكني",
+        type: "بيع",
+        city: "النجف",
+        location: "حي السلام",
+        area: "250 م²",
+        price: "95,000,000 د.ع",
+        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&auto=format&fit=crop&q=60"
+      },
+      {
+        id: 4,
+        title: "بيت طابق واحد بتشطيب ممتاز",
+        type: "بيع",
+        city: "كربلاء",
+        location: "حي المعلمين",
+        area: "150 م²",
+        price: "110,000,000 د.ع",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=60"
+      }
+    ];
+
+    const propertiesList = document.getElementById("propertiesList");
+    const searchInput = document.getElementById("searchInput");
+    const typeFilter = document.getElementById("typeFilter");
+    const cityFilter = document.getElementById("cityFilter");
+
+    function displayProperties(items) {
+      propertiesList.innerHTML = "";
+      if (items.length === 0) {
+        propertiesList.innerHTML = '<div class="no-results">لا توجد عقارات مطابقة لخيارات البحث.</div>';
+        return;
+      }
+
+      items.forEach(p => {
+        const message = encodeURIComponent(`مرحباً المهندس للتسويق العقاري، أنا مهتم بالإعلان: "${p.title}" كود: #${p.id}`);
+        const waLink = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
+
+        const card = document.createElement("div");
+        card.className = "property-card";
+        card.innerHTML = `
+          <div class="image-container">
+            <span class="tag">${p.type}</span>
+            <img src="${p.image}" alt="${p.title}" loading="lazy" />
+          </div>
+          <div class="property-content">
+            <div class="price">${p.price}</div>
+            <div class="title">${p.title}</div>
+            <div class="details">
+              <span>📍 ${p.city} - ${p.location}</span>
+              <span>📐 ${p.area}</span>
+            </div>
+            <div class="actions">
+              <a href="${waLink}" target="_blank" class="btn-whatsapp">
+                💬 استفسر عبر واتساب
+              </a>
+            </div>
+          </div>
+        `;
+        propertiesList.appendChild(card);
+      });
+    }
+
+    function filterProperties() {
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedType = typeFilter.value;
+      const selectedCity = cityFilter.value;
+
+      const filtered = properties.filter(p => {
+        const matchesQuery = p.title.toLowerCase().includes(query) || p.location.toLowerCase().includes(query);
+        const matchesType = (selectedType === "all") || (p.type === selectedType);
+        const matchesCity = (selectedCity === "all") || (p.city === selectedCity);
+        return matchesQuery && matchesType && matchesCity;
+      });
+
+      displayProperties(filtered);
+    }
+
+    searchInput.addEventListener("input", filterProperties);
+    typeFilter.addEventListener("change", filterProperties);
+    cityFilter.addEventListener("change", filterProperties);
+
+    // ضبط السنة في الفوتر تلقائياً
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // عرض جميع العقارات عند فتح الصفحة
+    displayProperties(properties);
+  </script>
+</body>
+</html>
