@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>المهندس للتسويق العقاري</title>
   <style>
     :root {
@@ -17,66 +17,62 @@
       --danger: #dc2626;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
     header {
       background: linear-gradient(135deg, #0f172a, var(--primary));
       color: white;
       text-align: center;
-      padding: 35px 20px 25px;
+      padding: 30px 15px 20px;
     }
-    header h1 { font-size: 2rem; margin-bottom: 6px; }
-    header p { color: #cbd5e1; font-size: 1rem; }
+    header h1 { font-size: 1.8rem; margin-bottom: 5px; }
+    header p { color: #cbd5e1; font-size: 0.95rem; }
 
     .header-btns {
       margin-top: 15px;
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
     .header-btn {
       background: rgba(255, 255, 255, 0.15);
       color: white;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 20px;
       cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.2s;
+      font-size: 0.85rem;
+      font-weight: 600;
     }
-    .header-btn:hover { background: rgba(255, 255, 255, 0.25); }
 
-    .container { max-width: 1140px; margin: -20px auto 40px; padding: 0 15px; }
+    .container { max-width: 1100px; margin: -15px auto 40px; padding: 0 15px; }
 
-    /* شريط البحث والفلترة */
     .filter-box {
       background: var(--card-bg);
-      padding: 16px;
+      padding: 15px;
       border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      align-items: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
     .filter-box input, .filter-box select {
-      padding: 10px 14px;
+      padding: 10px 12px;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
       font-size: 0.9rem;
       outline: none;
       flex: 1;
-      min-width: 140px;
+      min-width: 130px;
     }
 
-    /* شبكة عرض العقارات */
     .properties-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
     }
     .property-card {
       background: var(--card-bg);
@@ -97,7 +93,7 @@
       right: 10px;
       padding: 4px 10px;
       border-radius: 6px;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: bold;
       color: white;
       z-index: 2;
@@ -123,21 +119,17 @@
       justify-content: center;
       z-index: 2;
     }
-    .fav-btn.active { color: #ef4444; }
 
     .slider-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(15, 23, 42, 0.7);
+      background: rgba(15, 23, 42, 0.75);
       color: white;
       border: none;
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       cursor: pointer;
       z-index: 2;
     }
@@ -155,36 +147,36 @@
       z-index: 2;
     }
 
-    .property-content { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .property-content { padding: 15px; flex: 1; display: flex; flex-direction: column; }
     .price { color: var(--secondary); font-size: 1.25rem; font-weight: bold; margin-bottom: 4px; }
     .title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
-    .location { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px; }
+    .location { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; }
 
     .specs-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       background: #f1f5f9;
       padding: 8px 10px;
       border-radius: 8px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-    .spec-item { display: flex; align-items: center; gap: 4px; }
+    .spec-item { display: flex; align-items: center; gap: 3px; }
 
     .actions-grid {
       margin-top: auto;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 6px;
+      gap: 5px;
     }
     .btn-action {
       border: none;
-      padding: 10px 6px;
+      padding: 9px 5px;
       border-radius: 7px;
       font-weight: 600;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -198,51 +190,52 @@
     .btn-map { background: #475569; }
     .btn-share { background: #64748b; }
 
-    /* النوافذ المنبثقة معدلة لتظهر بشكل قطعي */
-    .modal {
+    /* النوافذ المضمونة */
+    .app-modal {
       display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.8);
-      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.85);
+      z-index: 99999;
       align-items: center;
       justify-content: center;
       padding: 15px;
     }
-    .modal.active {
-      display: flex !important;
-    }
-    .modal-content {
+    .app-modal-content {
       background: white;
       width: 100%;
-      max-width: 560px;
+      max-width: 520px;
       border-radius: 12px;
-      padding: 22px;
-      max-height: 90vh;
+      padding: 20px;
+      max-height: 85vh;
       overflow-y: auto;
+      position: relative;
     }
-    .modal-header {
+    .app-modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 15px;
       border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
-    .modal-header h2 { font-size: 1.2rem; color: var(--primary); }
-    .close-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #64748b; padding: 0 5px; }
+    .app-modal-header h2 { font-size: 1.15rem; color: var(--primary); }
+    .btn-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #64748b; line-height: 1; }
 
     .form-group { margin-bottom: 10px; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
     .form-group input, .form-group select, .form-group textarea {
       width: 100%;
-      padding: 9px 12px;
+      padding: 9px 10px;
       border: 1px solid #cbd5e1;
       border-radius: 7px;
       font-size: 0.9rem;
       outline: none;
     }
-    .form-group textarea { resize: vertical; min-height: 60px; font-family: monospace; font-size: 0.82rem; }
+    .form-group textarea { resize: vertical; min-height: 60px; font-family: monospace; font-size: 0.8rem; }
 
     .btn-submit {
       width: 100%;
@@ -324,27 +317,27 @@
     <h1>المهندس للتسويق العقاري</h1>
     <p>دليلك الموثوق لأفضل العقارات والفرص الاستثمارية</p>
     <div class="header-btns">
-      <button class="header-btn" id="btnOpenClient">📢 أعلن عن عقارك معنا</button>
-      <button class="header-btn" id="btnOpenCalc">🧮 حاسبة الأقساط</button>
-      <button class="header-btn" id="favViewBtn">❤️ المفضلة (0)</button>
+      <button class="header-btn" onclick="window.openAppModal('clientModal')">📢 أعلن عن عقارك معنا</button>
+      <button class="header-btn" onclick="window.openAppModal('calcModal')">🧮 حاسبة الأقساط</button>
+      <button class="header-btn" id="favViewBtn" onclick="window.toggleFavFilter()">❤️ المفضلة (0)</button>
     </div>
   </header>
 
   <div class="container">
     <div class="filter-box">
-      <input type="text" id="searchInput" placeholder="ابحث بالاسم، الحي، أو الكود..." />
-      <select id="typeFilter">
+      <input type="text" id="searchInput" oninput="window.filterProperties()" placeholder="ابحث بالاسم، الحي، أو الكود..." />
+      <select id="typeFilter" onchange="window.filterProperties()">
         <option value="all">كل الأنواع</option>
         <option value="بيع">بيع</option>
         <option value="إيجار">إيجار</option>
       </select>
-      <select id="statusFilter">
+      <select id="statusFilter" onchange="window.filterProperties()">
         <option value="all">كل الحالات</option>
         <option value="متاح">متاح فقط</option>
         <option value="تم البيع">تم البيع</option>
         <option value="محجوز">محجوز</option>
       </select>
-      <select id="cityFilter">
+      <select id="cityFilter" onchange="window.filterProperties()">
         <option value="all">كل المحافظات</option>
         <option value="النجف">النجف</option>
         <option value="بغداد">بغداد</option>
@@ -355,17 +348,30 @@
     <div class="properties-grid" id="propertiesList"></div>
   </div>
 
-  <button class="admin-trigger" id="btnAdmin" title="لوحة التحكم">⚙️</button>
+  <button class="admin-trigger" onclick="window.openLoginModal()" title="لوحة التحكم">⚙️</button>
 
-  <!-- نافذة لوحة التحكم -->
-  <div class="modal" id="adminModal">
-    <div class="modal-content">
-      <div class="modal-header">
+  <!-- نافذة تسجيل دخول الإدارة -->
+  <div class="app-modal" id="loginModal">
+    <div class="app-modal-content" style="max-width: 360px; text-align: center;">
+      <div class="app-modal-header">
+        <h2>دخول لوحة التحكم</h2>
+        <button class="btn-close" onclick="window.closeAppModal('loginModal')">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">أدخل رمز المرور السري للمتابعة:</p>
+      <input type="password" id="adminPinInput" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:1.1rem; text-align:center; margin-bottom:12px;" placeholder="****" />
+      <button type="button" class="btn-submit" onclick="window.verifyAdminPin()">دخول</button>
+    </div>
+  </div>
+
+  <!-- نافذة لوحة التحكم المتقدمة -->
+  <div class="app-modal" id="adminModal">
+    <div class="app-modal-content">
+      <div class="app-modal-header">
         <h2>لوحة التحكم المتقدمة</h2>
-        <button class="close-btn" onclick="closeAllModals()">&times;</button>
+        <button class="btn-close" onclick="window.closeAppModal('adminModal')">&times;</button>
       </div>
       
-      <form id="propertyForm">
+      <form onsubmit="window.handleAddProperty(event)">
         <div class="form-group">
           <label>عنوان العقار</label>
           <input type="text" id="propTitle" required placeholder="مثال: بيت حديث طابقين بناء درجة أولى" />
@@ -389,7 +395,7 @@
           </div>
           <div class="form-group" style="flex:1;">
             <label>المحافظة</label>
-            <input type="text" id="propCity" required placeholder="مثال: النجف" />
+            <input type="text" id="propCity" required placeholder="النجف" />
           </div>
         </div>
 
@@ -407,11 +413,11 @@
         <div style="display:flex; gap:8px;">
           <div class="form-group" style="flex:1;">
             <label>غرف النوم</label>
-            <input type="number" id="propBeds" placeholder="مثال: 4" />
+            <input type="number" id="propBeds" placeholder="4" />
           </div>
           <div class="form-group" style="flex:1;">
             <label>الحمامات</label>
-            <input type="number" id="propBaths" placeholder="مثال: 3" />
+            <input type="number" id="propBaths" placeholder="3" />
           </div>
           <div class="form-group" style="flex:1;">
             <label>نوع السند</label>
@@ -425,40 +431,40 @@
             <input type="text" id="propPrice" required placeholder="180,000,000 د.ع" />
           </div>
           <div class="form-group" style="flex:1;">
-            <label>رابط خريطة Google (اختياري)</label>
-            <input type="url" id="propMap" placeholder="https://maps.app.goo.gl/..." />
+            <label>رابط الخريطة (اختياري)</label>
+            <input type="url" id="propMap" placeholder="https://maps.google.com" />
           </div>
         </div>
 
         <div class="form-group">
-          <label>روابط الصور المباشرة (رابط لكل سطر)</label>
+          <label>روابط الصور (رابط لكل سطر)</label>
           <textarea id="propImages" required placeholder="https://i.ibb.co/.../1.jpg&#10;https://i.ibb.co/.../2.jpg"></textarea>
         </div>
 
-        <button type="submit" class="btn-submit">➕ إضافة العقار وتحديث القائمة</button>
+        <button type="submit" class="btn-submit">➕ إضافة العقار وتحديث المعاينة</button>
       </form>
 
-      <button type="button" id="copyCodeBtn" class="btn-copy">
-        📋 نسخ التحديث لـ GitHub
+      <button type="button" id="copyCodeBtn" class="btn-copy" onclick="window.copyUpdatedData()">
+        📋 نسخ التحديث النهائي لـ GitHub
       </button>
 
       <div style="margin-top:20px; border-top:1px solid #e2e8f0; padding-top:10px;">
-        <h3 style="font-size:0.95rem; margin-bottom:8px;">إدارة العقارات الحالية (حذف):</h3>
+        <h3 style="font-size:0.95rem; margin-bottom:8px;">إدارة وحذف العقارات المنشورة:</h3>
         <div id="adminPropertiesList"></div>
       </div>
     </div>
   </div>
 
-  <!-- نافذة أعلن عن عقارك معنا -->
-  <div class="modal" id="clientModal">
-    <div class="modal-content">
-      <div class="modal-header">
+  <!-- نافذة أعلن معنا -->
+  <div class="app-modal" id="clientModal">
+    <div class="app-modal-content">
+      <div class="app-modal-header">
         <h2>📢 أعلن عن عقارك معنا</h2>
-        <button class="close-btn" onclick="closeAllModals()">&times;</button>
+        <button class="btn-close" onclick="window.closeAppModal('clientModal')">&times;</button>
       </div>
       <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">أدخل بيانات عقارك وسنقوم بالتواصل معك وتسويقه فوراً عبر منصاتنا.</p>
       
-      <form id="clientForm">
+      <form onsubmit="window.handleClientSubmit(event)">
         <div class="form-group">
           <label>اسمك الكريم</label>
           <input type="text" id="clientName" required placeholder="الاسم الكامل" />
@@ -473,7 +479,7 @@
         </div>
         <div class="form-group">
           <label>الموقع والمنطقة</label>
-          <input type="text" id="clientLocation" required placeholder="مثال: النجف - حي الغدير" />
+          <input type="text" id="clientLocation" required placeholder="النجف - حي الغدير" />
         </div>
         <div class="form-group">
           <label>السعر المطلوب / التقديري</label>
@@ -489,29 +495,29 @@
   </div>
 
   <!-- نافذة حاسبة الأقساط -->
-  <div class="modal" id="calcModal">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div class="app-modal" id="calcModal">
+    <div class="app-modal-content">
+      <div class="app-modal-header">
         <h2>🧮 حاسبة الأقساط الشهرية</h2>
-        <button class="close-btn" onclick="closeAllModals()">&times;</button>
+        <button class="btn-close" onclick="window.closeAppModal('calcModal')">&times;</button>
       </div>
       <div class="form-group">
         <label>السعر الإجمالي (بالدينار العراقي)</label>
-        <input type="number" id="calcTotal" placeholder="مثال: 100000000" />
+        <input type="number" id="calcTotal" placeholder="100000000" />
       </div>
       <div class="form-group">
         <label>الدفعة الأولى / المقدمة</label>
-        <input type="number" id="calcDown" placeholder="مثال: 25000000" />
+        <input type="number" id="calcDown" placeholder="25000000" />
       </div>
       <div class="form-group">
         <label>مدة السداد (بالسنوات)</label>
         <input type="number" id="calcYears" value="5" />
       </div>
-      <button type="button" class="btn-submit" id="btnCalculate">احسب القسط الشهري</button>
+      <button type="button" class="btn-submit" onclick="window.computeMortgage()">احسب القسط الشهري</button>
 
       <div id="calcResult" style="margin-top:15px; padding:12px; background:#f1f5f9; border-radius:8px; display:none; text-align:center;">
         <span style="font-size:0.85rem; color:var(--text-muted);">القسط الشهري التقديري:</span>
-        <h3 id="calcResultVal" style="color:var(--secondary); font-size:1.4rem; margin-top:4px;"></h3>
+        <h3 id="calcResultVal" style="color:var(--secondary); font-size:1.3rem; margin-top:4px;"></h3>
       </div>
     </div>
   </div>
@@ -580,17 +586,44 @@
       }
     ];
 
-    let favorites = JSON.parse(localStorage.getItem('almohandis_favs') || '[]');
+    let favorites = [];
+    try {
+      favorites = JSON.parse(localStorage.getItem('almohandis_favs') || '[]');
+    } catch(e) { favorites = []; }
+
     let showOnlyFavs = false;
     const currentSlideIndices = {};
 
-    const propertiesList = document.getElementById("propertiesList");
-    const adminPropertiesList = document.getElementById("adminPropertiesList");
-    const searchInput = document.getElementById("searchInput");
-    const typeFilter = document.getElementById("typeFilter");
-    const statusFilter = document.getElementById("statusFilter");
-    const cityFilter = document.getElementById("cityFilter");
-    const copyBtn = document.getElementById("copyCodeBtn");
+    window.openAppModal = function(modalId) {
+      window.closeAllModals();
+      const m = document.getElementById(modalId);
+      if (m) m.style.display = "flex";
+    };
+
+    window.closeAppModal = function(modalId) {
+      const m = document.getElementById(modalId);
+      if (m) m.style.display = "none";
+    };
+
+    window.closeAllModals = function() {
+      document.querySelectorAll('.app-modal').forEach(m => m.style.display = "none");
+    };
+
+    window.openLoginModal = function() {
+      document.getElementById('adminPinInput').value = "";
+      window.openAppModal('loginModal');
+    };
+
+    window.verifyAdminPin = function() {
+      const pin = document.getElementById('adminPinInput').value.trim();
+      if (pin === ADMIN_PIN) {
+        window.closeAppModal('loginModal');
+        window.renderAdminList();
+        window.openAppModal('adminModal');
+      } else {
+        alert("رمز المرور غير صحيح!");
+      }
+    };
 
     function getImagesList(p) {
       if (Array.isArray(p.images) && p.images.length > 0) return p.images;
@@ -599,27 +632,29 @@
     }
 
     function updateFavCount() {
-      document.getElementById('favViewBtn').textContent = `❤️ المفضلة (${favorites.length})`;
+      const el = document.getElementById('favViewBtn');
+      if (el) el.textContent = `❤️ المفضلة (${favorites.length})`;
     }
 
-    function toggleFavorite(id) {
+    window.toggleFavorite = function(id) {
       if (favorites.includes(id)) {
         favorites = favorites.filter(fId => fId !== id);
       } else {
         favorites.push(id);
       }
-      localStorage.setItem('almohandis_favs', JSON.stringify(favorites));
+      try { localStorage.setItem('almohandis_favs', JSON.stringify(favorites)); } catch(e){}
       updateFavCount();
-      filterProperties();
-    }
+      window.filterProperties();
+    };
 
-    function toggleFavFilter() {
+    window.toggleFavFilter = function() {
       showOnlyFavs = !showOnlyFavs;
       document.getElementById('favViewBtn').style.background = showOnlyFavs ? '#ef4444' : '';
-      filterProperties();
-    }
+      window.filterProperties();
+    };
 
     function displayProperties(items) {
+      const propertiesList = document.getElementById("propertiesList");
       propertiesList.innerHTML = "";
       if (items.length === 0) {
         propertiesList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#64748b;">لا توجد عقارات مطابقة للبحث أو المفضلة.</div>';
@@ -634,4 +669,196 @@
 
         let statusClass = "status-available";
         if (p.status === "تم البيع") statusClass = "status-sold";
-        if (p.status ==
+        if (p.status === "محجوز") statusClass = "status-reserved";
+
+        const message = encodeURIComponent(`مرحباً المهندس للتسويق العقاري، أستفسر عن الإعلان: "${p.title}" - كود: #${p.id}`);
+        const waLink = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
+
+        const sliderControls = imgs.length > 1 ? `
+          <button class="slider-btn prev" onclick="window.changeSlide(${p.id}, -1)">❮</button>
+          <button class="slider-btn next" onclick="window.changeSlide(${p.id}, 1)">❯</button>
+          <span class="photo-counter" id="counter-${p.id}">${currentIdx + 1}/${imgs.length}</span>
+        ` : '';
+
+        const card = document.createElement("div");
+        card.className = "property-card";
+        card.innerHTML = `
+          <div class="image-container">
+            <span class="status-badge ${statusClass}">${p.status || p.type}</span>
+            <button class="fav-btn" onclick="window.toggleFavorite(${p.id})">
+              ${isFav ? '❤️' : '🤍'}
+            </button>
+            <img id="img-${p.id}" src="${imgs[currentIdx]}" alt="${p.title}" loading="lazy" />
+            ${sliderControls}
+          </div>
+          <div class="property-content">
+            <div class="price">${p.price}</div>
+            <div class="title">${p.title}</div>
+            <div class="location">📍 ${p.city} - ${p.location} | كود: #${p.id}</div>
+            
+            <div class="specs-grid">
+              <div class="spec-item">📐 <strong>${p.area}</strong></div>
+              ${p.beds ? `<div class="spec-item">🛏️ <strong>${p.beds}</strong> غرف</div>` : ''}
+              ${p.baths ? `<div class="spec-item">🚿 <strong>${p.baths}</strong> حمام</div>` : ''}
+              ${p.deed ? `<div class="spec-item">📄 <strong>${p.deed}</strong></div>` : ''}
+            </div>
+
+            <div class="actions-grid">
+              <a href="${waLink}" target="_blank" class="btn-action btn-wa">💬 واتساب</a>
+              <a href="tel:${CALL_PHONE}" class="btn-action btn-call">📞 اتصال</a>
+              ${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" class="btn-action btn-map">📍 خريطة</a>` : `<button class="btn-action btn-map" style="opacity:0.4; cursor:not-allowed;">📍 خريطة</button>`}
+              <button class="btn-action btn-share" onclick="window.shareProperty(${p.id})">🔗 مشاركة</button>
+            </div>
+          </div>
+        `;
+        propertiesList.appendChild(card);
+      });
+    }
+
+    window.changeSlide = function(propId, direction) {
+      const prop = properties.find(p => p.id === propId);
+      if (!prop) return;
+      const imgs = getImagesList(prop);
+
+      let newIdx = (currentSlideIndices[propId] + direction) % imgs.length;
+      if (newIdx < 0) newIdx = imgs.length - 1;
+
+      currentSlideIndices[propId] = newIdx;
+      const imgEl = document.getElementById(`img-${propId}`);
+      if (imgEl) imgEl.src = imgs[newIdx];
+      const counterEl = document.getElementById(`counter-${propId}`);
+      if (counterEl) counterEl.textContent = `${newIdx + 1}/${imgs.length}`;
+    };
+
+    window.shareProperty = function(id) {
+      const prop = properties.find(p => p.id === id);
+      const title = prop ? prop.title : "عقار مميز";
+      const shareUrl = window.location.href;
+      if (navigator.share) {
+        navigator.share({ title: title, url: shareUrl });
+      } else {
+        navigator.clipboard.writeText(shareUrl);
+        alert("تم نسخ رابط المنصة للمشاركة!");
+      }
+    };
+
+    window.filterProperties = function() {
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+      const selectedType = document.getElementById("typeFilter").value;
+      const selectedStatus = document.getElementById("statusFilter").value;
+      const selectedCity = document.getElementById("cityFilter").value;
+
+      const filtered = properties.filter(p => {
+        const matchesQuery = p.title.toLowerCase().includes(query) || p.location.toLowerCase().includes(query) || String(p.id).includes(query);
+        const matchesType = (selectedType === "all") || (p.type === selectedType);
+        const matchesStatus = (selectedStatus === "all") || (p.status === selectedStatus);
+        const matchesCity = (selectedCity === "all") || (p.city === selectedCity);
+        const matchesFav = !showOnlyFavs || favorites.includes(p.id);
+
+        return matchesQuery && matchesType && matchesStatus && matchesCity && matchesFav;
+      });
+
+      displayProperties(filtered);
+    };
+
+    window.handleClientSubmit = function(e) {
+      e.preventDefault();
+      const name = document.getElementById("clientName").value;
+      const type = document.getElementById("clientType").value;
+      const loc = document.getElementById("clientLocation").value;
+      const price = document.getElementById("clientPrice").value;
+      const notes = document.getElementById("clientNotes").value;
+
+      const msg = `📢 طلب إعلان جديد من المنصة:%0A👤 الاسم: ${name}%0A🏷️ نوع الطلب: ${type}%0A📍 الموقع: ${loc}%0A💰 السعر: ${price}%0A📝 ملاحظات: ${notes}`;
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${msg}`, '_blank');
+      window.closeAppModal('clientModal');
+    };
+
+    window.computeMortgage = function() {
+      const total = parseFloat(document.getElementById('calcTotal').value);
+      const down = parseFloat(document.getElementById('calcDown').value) || 0;
+      const years = parseFloat(document.getElementById('calcYears').value) || 1;
+
+      if (!total || total <= down) {
+        alert("يرجى إدخال مبلغ صحيح.");
+        return;
+      }
+
+      const remaining = total - down;
+      const months = years * 12;
+      const monthly = Math.round(remaining / months);
+
+      const resBox = document.getElementById('calcResult');
+      resBox.style.display = 'block';
+      document.getElementById('calcResultVal').textContent = `${monthly.toLocaleString()} د.ع / شهرياً`;
+    };
+
+    window.renderAdminList = function() {
+      const list = document.getElementById("adminPropertiesList");
+      list.innerHTML = "";
+      properties.forEach(p => {
+        const item = document.createElement("div");
+        item.className = "manage-item";
+        item.innerHTML = `
+          <span>#${p.id} - ${p.title} (${p.status || 'متاح'})</span>
+          <button type="button" class="btn-del" onclick="window.deleteProperty(${p.id})">حذف</button>
+        `;
+        list.appendChild(item);
+      });
+    };
+
+    window.handleAddProperty = function(e) {
+      e.preventDefault();
+      const rawUrls = document.getElementById("propImages").value;
+      const imgUrls = rawUrls.split(/[\n,]+/).map(u => u.trim()).filter(u => u.length > 0);
+
+      const newProp = {
+        id: Date.now(),
+        title: document.getElementById("propTitle").value,
+        type: document.getElementById("propType").value,
+        status: document.getElementById("propStatus").value,
+        city: document.getElementById("propCity").value,
+        location: document.getElementById("propLocation").value,
+        area: document.getElementById("propArea").value,
+        beds: parseInt(document.getElementById("propBeds").value) || 0,
+        baths: parseInt(document.getElementById("propBaths").value) || 0,
+        deed: document.getElementById("propDeed").value,
+        price: document.getElementById("propPrice").value,
+        mapUrl: document.getElementById("propMap").value,
+        images: imgUrls.length > 0 ? imgUrls : ["https://via.placeholder.com/600x400?text=No+Image"]
+      };
+
+      properties.unshift(newProp);
+      displayProperties(properties);
+      window.renderAdminList();
+
+      const copyBtn = document.getElementById("copyCodeBtn");
+      copyBtn.style.display = "block";
+      copyBtn.textContent = "📋 تم التعديل! اضغط لنسخ التحديث لـ GitHub";
+      alert("تمت الإضافة بنجاح في المعاينة! اضغط الزر الأخضر لنسخ الكود لـ GitHub.");
+    };
+
+    window.deleteProperty = function(id) {
+      if (confirm("هل تريد بالتأكيد حذف هذا العقار؟")) {
+        properties = properties.filter(p => p.id !== id);
+        displayProperties(properties);
+        window.renderAdminList();
+        const copyBtn = document.getElementById("copyCodeBtn");
+        copyBtn.style.display = "block";
+        copyBtn.textContent = "📋 تم التعديل! اضغط لنسخ التحديث لـ GitHub";
+      }
+    };
+
+    window.copyUpdatedData = function() {
+      const jsonString = "let properties = " + JSON.stringify(properties, null, 2) + ";";
+      navigator.clipboard.writeText(jsonString).then(() => {
+        alert("تم نسخ البيانات المحدثة! الصقها في index.html مكان (let properties = [...];) داخل GitHub.");
+      });
+    };
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    updateFavCount();
+    displayProperties(properties);
+  </script>
+</body>
+</html>
