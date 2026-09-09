@@ -187,6 +187,119 @@
       font-size: 1.1rem;
     }
 
+    /* زر لوحة التحكم السري */
+    .admin-trigger {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #0f172a;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      z-index: 99;
+      font-size: 1.2rem;
+    }
+
+    /* نافذة لوحة التحكم (Modal) */
+    .admin-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .admin-content {
+      background: white;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 14px;
+      padding: 25px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
+    }
+
+    .admin-header h2 {
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-copy-code {
+      width: 100%;
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      display: none;
+    }
+
     footer {
       text-align: center;
       padding: 25px 15px;
@@ -206,7 +319,7 @@
   </header>
 
   <div class="container">
-    <!-- شريط البحث والفلترة السريعة -->
+    <!-- شريط البحث والفلترة -->
     <div class="filter-box">
       <input type="text" id="searchInput" placeholder="ابحث بالاسم أو الحي..." />
       <select id="typeFilter">
@@ -222,9 +335,65 @@
       </select>
     </div>
 
-    <!-- شبكة العقارات المعروضة -->
-    <div class="properties-grid" id="propertiesList">
-      <!-- يتم توليد البطاقات عبر JavaScript -->
+    <!-- شبكة العقارات -->
+    <div class="properties-grid" id="propertiesList"></div>
+  </div>
+
+  <!-- زر لوحة التحكم الخاص بك -->
+  <button class="admin-trigger" onclick="openAdmin()" title="لوحة التحكم">⚙️</button>
+
+  <!-- نافذة لوحة التحكم المبسطة -->
+  <div class="admin-modal" id="adminModal">
+    <div class="admin-content">
+      <div class="admin-header">
+        <h2>لوحة إضافة عقار جديد</h2>
+        <button class="close-btn" onclick="closeAdmin()">&times;</button>
+      </div>
+      
+      <form id="propertyForm" onsubmit="handleAddProperty(event)">
+        <div class="form-group">
+          <label>عنوان العقار</label>
+          <input type="text" id="propTitle" required placeholder="مثال: بيت طابقين بناء درجة أولى" />
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1;">
+            <label>النوع</label>
+            <select id="propType">
+              <option value="بيع">بيع</option>
+              <option value="إيجار">إيجار</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>المحافظة</label>
+            <input type="text" id="propCity" required placeholder="مثال: النجف" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1;">
+            <label>الحي / المنطقة</label>
+            <input type="text" id="propLocation" required placeholder="مثال: حي الغدير" />
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>المساحة</label>
+            <input type="text" id="propArea" required placeholder="مثال: 200 م²" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>السعر</label>
+          <input type="text" id="propPrice" required placeholder="مثال: 180,000,000 د.ع" />
+        </div>
+
+        <div class="form-group">
+          <label>رابط الصورة المباشر</label>
+          <input type="url" id="propImage" required placeholder="https://..." />
+        </div>
+
+        <button type="submit" class="btn-submit">➕ إضافة العقار وتحديث القائمة</button>
+        <button type="button" id="copyCodeBtn" class="btn-copy-code" onclick="copyUpdatedData()">📋 نسخ التحديث لـ GitHub</button>
+      </form>
     </div>
   </div>
 
@@ -233,11 +402,14 @@
   </footer>
 
   <script>
-    // ضع رقم هاتفك هنا بصيغة دولية بدون أصفار أو علامة + (مثال للعراق: 9647XXXXXXXX)
+    // رقم الواتساب الرسمي الخاص بك
     const WHATSAPP_PHONE = "9647805599252";
+    
+    // رمز مرور لوحة التحكم الخاصة بك (يمكنك تغييره متى شئت)
+    const ADMIN_PIN = "1234";
 
-    // قائمة العقارات (يمكنك إضافة أو تعديل العقارات هنا مباشرة)
-    const properties = [
+    // قائمة العقارات الحالية
+    let properties = [
       {
         id: 1,
         title: "منزل حديث طابقين بناء درجة أولى",
@@ -336,14 +508,54 @@
       displayProperties(filtered);
     }
 
+    // دوال لوحة التحكم
+    function openAdmin() {
+      const pin = prompt("أدخل رمز المرور للوحة الإدارة:");
+      if (pin === ADMIN_PIN) {
+        document.getElementById("adminModal").style.display = "flex";
+      } else if (pin !== null) {
+        alert("رمز المرور غير صحيح!");
+      }
+    }
+
+    function closeAdmin() {
+      document.getElementById("adminModal").style.display = "none";
+    }
+
+    function handleAddProperty(e) {
+      e.preventDefault();
+      const newProp = {
+        id: properties.length + 1,
+        title: document.getElementById("propTitle").value,
+        type: document.getElementById("propType").value,
+        city: document.getElementById("propCity").value,
+        location: document.getElementById("propLocation").value,
+        area: document.getElementById("propArea").value,
+        price: document.getElementById("propPrice").value,
+        image: document.getElementById("propImage").value
+      };
+
+      properties.unshift(newProp);
+      displayProperties(properties);
+      
+      const copyBtn = document.getElementById("copyCodeBtn");
+      copyBtn.style.display = "block";
+      copyBtn.textContent = "📋 تم إضافة العقار! اضغط هنا لنسخ التحديث لـ GitHub";
+      alert("تمت إضافة العقار في المعاينة بنجاح! اضغط على زر النسخ الأخضر لنسخ الكود ولصقه في GitHub.");
+    }
+
+    function copyUpdatedData() {
+      const jsonString = "let properties = " + JSON.stringify(properties, null, 2) + ";";
+      navigator.clipboard.writeText(jsonString).then(() => {
+        alert("تم نسخ الكود المحدث إلى الحافظة!\nكل ما عليك فعله هو الذهاب لملف index.html في GitHub ولصقه مكان مصفوفة العقارات الحالية.");
+      });
+    }
+
     searchInput.addEventListener("input", filterProperties);
     typeFilter.addEventListener("change", filterProperties);
     cityFilter.addEventListener("change", filterProperties);
 
-    // ضبط السنة في الفوتر تلقائياً
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // عرض جميع العقارات عند فتح الصفحة
     displayProperties(properties);
   </script>
 </body>
