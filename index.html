@@ -13,209 +13,200 @@
       --text: #1e293b;
       --text-muted: #64748b;
       --whatsapp: #25d366;
+      --call: #0284c7;
       --danger: #dc2626;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
     header {
       background: linear-gradient(135deg, #0f172a, var(--primary));
       color: white;
       text-align: center;
-      padding: 40px 20px;
+      padding: 35px 20px 25px;
     }
+    header h1 { font-size: 2rem; margin-bottom: 6px; }
+    header p { color: #cbd5e1; font-size: 1rem; }
 
-    header h1 {
-      font-size: 2rem;
-      margin-bottom: 8px;
+    .header-btns {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
+    .header-btn {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      backdrop-filter: blur(5px);
+      transition: background 0.2s;
+    }
+    .header-btn:hover { background: rgba(255, 255, 255, 0.25); }
 
-    header p {
-      color: #cbd5e1;
-      font-size: 1.05rem;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: -25px auto 40px;
-      padding: 0 15px;
-    }
+    .container { max-width: 1140px; margin: -20px auto 40px; padding: 0 15px; }
 
     /* شريط البحث والفلترة */
     .filter-box {
       background: var(--card-bg);
-      padding: 20px;
+      padding: 16px;
       border-radius: 12px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.06);
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
-
-    .filter-box select, .filter-box input {
+    .filter-box input, .filter-box select {
       padding: 10px 14px;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       outline: none;
       flex: 1;
-      min-width: 160px;
+      min-width: 140px;
     }
-
-    .filter-box select:focus, .filter-box input:focus {
-      border-color: var(--primary);
-    }
+    .filter-box input:focus, .filter-box select:focus { border-color: var(--primary); }
 
     /* شبكة عرض العقارات */
     .properties-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
     }
-
     .property-card {
       background: var(--card-bg);
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
-    }
-
-    .property-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
-
-    .image-container {
       position: relative;
-      height: 200px;
-      background: #e2e8f0;
     }
+    .property-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
 
-    .image-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .tag {
+    /* حاوية الصور */
+    .image-container { position: relative; height: 210px; background: #0f172a; }
+    .image-container img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .status-badge {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      background: var(--primary);
-      color: white;
+      top: 10px;
+      right: 10px;
       padding: 4px 10px;
       border-radius: 6px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: bold;
-    }
-
-    .property-content {
-      padding: 18px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .price {
-      color: var(--secondary);
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-
-    .details {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 15px;
-      display: flex;
-      gap: 12px;
-    }
-
-    .actions {
-      margin-top: auto;
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-whatsapp {
-      background-color: var(--whatsapp);
       color: white;
-      text-decoration: none;
+      z-index: 2;
+    }
+    .status-available { background: var(--primary); }
+    .status-sold { background: var(--danger); }
+    .status-reserved { background: var(--secondary); }
+
+    .fav-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.7);
+      border: none;
+      color: white;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 0.95rem;
-      width: 100%;
-      transition: opacity 0.2s;
+      z-index: 2;
     }
+    .fav-btn.active { color: #ef4444; }
 
-    .btn-whatsapp:hover {
-      opacity: 0.9;
-    }
-
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 40px;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-
-    /* زر لوحة التحكم السري */
-    .admin-trigger {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: #0f172a;
-      color: #94a3b8;
-      border: 1px solid #334155;
-      width: 46px;
-      height: 46px;
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(15, 23, 42, 0.6);
+      color: white;
+      border: none;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      z-index: 99;
-      font-size: 1.3rem;
-      transition: transform 0.2s;
+      z-index: 2;
     }
-
-    .admin-trigger:hover {
-      transform: scale(1.08);
+    .slider-btn.prev { right: 8px; }
+    .slider-btn.next { left: 8px; }
+    .photo-counter {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.65);
       color: white;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      z-index: 2;
     }
 
-    /* نافذة لوحة التحكم (Modal) */
-    .admin-modal {
+    .property-content { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .price { color: var(--secondary); font-size: 1.25rem; font-weight: bold; margin-bottom: 4px; }
+    .title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .location { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px; }
+
+    /* شارات المواصفات */
+    .specs-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f1f5f9;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .spec-item { display: flex; align-items: center; gap: 4px; }
+
+    /* شبكة أزرار الإجراءات */
+    .actions-grid {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 6px;
+    }
+    .btn-action {
+      border: none;
+      padding: 8px 6px;
+      border-radius: 7px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: white;
+      text-align: center;
+    }
+    .btn-wa { background: var(--whatsapp); }
+    .btn-call { background: var(--call); }
+    .btn-map { background: #475569; }
+    .btn-share { background: #64748b; }
+
+    /* النوافذ المنبثقة (Modals) */
+    .modal {
       display: none;
       position: fixed;
       inset: 0;
@@ -226,146 +217,107 @@
       justify-content: center;
       padding: 15px;
     }
-
-    .admin-content {
+    .modal-content {
       background: white;
       width: 100%;
-      max-width: 600px;
-      border-radius: 14px;
-      padding: 24px;
+      max-width: 580px;
+      border-radius: 12px;
+      padding: 22px;
       max-height: 88vh;
       overflow-y: auto;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
     }
-
-    .admin-header {
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-      border-bottom: 2px solid #f1f5f9;
-      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
     }
+    .modal-header h2 { font-size: 1.2rem; color: var(--primary); }
+    .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b; }
 
-    .admin-header h2 {
-      font-size: 1.25rem;
-      color: var(--primary);
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 1.6rem;
-      cursor: pointer;
-      color: #64748b;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .form-group input, .form-group select {
+    .form-group { margin-bottom: 10px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
+    .form-group input, .form-group select, .form-group textarea {
       width: 100%;
-      padding: 9px 12px;
+      padding: 8px 10px;
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      border-radius: 7px;
+      font-size: 0.9rem;
       outline: none;
     }
+    .form-group textarea { resize: vertical; min-height: 60px; font-family: monospace; font-size: 0.82rem; }
 
     .btn-submit {
       width: 100%;
       background: var(--primary);
       color: white;
       border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 6px;
-    }
-
-    .btn-copy-code {
-      width: 100%;
-      background: #059669;
-      color: white;
-      border: none;
-      padding: 12px;
+      padding: 11px;
       border-radius: 8px;
       font-size: 0.95rem;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 12px;
+      margin-top: 5px;
+    }
+    .btn-copy {
+      width: 100%;
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
       display: none;
     }
 
-    /* قسم إدارة العقارات الحالية والحذف */
-    .manage-section {
-      margin-top: 25px;
-      border-top: 2px solid #f1f5f9;
-      padding-top: 15px;
+    .admin-trigger {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #0f172a;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 90;
+      font-size: 1.2rem;
     }
 
-    .manage-section h3 {
-      font-size: 1.05rem;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-
-    .property-manage-item {
+    .manage-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px;
+      padding: 8px 10px;
       background: #f8fafc;
       border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      gap: 10px;
+      border-radius: 7px;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
     }
-
-    .manage-item-info {
-      font-size: 0.88rem;
-    }
-
-    .manage-item-info strong {
-      display: block;
-      color: var(--primary);
-    }
-
-    .btn-delete {
+    .btn-del {
       background: #fee2e2;
       color: var(--danger);
       border: 1px solid #fca5a5;
-      padding: 6px 12px;
-      border-radius: 6px;
+      padding: 4px 8px;
+      border-radius: 5px;
       cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .btn-delete:hover {
-      background: var(--danger);
-      color: white;
     }
 
     footer {
       text-align: center;
-      padding: 25px 15px;
+      padding: 22px;
       background: #0f172a;
       color: #94a3b8;
-      font-size: 0.9rem;
-      margin-top: 50px;
+      font-size: 0.85rem;
     }
   </style>
 </head>
@@ -374,18 +326,29 @@
   <header>
     <h1>المهندس للتسويق العقاري</h1>
     <p>دليلك الموثوق لأفضل العقارات والفرص الاستثمارية</p>
+    <div class="header-btns">
+      <button class="header-btn" onclick="openClientForm()">📢 أعلن عن عقارك معنا</button>
+      <button class="header-btn" onclick="openCalcModal()">🧮 حاسبة الأقساط</button>
+      <button class="header-btn" id="favViewBtn" onclick="toggleFavFilter()">❤️ المفضلة (0)</button>
+    </div>
   </header>
 
   <div class="container">
     <div class="filter-box">
-      <input type="text" id="searchInput" placeholder="ابحث بالاسم أو الحي..." />
+      <input type="text" id="searchInput" placeholder="ابحث بالاسم، الحي، أو الكود..." />
       <select id="typeFilter">
         <option value="all">كل الأنواع</option>
         <option value="بيع">بيع</option>
         <option value="إيجار">إيجار</option>
       </select>
+      <select id="statusFilter">
+        <option value="all">كل الحالات</option>
+        <option value="متاح">متاح فقط</option>
+        <option value="تم البيع">تم البيع</option>
+        <option value="محجوز">محجوز</option>
+      </select>
       <select id="cityFilter">
-        <option value="all">كل المحافظات / المدن</option>
+        <option value="all">كل المحافظات</option>
         <option value="النجف">النجف</option>
         <option value="بغداد">بغداد</option>
         <option value="كربلاء">كربلاء</option>
@@ -395,25 +358,23 @@
     <div class="properties-grid" id="propertiesList"></div>
   </div>
 
-  <!-- الزر السري للوحة الإدارة -->
   <button class="admin-trigger" onclick="openAdmin()" title="لوحة التحكم">⚙️</button>
 
-  <!-- نافذة لوحة التحكم (إضافة + حذف) -->
-  <div class="admin-modal" id="adminModal">
-    <div class="admin-content">
-      <div class="admin-header">
-        <h2>لوحة إدارة العقارات (إضافة وحذف)</h2>
-        <button class="close-btn" onclick="closeAdmin()">&times;</button>
+  <!-- نافذة لوحة التحكم الكاملة -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>لوحة التحكم المتقدمة</h2>
+        <button class="close-btn" onclick="closeModal('adminModal')">&times;</button>
       </div>
       
-      <!-- نموذج إضافة عقار -->
       <form id="propertyForm" onsubmit="handleAddProperty(event)">
         <div class="form-group">
           <label>عنوان العقار</label>
-          <input type="text" id="propTitle" required placeholder="مثال: بيت طابقين بناء درجة أولى" />
+          <input type="text" id="propTitle" required placeholder="مثال: بيت حديث طابقين بناء درجة أولى" />
         </div>
 
-        <div style="display:flex; gap:10px;">
+        <div style="display:flex; gap:8px;">
           <div class="form-group" style="flex:1;">
             <label>النوع</label>
             <select id="propType">
@@ -422,44 +383,138 @@
             </select>
           </div>
           <div class="form-group" style="flex:1;">
+            <label>الحالة</label>
+            <select id="propStatus">
+              <option value="متاح">متاح</option>
+              <option value="محجوز">محجوز</option>
+              <option value="تم البيع">تم البيع</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1;">
             <label>المحافظة</label>
             <input type="text" id="propCity" required placeholder="مثال: النجف" />
           </div>
         </div>
 
-        <div style="display:flex; gap:10px;">
+        <div style="display:flex; gap:8px;">
           <div class="form-group" style="flex:1;">
             <label>الحي / المنطقة</label>
-            <input type="text" id="propLocation" required placeholder="مثال: حي الغدير" />
+            <input type="text" id="propLocation" required placeholder="حي الغدير" />
           </div>
           <div class="form-group" style="flex:1;">
             <label>المساحة</label>
-            <input type="text" id="propArea" required placeholder="مثال: 200 م²" />
+            <input type="text" id="propArea" required placeholder="200 م²" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <div class="form-group" style="flex:1;">
+            <label>غرف النوم</label>
+            <input type="number" id="propBeds" placeholder="مثال: 4" />
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>الحمامات</label>
+            <input type="number" id="propBaths" placeholder="مثال: 3" />
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>نوع السند / الطابو</label>
+            <input type="text" id="propDeed" placeholder="طابو ملك صرف" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <div class="form-group" style="flex:1;">
+            <label>السعر</label>
+            <input type="text" id="propPrice" required placeholder="180,000,000 د.ع" />
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>رابط خريطة Google (اختياري)</label>
+            <input type="url" id="propMap" placeholder="https://maps.app.goo.gl/..." />
           </div>
         </div>
 
         <div class="form-group">
-          <label>السعر</label>
-          <input type="text" id="propPrice" required placeholder="مثال: 180,000,000 د.ع" />
+          <label>روابط الصور المباشرة (رابط لكل سطر)</label>
+          <textarea id="propImages" required placeholder="https://i.ibb.co/.../1.jpg&#10;https://i.ibb.co/.../2.jpg"></textarea>
         </div>
 
-        <div class="form-group">
-          <label>رابط الصورة المباشر</label>
-          <input type="url" id="propImage" required placeholder="https://..." />
-        </div>
-
-        <button type="submit" class="btn-submit">➕ إضافة العقار للقائمة</button>
+        <button type="submit" class="btn-submit">➕ إضافة العقار وتحديث القائمة</button>
       </form>
 
-      <!-- زر نسخ التحديث لـ GitHub -->
-      <button type="button" id="copyCodeBtn" class="btn-copy-code" onclick="copyUpdatedData()">
-        📋 نسخ التحديث النهائي لـ GitHub
+      <button type="button" id="copyCodeBtn" class="btn-copy" onclick="copyUpdatedData()">
+        📋 نسخ التحديث لـ GitHub
       </button>
 
-      <!-- قائمة العقارات الحالية للحذف -->
-      <div class="manage-section">
-        <h3>العقارات المنشورة حالياً (اضغط لحذف أي عقار):</h3>
+      <div style="margin-top:20px; border-top:1px solid #e2e8f0; padding-top:10px;">
+        <h3 style="font-size:0.95rem; margin-bottom:8px;">إدارة العقارات الحالية (حذف):</h3>
         <div id="adminPropertiesList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة أعلن عن عقارك معنا للزبون -->
+  <div class="modal" id="clientModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>📢 أعلن عن عقارك معنا</h2>
+        <button class="close-btn" onclick="closeModal('clientModal')">&times;</button>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">أدخل بيانات عقارك وسنقوم بالتواصل معك وتسويقه فوراً عبر منصاتنا.</p>
+      
+      <form onsubmit="handleClientSubmit(event)">
+        <div class="form-group">
+          <label>اسمك الكريم</label>
+          <input type="text" id="clientName" required placeholder="الاسم الكامل" />
+        </div>
+        <div class="form-group">
+          <label>نوع العقار والطلب</label>
+          <select id="clientType">
+            <option value="عرض بيع">لدي عقار أريد بيعه</option>
+            <option value="عرض إيجار">لدي عقار أريد تأجيره</option>
+            <option value="طلب شراء">أبحث عن عقار للشراء</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>الموقع والمنطقة</label>
+          <input type="text" id="clientLocation" required placeholder="مثال: النجف - حي الغدير" />
+        </div>
+        <div class="form-group">
+          <label>السعر المطلوب / التقديري</label>
+          <input type="text" id="clientPrice" required placeholder="مثال: 150 مليون" />
+        </div>
+        <div class="form-group">
+          <label>تفاصيل ومواصفات العقار</label>
+          <textarea id="clientNotes" placeholder="المساحة، عدد الغرف، أي ملاحظات إضافية..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit" style="background:var(--whatsapp)">📲 إرسال التفاصيل عبر واتساب</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- نافذة حاسبة الأقساط -->
+  <div class="modal" id="calcModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>🧮 حاسبة الأقساط الشهرية</h2>
+        <button class="close-btn" onclick="closeModal('calcModal')">&times;</button>
+      </div>
+      <div class="form-group">
+        <label>السعر الإجمالي (بالدينار العراقي)</label>
+        <input type="number" id="calcTotal" placeholder="مثال: 100000000" />
+      </div>
+      <div class="form-group">
+        <label>الدفعة الأولى / المقدمة</label>
+        <input type="number" id="calcDown" placeholder="مثال: 25000000" />
+      </div>
+      <div class="form-group">
+        <label>مدة السداد (بالسنوات)</label>
+        <input type="number" id="calcYears" value="5" />
+      </div>
+      <button type="button" class="btn-submit" onclick="computeMortgage()">احسب القسط الشهري</button>
+
+      <div id="calcResult" style="margin-top:15px; padding:12px; background:#f1f5f9; border-radius:8px; display:none; text-align:center;">
+        <span style="font-size:0.85rem; color:var(--text-muted);">القسط الشهري التقديري:</span>
+        <h3 id="calcResultVal" style="color:var(--secondary); font-size:1.4rem; margin-top:4px;"></h3>
       </div>
     </div>
   </div>
@@ -469,200 +524,105 @@
   </footer>
 
   <script>
-    // رقم الواتساب الرسمي الخاص بك
     const WHATSAPP_PHONE = "9647805599252";
-    
-    // رمز مرور لوحة التحكم
-    const ADMIN_PIN = "202072";
+    const CALL_PHONE = "07805599252";
+    const ADMIN_PIN = "1234";
 
-    // مصفوفة العقارات الحالية
     let properties = [
       {
         id: 1,
         title: "منزل حديث طابقين بناء درجة أولى",
         type: "بيع",
+        status: "متاح",
         city: "النجف",
         location: "حي الغدير",
         area: "200 م²",
+        beds: 4,
+        baths: 3,
+        deed: "طابو ملك صرف",
         price: "180,000,000 د.ع",
-        image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop&q=60"
+        mapUrl: "https://maps.google.com",
+        images: [
+          "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop&q=60",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=60"
+        ]
       },
       {
         id: 2,
         title: "شقة سكنية ممتازة للعوائل",
         type: "إيجار",
+        status: "متاح",
         city: "بغداد",
         location: "المنصور",
         area: "140 م²",
+        beds: 3,
+        baths: 2,
+        deed: "عقد إيجار",
         price: "750,000 د.ع / شهر",
-        image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop&q=60"
+        mapUrl: "",
+        images: [
+          "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop&q=60"
+        ]
       },
       {
         id: 3,
         title: "قطعة أرض ركن موقع تجاري سكني",
         type: "بيع",
+        status: "تم البيع",
         city: "النجف",
         location: "حي السلام",
         area: "250 م²",
+        beds: 0,
+        baths: 0,
+        deed: "سند رسمي طابو",
         price: "95,000,000 د.ع",
-        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&auto=format&fit=crop&q=60"
-      },
-      {
-        id: 4,
-        title: "بيت طابق واحد بتشطيب ممتاز",
-        type: "بيع",
-        city: "كربلاء",
-        location: "حي المعلمين",
-        area: "150 م²",
-        price: "110,000,000 د.ع",
-        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=60"
+        mapUrl: "",
+        images: [
+          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&auto=format&fit=crop&q=60"
+        ]
       }
     ];
+
+    let favorites = JSON.parse(localStorage.getItem('almohandis_favs') || '[]');
+    let showOnlyFavs = false;
+    const currentSlideIndices = {};
 
     const propertiesList = document.getElementById("propertiesList");
     const adminPropertiesList = document.getElementById("adminPropertiesList");
     const searchInput = document.getElementById("searchInput");
     const typeFilter = document.getElementById("typeFilter");
+    const statusFilter = document.getElementById("statusFilter");
     const cityFilter = document.getElementById("cityFilter");
     const copyBtn = document.getElementById("copyCodeBtn");
+
+    function getImagesList(p) {
+      if (Array.isArray(p.images) && p.images.length > 0) return p.images;
+      if (p.image) return [p.image];
+      return ["https://via.placeholder.com/600x400?text=No+Image"];
+    }
+
+    function updateFavCount() {
+      document.getElementById('favViewBtn').textContent = `❤️ المفضلة (${favorites.length})`;
+    }
+
+    function toggleFavorite(id) {
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(fId => fId !== id);
+      } else {
+        favorites.push(id);
+      }
+      localStorage.setItem('almohandis_favs', JSON.stringify(favorites));
+      updateFavCount();
+      filterProperties();
+    }
+
+    function toggleFavFilter() {
+      showOnlyFavs = !showOnlyFavs;
+      document.getElementById('favViewBtn').style.background = showOnlyFavs ? '#ef4444' : '';
+      filterProperties();
+    }
 
     function displayProperties(items) {
       propertiesList.innerHTML = "";
       if (items.length === 0) {
-        propertiesList.innerHTML = '<div class="no-results">لا توجد عقارات مطابقة لخيارات البحث.</div>';
-        return;
-      }
-
-      items.forEach(p => {
-        const message = encodeURIComponent(`مرحباً المهندس للتسويق العقاري، أنا مهتم بالإعلان: "${p.title}" كود: #${p.id}`);
-        const waLink = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
-
-        const card = document.createElement("div");
-        card.className = "property-card";
-        card.innerHTML = `
-          <div class="image-container">
-            <span class="tag">${p.type}</span>
-            <img src="${p.image}" alt="${p.title}" loading="lazy" />
-          </div>
-          <div class="property-content">
-            <div class="price">${p.price}</div>
-            <div class="title">${p.title}</div>
-            <div class="details">
-              <span>📍 ${p.city} - ${p.location}</span>
-              <span>📐 ${p.area}</span>
-            </div>
-            <div class="actions">
-              <a href="${waLink}" target="_blank" class="btn-whatsapp">
-                💬 استفسر عبر واتساب
-              </a>
-            </div>
-          </div>
-        `;
-        propertiesList.appendChild(card);
-      });
-    }
-
-    function renderAdminList() {
-      adminPropertiesList.innerHTML = "";
-      if (properties.length === 0) {
-        adminPropertiesList.innerHTML = "<p style='color:#94a3b8; font-size:0.9rem;'>لا توجد عقارات متبقية.</p>";
-        return;
-      }
-
-      properties.forEach(p => {
-        const item = document.createElement("div");
-        item.className = "property-manage-item";
-        item.innerHTML = `
-          <div class="manage-item-info">
-            <strong>${p.title}</strong>
-            <span>${p.city} - ${p.location} | ${p.price}</span>
-          </div>
-          <button type="button" class="btn-delete" onclick="deleteProperty(${p.id})">🗑️ حذف</button>
-        `;
-        adminPropertiesList.appendChild(item);
-      });
-    }
-
-    function filterProperties() {
-      const query = searchInput.value.trim().toLowerCase();
-      const selectedType = typeFilter.value;
-      const selectedCity = cityFilter.value;
-
-      const filtered = properties.filter(p => {
-        const matchesQuery = p.title.toLowerCase().includes(query) || p.location.toLowerCase().includes(query);
-        const matchesType = (selectedType === "all") || (p.type === selectedType);
-        const matchesCity = (selectedCity === "all") || (p.city === selectedCity);
-        return matchesQuery && matchesType && matchesCity;
-      });
-
-      displayProperties(filtered);
-    }
-
-    // فتح وإغلاق لوحة الإدارة
-    function openAdmin() {
-      const pin = prompt("أدخل رمز المرور للوحة الإدارة:");
-      if (pin === ADMIN_PIN) {
-        renderAdminList();
-        document.getElementById("adminModal").style.display = "flex";
-      } else if (pin !== null) {
-        alert("رمز المرور غير صحيح!");
-      }
-    }
-
-    function closeAdmin() {
-      document.getElementById("adminModal").style.display = "none";
-    }
-
-    // إضافة عقار
-    function handleAddProperty(e) {
-      e.preventDefault();
-      const newProp = {
-        id: Date.now(), // معرّف فريد
-        title: document.getElementById("propTitle").value,
-        type: document.getElementById("propType").value,
-        city: document.getElementById("propCity").value,
-        location: document.getElementById("propLocation").value,
-        area: document.getElementById("propArea").value,
-        price: document.getElementById("propPrice").value,
-        image: document.getElementById("propImage").value
-      };
-
-      properties.unshift(newProp);
-      displayProperties(properties);
-      renderAdminList();
-
-      document.getElementById("propertyForm").reset();
-      notifyChanges();
-    }
-
-    // حذف عقار
-    function deleteProperty(id) {
-      if (confirm("هل أنت متأكد من رغبتك في حذف هذا العقار؟")) {
-        properties = properties.filter(p => p.id !== id);
-        displayProperties(properties);
-        renderAdminList();
-        notifyChanges();
-      }
-    }
-
-    function notifyChanges() {
-      copyBtn.style.display = "block";
-      copyBtn.textContent = "📋 تم إجراء تعديل! اضغط هنا لنسخ التحديث لـ GitHub";
-    }
-
-    function copyUpdatedData() {
-      const jsonString = "let properties = " + JSON.stringify(properties, null, 2) + ";";
-      navigator.clipboard.writeText(jsonString).then(() => {
-        alert("تم نسخ الكود المحدث إلى الحافظة بنجاح!\nالآن اذهب إلى ملف index.html في GitHub واستبدل مصفوفة العقارات (let properties = [...];) بالكود المنسوخ.");
-      });
-    }
-
-    searchInput.addEventListener("input", filterProperties);
-    typeFilter.addEventListener("change", filterProperties);
-    cityFilter.addEventListener("change", filterProperties);
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-    displayProperties(properties);
-  </script>
-</body>
-</html>
+        propertiesList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#64748b;">لا توجد عقارات مطابقة للبحث أو المفضلة.</
