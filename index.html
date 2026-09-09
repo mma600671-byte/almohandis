@@ -13,6 +13,7 @@
       --text: #1e293b;
       --text-muted: #64748b;
       --whatsapp: #25d366;
+      --danger: #dc2626;
     }
 
     * {
@@ -195,8 +196,8 @@
       background: #0f172a;
       color: #94a3b8;
       border: 1px solid #334155;
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -204,7 +205,13 @@
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       z-index: 99;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      transition: transform 0.2s;
+    }
+
+    .admin-trigger:hover {
+      transform: scale(1.08);
+      color: white;
     }
 
     /* نافذة لوحة التحكم (Modal) */
@@ -212,7 +219,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.7);
+      background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(4px);
       z-index: 100;
       align-items: center;
@@ -223,21 +230,21 @@
     .admin-content {
       background: white;
       width: 100%;
-      max-width: 520px;
+      max-width: 600px;
       border-radius: 14px;
-      padding: 25px;
-      max-height: 90vh;
+      padding: 24px;
+      max-height: 88vh;
       overflow-y: auto;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
     }
 
     .admin-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 10px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 12px;
     }
 
     .admin-header h2 {
@@ -248,25 +255,25 @@
     .close-btn {
       background: none;
       border: none;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       cursor: pointer;
       color: #64748b;
     }
 
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .form-group label {
       display: block;
       font-size: 0.88rem;
       font-weight: 600;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .form-group input, .form-group select {
       width: 100%;
-      padding: 10px 12px;
+      padding: 9px 12px;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
       font-size: 0.95rem;
@@ -283,7 +290,7 @@
       font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 6px;
     }
 
     .btn-copy-code {
@@ -291,13 +298,65 @@
       background: #059669;
       color: white;
       border: none;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       font-size: 0.95rem;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 12px;
       display: none;
+    }
+
+    /* قسم إدارة العقارات الحالية والحذف */
+    .manage-section {
+      margin-top: 25px;
+      border-top: 2px solid #f1f5f9;
+      padding-top: 15px;
+    }
+
+    .manage-section h3 {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .property-manage-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      gap: 10px;
+    }
+
+    .manage-item-info {
+      font-size: 0.88rem;
+    }
+
+    .manage-item-info strong {
+      display: block;
+      color: var(--primary);
+    }
+
+    .btn-delete {
+      background: #fee2e2;
+      color: var(--danger);
+      border: 1px solid #fca5a5;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .btn-delete:hover {
+      background: var(--danger);
+      color: white;
     }
 
     footer {
@@ -312,14 +371,12 @@
 </head>
 <body>
 
-  <!-- ترويسة الموقع -->
   <header>
     <h1>المهندس للتسويق العقاري</h1>
     <p>دليلك الموثوق لأفضل العقارات والفرص الاستثمارية</p>
   </header>
 
   <div class="container">
-    <!-- شريط البحث والفلترة -->
     <div class="filter-box">
       <input type="text" id="searchInput" placeholder="ابحث بالاسم أو الحي..." />
       <select id="typeFilter">
@@ -335,21 +392,21 @@
       </select>
     </div>
 
-    <!-- شبكة العقارات -->
     <div class="properties-grid" id="propertiesList"></div>
   </div>
 
-  <!-- زر لوحة التحكم الخاص بك -->
+  <!-- الزر السري للوحة الإدارة -->
   <button class="admin-trigger" onclick="openAdmin()" title="لوحة التحكم">⚙️</button>
 
-  <!-- نافذة لوحة التحكم المبسطة -->
+  <!-- نافذة لوحة التحكم (إضافة + حذف) -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-content">
       <div class="admin-header">
-        <h2>لوحة إضافة عقار جديد</h2>
+        <h2>لوحة إدارة العقارات (إضافة وحذف)</h2>
         <button class="close-btn" onclick="closeAdmin()">&times;</button>
       </div>
       
+      <!-- نموذج إضافة عقار -->
       <form id="propertyForm" onsubmit="handleAddProperty(event)">
         <div class="form-group">
           <label>عنوان العقار</label>
@@ -391,9 +448,19 @@
           <input type="url" id="propImage" required placeholder="https://..." />
         </div>
 
-        <button type="submit" class="btn-submit">➕ إضافة العقار وتحديث القائمة</button>
-        <button type="button" id="copyCodeBtn" class="btn-copy-code" onclick="copyUpdatedData()">📋 نسخ التحديث لـ GitHub</button>
+        <button type="submit" class="btn-submit">➕ إضافة العقار للقائمة</button>
       </form>
+
+      <!-- زر نسخ التحديث لـ GitHub -->
+      <button type="button" id="copyCodeBtn" class="btn-copy-code" onclick="copyUpdatedData()">
+        📋 نسخ التحديث النهائي لـ GitHub
+      </button>
+
+      <!-- قائمة العقارات الحالية للحذف -->
+      <div class="manage-section">
+        <h3>العقارات المنشورة حالياً (اضغط لحذف أي عقار):</h3>
+        <div id="adminPropertiesList"></div>
+      </div>
     </div>
   </div>
 
@@ -405,10 +472,10 @@
     // رقم الواتساب الرسمي الخاص بك
     const WHATSAPP_PHONE = "9647805599252";
     
-    // رمز مرور لوحة التحكم الخاصة بك (يمكنك تغييره متى شئت)
+    // رمز مرور لوحة التحكم
     const ADMIN_PIN = "202072";
 
-    // قائمة العقارات الحالية
+    // مصفوفة العقارات الحالية
     let properties = [
       {
         id: 1,
@@ -453,9 +520,11 @@
     ];
 
     const propertiesList = document.getElementById("propertiesList");
+    const adminPropertiesList = document.getElementById("adminPropertiesList");
     const searchInput = document.getElementById("searchInput");
     const typeFilter = document.getElementById("typeFilter");
     const cityFilter = document.getElementById("cityFilter");
+    const copyBtn = document.getElementById("copyCodeBtn");
 
     function displayProperties(items) {
       propertiesList.innerHTML = "";
@@ -493,6 +562,27 @@
       });
     }
 
+    function renderAdminList() {
+      adminPropertiesList.innerHTML = "";
+      if (properties.length === 0) {
+        adminPropertiesList.innerHTML = "<p style='color:#94a3b8; font-size:0.9rem;'>لا توجد عقارات متبقية.</p>";
+        return;
+      }
+
+      properties.forEach(p => {
+        const item = document.createElement("div");
+        item.className = "property-manage-item";
+        item.innerHTML = `
+          <div class="manage-item-info">
+            <strong>${p.title}</strong>
+            <span>${p.city} - ${p.location} | ${p.price}</span>
+          </div>
+          <button type="button" class="btn-delete" onclick="deleteProperty(${p.id})">🗑️ حذف</button>
+        `;
+        adminPropertiesList.appendChild(item);
+      });
+    }
+
     function filterProperties() {
       const query = searchInput.value.trim().toLowerCase();
       const selectedType = typeFilter.value;
@@ -508,10 +598,11 @@
       displayProperties(filtered);
     }
 
-    // دوال لوحة التحكم
+    // فتح وإغلاق لوحة الإدارة
     function openAdmin() {
       const pin = prompt("أدخل رمز المرور للوحة الإدارة:");
       if (pin === ADMIN_PIN) {
+        renderAdminList();
         document.getElementById("adminModal").style.display = "flex";
       } else if (pin !== null) {
         alert("رمز المرور غير صحيح!");
@@ -522,10 +613,11 @@
       document.getElementById("adminModal").style.display = "none";
     }
 
+    // إضافة عقار
     function handleAddProperty(e) {
       e.preventDefault();
       const newProp = {
-        id: properties.length + 1,
+        id: Date.now(), // معرّف فريد
         title: document.getElementById("propTitle").value,
         type: document.getElementById("propType").value,
         city: document.getElementById("propCity").value,
@@ -537,17 +629,31 @@
 
       properties.unshift(newProp);
       displayProperties(properties);
-      
-      const copyBtn = document.getElementById("copyCodeBtn");
+      renderAdminList();
+
+      document.getElementById("propertyForm").reset();
+      notifyChanges();
+    }
+
+    // حذف عقار
+    function deleteProperty(id) {
+      if (confirm("هل أنت متأكد من رغبتك في حذف هذا العقار؟")) {
+        properties = properties.filter(p => p.id !== id);
+        displayProperties(properties);
+        renderAdminList();
+        notifyChanges();
+      }
+    }
+
+    function notifyChanges() {
       copyBtn.style.display = "block";
-      copyBtn.textContent = "📋 تم إضافة العقار! اضغط هنا لنسخ التحديث لـ GitHub";
-      alert("تمت إضافة العقار في المعاينة بنجاح! اضغط على زر النسخ الأخضر لنسخ الكود ولصقه في GitHub.");
+      copyBtn.textContent = "📋 تم إجراء تعديل! اضغط هنا لنسخ التحديث لـ GitHub";
     }
 
     function copyUpdatedData() {
       const jsonString = "let properties = " + JSON.stringify(properties, null, 2) + ";";
       navigator.clipboard.writeText(jsonString).then(() => {
-        alert("تم نسخ الكود المحدث إلى الحافظة!\nكل ما عليك فعله هو الذهاب لملف index.html في GitHub ولصقه مكان مصفوفة العقارات الحالية.");
+        alert("تم نسخ الكود المحدث إلى الحافظة بنجاح!\nالآن اذهب إلى ملف index.html في GitHub واستبدل مصفوفة العقارات (let properties = [...];) بالكود المنسوخ.");
       });
     }
 
