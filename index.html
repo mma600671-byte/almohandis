@@ -44,7 +44,6 @@
       border-radius: 20px;
       cursor: pointer;
       font-size: 0.9rem;
-      backdrop-filter: blur(5px);
       transition: background 0.2s;
     }
     .header-btn:hover { background: rgba(255, 255, 255, 0.25); }
@@ -72,7 +71,6 @@
       flex: 1;
       min-width: 140px;
     }
-    .filter-box input:focus, .filter-box select:focus { border-color: var(--primary); }
 
     /* شبكة عرض العقارات */
     .properties-grid {
@@ -85,16 +83,13 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
       position: relative;
     }
-    .property-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
 
-    /* حاوية الصور */
     .image-container { position: relative; height: 210px; background: #0f172a; }
-    .image-container img { width: 100%; height: 100%; object-fit: cover; }
+    .image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
     
     .status-badge {
       position: absolute;
@@ -118,8 +113,8 @@
       background: rgba(15, 23, 42, 0.7);
       border: none;
       color: white;
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       cursor: pointer;
       font-size: 1.1rem;
@@ -134,11 +129,11 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.7);
       color: white;
       border: none;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -165,7 +160,6 @@
     .title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
     .location { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px; }
 
-    /* شارات المواصفات */
     .specs-grid {
       display: flex;
       flex-wrap: wrap;
@@ -179,7 +173,6 @@
     }
     .spec-item { display: flex; align-items: center; gap: 4px; }
 
-    /* شبكة أزرار الإجراءات */
     .actions-grid {
       margin-top: auto;
       display: grid;
@@ -188,7 +181,7 @@
     }
     .btn-action {
       border: none;
-      padding: 8px 6px;
+      padding: 10px 6px;
       border-radius: 7px;
       font-weight: 600;
       font-size: 0.82rem;
@@ -205,25 +198,27 @@
     .btn-map { background: #475569; }
     .btn-share { background: #64748b; }
 
-    /* النوافذ المنبثقة (Modals) */
+    /* النوافذ المنبثقة معدلة لتظهر بشكل قطعي */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(4px);
-      z-index: 100;
+      background: rgba(15, 23, 42, 0.8);
+      z-index: 9999;
       align-items: center;
       justify-content: center;
       padding: 15px;
     }
+    .modal.active {
+      display: flex !important;
+    }
     .modal-content {
       background: white;
       width: 100%;
-      max-width: 580px;
+      max-width: 560px;
       border-radius: 12px;
       padding: 22px;
-      max-height: 88vh;
+      max-height: 90vh;
       overflow-y: auto;
     }
     .modal-header {
@@ -235,13 +230,13 @@
       padding-bottom: 10px;
     }
     .modal-header h2 { font-size: 1.2rem; color: var(--primary); }
-    .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b; }
+    .close-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #64748b; padding: 0 5px; }
 
     .form-group { margin-bottom: 10px; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
     .form-group input, .form-group select, .form-group textarea {
       width: 100%;
-      padding: 8px 10px;
+      padding: 9px 12px;
       border: 1px solid #cbd5e1;
       border-radius: 7px;
       font-size: 0.9rem;
@@ -279,17 +274,18 @@
       bottom: 20px;
       left: 20px;
       background: #0f172a;
-      color: #94a3b8;
+      color: #cbd5e1;
       border: 1px solid #334155;
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 90;
-      font-size: 1.2rem;
+      z-index: 1000;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     .manage-item {
@@ -310,6 +306,7 @@
       padding: 4px 8px;
       border-radius: 5px;
       cursor: pointer;
+      font-weight: bold;
     }
 
     footer {
@@ -327,9 +324,9 @@
     <h1>المهندس للتسويق العقاري</h1>
     <p>دليلك الموثوق لأفضل العقارات والفرص الاستثمارية</p>
     <div class="header-btns">
-      <button class="header-btn" onclick="openClientForm()">📢 أعلن عن عقارك معنا</button>
-      <button class="header-btn" onclick="openCalcModal()">🧮 حاسبة الأقساط</button>
-      <button class="header-btn" id="favViewBtn" onclick="toggleFavFilter()">❤️ المفضلة (0)</button>
+      <button class="header-btn" id="btnOpenClient">📢 أعلن عن عقارك معنا</button>
+      <button class="header-btn" id="btnOpenCalc">🧮 حاسبة الأقساط</button>
+      <button class="header-btn" id="favViewBtn">❤️ المفضلة (0)</button>
     </div>
   </header>
 
@@ -358,17 +355,17 @@
     <div class="properties-grid" id="propertiesList"></div>
   </div>
 
-  <button class="admin-trigger" onclick="openAdmin()" title="لوحة التحكم">⚙️</button>
+  <button class="admin-trigger" id="btnAdmin" title="لوحة التحكم">⚙️</button>
 
-  <!-- نافذة لوحة التحكم الكاملة -->
+  <!-- نافذة لوحة التحكم -->
   <div class="modal" id="adminModal">
     <div class="modal-content">
       <div class="modal-header">
         <h2>لوحة التحكم المتقدمة</h2>
-        <button class="close-btn" onclick="closeModal('adminModal')">&times;</button>
+        <button class="close-btn" onclick="closeAllModals()">&times;</button>
       </div>
       
-      <form id="propertyForm" onsubmit="handleAddProperty(event)">
+      <form id="propertyForm">
         <div class="form-group">
           <label>عنوان العقار</label>
           <input type="text" id="propTitle" required placeholder="مثال: بيت حديث طابقين بناء درجة أولى" />
@@ -417,7 +414,7 @@
             <input type="number" id="propBaths" placeholder="مثال: 3" />
           </div>
           <div class="form-group" style="flex:1;">
-            <label>نوع السند / الطابو</label>
+            <label>نوع السند</label>
             <input type="text" id="propDeed" placeholder="طابو ملك صرف" />
           </div>
         </div>
@@ -441,7 +438,7 @@
         <button type="submit" class="btn-submit">➕ إضافة العقار وتحديث القائمة</button>
       </form>
 
-      <button type="button" id="copyCodeBtn" class="btn-copy" onclick="copyUpdatedData()">
+      <button type="button" id="copyCodeBtn" class="btn-copy">
         📋 نسخ التحديث لـ GitHub
       </button>
 
@@ -452,22 +449,22 @@
     </div>
   </div>
 
-  <!-- نافذة أعلن عن عقارك معنا للزبون -->
+  <!-- نافذة أعلن عن عقارك معنا -->
   <div class="modal" id="clientModal">
     <div class="modal-content">
       <div class="modal-header">
         <h2>📢 أعلن عن عقارك معنا</h2>
-        <button class="close-btn" onclick="closeModal('clientModal')">&times;</button>
+        <button class="close-btn" onclick="closeAllModals()">&times;</button>
       </div>
       <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">أدخل بيانات عقارك وسنقوم بالتواصل معك وتسويقه فوراً عبر منصاتنا.</p>
       
-      <form onsubmit="handleClientSubmit(event)">
+      <form id="clientForm">
         <div class="form-group">
           <label>اسمك الكريم</label>
           <input type="text" id="clientName" required placeholder="الاسم الكامل" />
         </div>
         <div class="form-group">
-          <label>نوع العقار والطلب</label>
+          <label>نوع الطلب</label>
           <select id="clientType">
             <option value="عرض بيع">لدي عقار أريد بيعه</option>
             <option value="عرض إيجار">لدي عقار أريد تأجيره</option>
@@ -496,7 +493,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2>🧮 حاسبة الأقساط الشهرية</h2>
-        <button class="close-btn" onclick="closeModal('calcModal')">&times;</button>
+        <button class="close-btn" onclick="closeAllModals()">&times;</button>
       </div>
       <div class="form-group">
         <label>السعر الإجمالي (بالدينار العراقي)</label>
@@ -510,7 +507,7 @@
         <label>مدة السداد (بالسنوات)</label>
         <input type="number" id="calcYears" value="5" />
       </div>
-      <button type="button" class="btn-submit" onclick="computeMortgage()">احسب القسط الشهري</button>
+      <button type="button" class="btn-submit" id="btnCalculate">احسب القسط الشهري</button>
 
       <div id="calcResult" style="margin-top:15px; padding:12px; background:#f1f5f9; border-radius:8px; display:none; text-align:center;">
         <span style="font-size:0.85rem; color:var(--text-muted);">القسط الشهري التقديري:</span>
@@ -625,4 +622,16 @@
     function displayProperties(items) {
       propertiesList.innerHTML = "";
       if (items.length === 0) {
-        propertiesList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#64748b;">لا توجد عقارات مطابقة للبحث أو المفضلة.</
+        propertiesList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#64748b;">لا توجد عقارات مطابقة للبحث أو المفضلة.</div>';
+        return;
+      }
+
+      items.forEach(p => {
+        const imgs = getImagesList(p);
+        if (!(p.id in currentSlideIndices)) currentSlideIndices[p.id] = 0;
+        const currentIdx = currentSlideIndices[p.id];
+        const isFav = favorites.includes(p.id);
+
+        let statusClass = "status-available";
+        if (p.status === "تم البيع") statusClass = "status-sold";
+        if (p.status ==
