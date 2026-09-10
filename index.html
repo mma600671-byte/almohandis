@@ -58,7 +58,6 @@
     header h1 { font-size: 1.85rem; margin-bottom: 5px; }
     header p { color: #cbd5e1; font-size: 0.95rem; }
 
-    /* أزرار التحكم العلوي */
     .top-controls {
       position: absolute;
       top: 15px;
@@ -102,7 +101,6 @@
 
     .container { max-width: 1140px; margin: -15px auto 40px; padding: 0 15px; }
 
-    /* صندوق الفلترة المتقدم */
     .filter-box {
       background: var(--card-bg);
       padding: 16px;
@@ -171,7 +169,6 @@
       transform: translateY(-4px);
     }
 
-    /* كارت VIP المميز */
     .property-card.is-featured {
       border: 2px solid var(--gold-border);
       box-shadow: 0 6px 20px rgba(245, 158, 11, 0.2);
@@ -329,7 +326,6 @@
     .btn-compare { background: #8b5cf6; }
     .btn-share { background: #64748b; grid-column: span 2; }
 
-    /* النوافذ المنبثقة العامة */
     .app-modal {
       display: none;
       position: fixed;
@@ -488,7 +484,6 @@
       font-size: 0.8rem;
     }
 
-    /* جدول المقارنة */
     .compare-table {
       width: 100%;
       border-collapse: collapse;
@@ -502,7 +497,6 @@
     }
     .compare-table th { background: var(--box-bg); }
 
-    /* نافذة تكبير الصور الكاملة (Lightbox) */
     .lightbox-modal {
       display: none;
       position: fixed;
@@ -587,7 +581,6 @@
   </header>
 
   <div class="container">
-    <!-- صندوق الفلترة والبحث المتقدم -->
     <div class="filter-box">
       <div class="filter-row">
         <input type="text" id="searchInput" oninput="window.filterProperties()" placeholder="ابحث بالاسم، الحي، أو الكود..." />
@@ -615,13 +608,11 @@
         </select>
       </div>
 
-      <!-- ميزانية السعر المخصصة (Min & Max Price) -->
       <div class="filter-row">
         <input type="number" id="minPriceInput" oninput="window.filterProperties()" placeholder="السعر الأدنى (د.ع)..." />
         <input type="number" id="maxPriceInput" oninput="window.filterProperties()" placeholder="السعر الأعلى (د.ع)..." />
       </div>
 
-      <!-- الفلترة السريعة (Chips) -->
       <div class="quick-chips">
         <button class="chip-btn" id="chipBeds3" onclick="window.toggleQuickFilter('beds3')">🛏️ +3 غرف</button>
         <button class="chip-btn" id="chipBeds4" onclick="window.toggleQuickFilter('beds4')">🛏️ +4 غرف</button>
@@ -630,9 +621,7 @@
       </div>
     </div>
 
-    <div class="properties-grid" id="propertiesList">
-      <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">جاري جلب العقارات من السحابة... ⏳</div>
-    </div>
+    <div class="properties-grid" id="propertiesList"></div>
   </div>
 
   <button class="admin-trigger" onclick="window.openLoginModal()" title="لوحة التحكم">⚙️</button>
@@ -725,7 +714,6 @@
           </div>
         </div>
 
-        <!-- خانة عرض مميز VIP -->
         <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin: 10px 0;">
           <input type="checkbox" id="propIsFeatured" style="width: auto; cursor: pointer;" />
           <label for="propIsFeatured" style="margin: 0; cursor: pointer; color: var(--gold); font-weight: bold;">🌟 تمييز هذا العقار كعرض حصري (VIP Featured)</label>
@@ -740,7 +728,6 @@
         <button type="button" id="btnCancelEdit" class="btn-cancel-edit" onclick="window.cancelEdit()">✖️ إلغاء التعديل والعودة للإضافة</button>
       </form>
 
-      <!-- أزرار النسخ الاحتياطي والاستيراد -->
       <div class="backup-actions">
         <button type="button" class="btn-backup" onclick="window.exportBackup()">📥 تنزيل نسخة احتياطية</button>
         <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="window.handleImportFile(event)" />
@@ -858,7 +845,7 @@
     </div>
   </div>
 
-  <!-- نافذة تكبير الصور الكاملة (Lightbox) -->
+  <!-- نافذة تكبير الصور (Lightbox) -->
   <div class="lightbox-modal" id="lightboxModal">
     <button class="lightbox-close" onclick="window.closeLightbox()">&times;</button>
     <button class="lightbox-nav lightbox-prev" onclick="window.changeLightbox(-1)">❮</button>
@@ -890,11 +877,72 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    try {
-      db.enablePersistence({ synchronizeTabs: true }).catch(() => {});
-    } catch(e) {}
+    // عقارات افتراضية جاهزة تظهر فوراً لضمان عدم توقف الواجهة
+    const initialDefaultProperties = [
+      {
+        docId: "default_1",
+        title: "منزل حديث طابقين بناء درجة أولى",
+        type: "بيع",
+        status: "متاح",
+        city: "النجف",
+        location: "حي الغدير",
+        area: "200 م²",
+        beds: 4,
+        baths: 3,
+        deed: "طابو ملك صرف",
+        price: "180,000,000 د.ع",
+        mapUrl: "https://maps.google.com",
+        isFeatured: true,
+        views: 24,
+        createdAt: Date.now(),
+        images: [
+          "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop&q=60",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=60"
+        ]
+      },
+      {
+        docId: "default_2",
+        title: "شقة سكنية ممتازة للعوائل",
+        type: "إيجار",
+        status: "متاح",
+        city: "بغداد",
+        location: "المنصور",
+        area: "140 م²",
+        beds: 3,
+        baths: 2,
+        deed: "عقد إيجار",
+        price: "750,000 د.ع / شهر",
+        mapUrl: "",
+        isFeatured: false,
+        views: 18,
+        createdAt: Date.now() - 10000,
+        images: [
+          "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop&q=60"
+        ]
+      },
+      {
+        docId: "default_3",
+        title: "قطعة أرض ركن موقع تجاري سكني",
+        type: "بيع",
+        status: "تم البيع",
+        city: "النجف",
+        location: "حي السلام",
+        area: "250 م²",
+        beds: 0,
+        baths: 0,
+        deed: "سند رسمي طابو",
+        price: "95,000,000 د.ع",
+        mapUrl: "",
+        isFeatured: false,
+        views: 45,
+        createdAt: Date.now() - 20000,
+        images: [
+          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&auto=format&fit=crop&q=60"
+        ]
+      }
+    ];
 
-    let properties = [];
+    let properties = [...initialDefaultProperties];
     let favorites = [];
     let compareList = [];
     let activeChips = { beds3: false, beds4: false, area200: false, vipOnly: false };
@@ -907,7 +955,6 @@
     let currentLightboxImages = [];
     let currentLightboxIndex = 0;
 
-    // تفعيل الوضع الليلي المحفوظ
     if (localStorage.getItem('almohandis_theme') === 'dark') {
       document.body.classList.add('dark-mode');
       const btn = document.getElementById('themeToggleBtn');
@@ -920,19 +967,24 @@
       localStorage.setItem('almohandis_theme', isDark ? 'dark' : 'light');
     };
 
-    // الاستماع المباشر للسحابة
-    db.collection("properties").orderBy("createdAt", "desc").onSnapshot(snapshot => {
-      properties = [];
-      snapshot.forEach(doc => {
-        properties.push({ docId: doc.id, ...doc.data() });
+    // جلب العقارات من Firestore دون التوقف إذا كانت المجموعة فارغة
+    try {
+      db.collection("properties").onSnapshot(snapshot => {
+        if (!snapshot.empty) {
+          properties = [];
+          snapshot.forEach(doc => {
+            properties.push({ docId: doc.id, ...doc.data() });
+          });
+        }
+        window.filterProperties();
+        window.renderAdminList();
+      }, err => {
+        console.warn("Firestore fallback active:", err);
+        window.filterProperties();
       });
+    } catch(e) {
       window.filterProperties();
-      window.renderAdminList();
-      window.updateCompareCount();
-    }, error => {
-      console.error("Firebase Error:", error);
-      document.getElementById("propertiesList").innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:#ef4444;">يرجى تفعيل صلاحيات Firestore Rules.</div>';
-    });
+    }
 
     window.openAppModal = function(modalId) {
       window.closeAllModals();
@@ -997,13 +1049,12 @@
       window.filterProperties();
     };
 
-    // نظام المقارنة
     window.toggleCompare = function(docId) {
       if (compareList.includes(docId)) {
         compareList = compareList.filter(id => id !== docId);
       } else {
         if (compareList.length >= 3) {
-          alert("يمكنك مقارنة حتى 3 عقارات كحد أقصى في وقت واحد.");
+          alert("يمكنك مقارنة حتى 3 عقارات كحد أقصى.");
           return;
         }
         compareList.push(docId);
@@ -1015,7 +1066,7 @@
 
     window.openCompareModal = function() {
       if (compareList.length === 0) {
-        alert("يرجى اختيار عقار أو عقارين أولاً بالضغط على زر (⚖️ مقارنة) في بطاقة العقار.");
+        alert("يرجى اختيار عقار أو عقارين أولاً بالضغط على زر (⚖️ مقارنة).");
         return;
       }
       const selectedProps = properties.filter(p => compareList.includes(p.docId));
@@ -1063,7 +1114,6 @@
       window.openAppModal('compareModal');
     };
 
-    // الفلاتر السريعة (Chips)
     window.toggleQuickFilter = function(type) {
       activeChips[type] = !activeChips[type];
       const chipEl = document.getElementById({
@@ -1076,7 +1126,6 @@
       window.filterProperties();
     };
 
-    // زيادة المشاهدات عند الفتح
     window.incrementViews = function(docId) {
       try {
         db.collection("properties").doc(docId).update({
@@ -1172,7 +1221,7 @@
               <a href="tel:${CALL_PHONE}" class="btn-action btn-call">📞 اتصال</a>
               <button class="btn-action btn-schedule" onclick="window.openScheduleModal('${p.title.replace(/'/g, "")}')">📅 حجز معاينة</button>
               <button class="btn-action btn-compare" onclick="window.toggleCompare('${p.docId}')">${isCompared ? '✔️ بالمقارنة' : '⚖️ مقارنة'}</button>
-              <button class="btn-action btn-share" onclick="window.shareProperty('${p.docId}')">🔗 مشاركة العرض / حالة واتساب</button>
+              <button class="btn-action btn-share" onclick="window.shareProperty('${p.docId}')">🔗 مشاركة العرض</button>
             </div>
           </div>
         `;
@@ -1198,21 +1247,17 @@
       const prop = properties.find(p => p.docId === docId);
       const title = prop ? prop.title : "عقار مميز";
       const shareUrl = window.location.href;
-      const shareText = `🏡 ${title}%0A💰 السعر: ${prop ? prop.price : ''}%0A📍 الموقع: ${prop ? prop.city + ' - ' + prop.location : ''}%0A📲 للتواصل: ${CALL_PHONE}%0A${shareUrl}`;
-      
       if (navigator.share) {
         navigator.share({ title: title, text: `عقار مميز من المهندس للتسويق العقاري: ${title}`, url: shareUrl });
       } else {
         navigator.clipboard.writeText(shareUrl);
-        alert("تم نسخ رابط العقار للمشاركة بنجاح!");
+        alert("تم نسخ رابط المنصة للمشاركة!");
       }
     };
 
-    // فلترة وفرز العقارات المتطورة
     window.filterProperties = function() {
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
       const selectedType = document.getElementById("typeFilter").value;
-      const selectedStatus = document.getElementById("statusFilter").value;
       const selectedCity = document.getElementById("cityFilter").value;
       const sortBy = document.getElementById("sortFilter").value;
 
@@ -1222,14 +1267,12 @@
       let filtered = properties.filter(p => {
         const matchesQuery = (p.title && p.title.toLowerCase().includes(query)) || (p.location && p.location.toLowerCase().includes(query));
         const matchesType = (selectedType === "all") || (p.type === selectedType);
-        const matchesStatus = (selectedStatus === "all") || (p.status === selectedStatus);
         const matchesCity = (selectedCity === "all") || (p.city === selectedCity);
         const matchesFav = !showOnlyFavs || favorites.includes(p.docId);
 
         const propNumericPrice = parseNumericPrice(p.price);
         const matchesPrice = (propNumericPrice >= minPrice) && (propNumericPrice <= maxPrice);
 
-        // فلاتر الشرائح (Chips)
         const propBeds = parseInt(p.beds) || 0;
         const propAreaNum = parseNumericPrice(p.area);
         const matchesBeds3 = !activeChips.beds3 || (propBeds >= 3);
@@ -1237,10 +1280,9 @@
         const matchesArea200 = !activeChips.area200 || (propAreaNum >= 200);
         const matchesVip = !activeChips.vipOnly || (p.isFeatured === true);
 
-        return matchesQuery && matchesType && matchesStatus && matchesCity && matchesFav && matchesPrice && matchesBeds3 && matchesBeds4 && matchesArea200 && matchesVip;
+        return matchesQuery && matchesType && matchesCity && matchesFav && matchesPrice && matchesBeds3 && matchesBeds4 && matchesArea200 && matchesVip;
       });
 
-      // منطق الفرز
       if (sortBy === "featured") {
         filtered.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
       } else if (sortBy === "priceAsc") {
@@ -1321,7 +1363,6 @@
       downloadAnchor.remove();
     };
 
-    // استيراد العقارات من ملف JSON
     window.handleImportFile = function(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -1479,6 +1520,8 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
     updateFavCount();
+    window.updateCompareCount();
+    window.filterProperties();
   </script>
 </body>
 </html>
