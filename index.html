@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>المهندس للتسويق العقاري</title>
 
-  <meta name="description" content="منصة المهندس للتسويق العقاري - دليلك الموثوق لأفضل العقارات والفرص الاستثمارية في النجف والعراق." />
+  <meta name="description" content="منصة المهندس للتسويق العقاري - دليلك الموثوق لأفضل العقارات والفرص الاستثمارية في عموم العراق." />
   <meta property="og:title" content="المهندس للتسويق العقاري" />
-  <meta property="og:description" content="تصفح أحدث المنازل والشقق والأراضي المعروضة للبيع والإيجار والرهن مع تفاصيل دقيقة ومعاينة مباشرة." />
+  <meta property="og:description" content="تصفح أحدث المنازل والشقق والأراضي المعروضة للبيع والإيجار والرهن في جميع محافظات العراق." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&auto=format&fit=crop&q=80" />
 
@@ -101,7 +101,7 @@
 
     .container { max-width: 1140px; margin: -15px auto 40px; padding: 0 15px; }
 
-    /* صندوق الفلترة المتطور بالقوائم المنسدلة */
+    /* صندوق الفلترة المتطور */
     .filter-box {
       background: var(--card-bg);
       padding: 18px;
@@ -309,7 +309,6 @@
     .btn-compare { background: #8b5cf6; }
     .btn-share { background: #64748b; grid-column: span 2; }
 
-    /* النوافذ المنبثقة العامة */
     .app-modal {
       display: none;
       position: fixed;
@@ -555,7 +554,7 @@
       <button class="theme-toggle-btn" id="themeToggleBtn" onclick="window.toggleDarkMode()" title="تبديل الوضع الليلي">🌙</button>
     </div>
     <h1>المهندس للتسويق العقاري</h1>
-    <p>دليلك الموثوق لأفضل العقارات والفرص الاستثمارية</p>
+    <p>دليلك الموثوق لأفضل العقارات والفرص الاستثمارية في عموم العراق</p>
     <div class="header-btns">
       <button class="header-btn" onclick="window.openAppModal('clientModal')">📢 أعلن عن عقارك معنا</button>
       <button class="header-btn" onclick="window.openAppModal('calcModal')">🧮 حاسبة الأقساط</button>
@@ -565,9 +564,9 @@
   </header>
 
   <div class="container">
-    <!-- شريط البحث والفلترة الجديد بالقوائم المنسدلة -->
+    <!-- شريط البحث والفلترة بالقوائم المنسدلة المحدثة -->
     <div class="filter-box">
-      <!-- السطر الأول: البحث والترتيب والنوع والمحافظة -->
+      <!-- السطر الأول: البحث والترتيب والنوع والمحافظات الـ 18 -->
       <div class="filter-row">
         <input type="text" id="searchInput" oninput="window.filterProperties()" placeholder="ابحث بالاسم، الحي، أو الكود..." style="grid-column: span 2;" />
         
@@ -588,41 +587,63 @@
           <option value="أقساط">4- أقساط</option>
         </select>
 
+        <!-- قائمة تضم كل محافظات العراق الـ 18 -->
         <select id="cityFilter" onchange="window.filterProperties()">
           <option value="all">كل المحافظات</option>
-          <option value="النجف">النجف</option>
           <option value="بغداد">بغداد</option>
+          <option value="النجف">النجف</option>
           <option value="كربلاء">كربلاء</option>
+          <option value="البصرة">البصرة</option>
+          <option value="أربيل">أربيل</option>
+          <option value="بابل">بابل</option>
+          <option value="نينوى">نينوى (الموصل)</option>
+          <option value="السليمانية">السليمانية</option>
+          <option value="دهوك">دهوك</option>
+          <option value="كركوك">كركوك</option>
+          <option value="الأنبار">الأنبار</option>
+          <option value="ذي قار">ذي قار (الناصرية)</option>
+          <option value="ديالى">ديالى</option>
+          <option value="صلاح الدين">صلاح الدين</option>
+          <option value="ميسان">ميسان (العمارة)</option>
+          <option value="واسط">واسط (الكوت)</option>
+          <option value="القادسية">القادسية (الديوانية)</option>
+          <option value="المثنى">المثنى (السماوة)</option>
         </select>
       </div>
 
-      <!-- السطر الثاني: القوائم المنسدلة للغرف والمساحة وVIP والسعر -->
+      <!-- السطر الثاني: الغرف المحددة والمساحات المحددة وعروض VIP والأسعار -->
       <div class="filter-row">
-        <!-- قائمة الغرف -->
+        <!-- عدد الغرف المحدد بدقة -->
         <select id="bedsFilter" onchange="window.filterProperties()">
           <option value="all">كل الغرف</option>
-          <option value="2">2 غرف فأكثر</option>
-          <option value="3">3 غرف فأكثر</option>
-          <option value="4">4 غرف فأكثر</option>
-          <option value="5">5 غرف فأكثر</option>
+          <option value="1">1 غرفة</option>
+          <option value="2">2 غرفة</option>
+          <option value="3">3 غرفة</option>
+          <option value="4">4 غرفة</option>
+          <option value="5">5 غرفة</option>
+          <option value="6">6 غرفة</option>
         </select>
 
-        <!-- قائمة المساحة -->
+        <!-- المساحة المحددة بدقة -->
         <select id="areaFilter" onchange="window.filterProperties()">
           <option value="all">كل المساحات</option>
-          <option value="100">100 م² فأكثر</option>
-          <option value="200">200 م² فأكثر</option>
-          <option value="300">300 م² فأكثر</option>
-          <option value="400">400 م² فأكثر</option>
+          <option value="50">50 م²</option>
+          <option value="100">100 م²</option>
+          <option value="150">150 م²</option>
+          <option value="200">200 م²</option>
+          <option value="250">250 م²</option>
+          <option value="300">300 م²</option>
+          <option value="400">400 م²</option>
+          <option value="500">500 م²</option>
         </select>
 
-        <!-- قائمة عروض VIP -->
+        <!-- عروض VIP -->
         <select id="vipFilter" onchange="window.filterProperties()">
           <option value="all">كل العروض</option>
           <option value="vip">عروض VIP فقط 🌟</option>
         </select>
 
-        <!-- حدود الأسعار -->
+        <!-- ميزانية السعر -->
         <input type="number" id="minPriceInput" oninput="window.filterProperties()" placeholder="السعر الأدنى (د.ع)..." />
         <input type="number" id="maxPriceInput" oninput="window.filterProperties()" placeholder="السعر الأعلى (د.ع)..." />
       </div>
@@ -682,7 +703,26 @@
           </div>
           <div class="form-group" style="flex:1;">
             <label>المحافظة</label>
-            <input type="text" id="propCity" required placeholder="النجف" />
+            <select id="propCity">
+              <option value="بغداد">بغداد</option>
+              <option value="النجف" selected>النجف</option>
+              <option value="كربلاء">كربلاء</option>
+              <option value="البصرة">البصرة</option>
+              <option value="أربيل">أربيل</option>
+              <option value="بابل">بابل</option>
+              <option value="نينوى">نينوى (الموصل)</option>
+              <option value="السليمانية">السليمانية</option>
+              <option value="دهوك">دهوك</option>
+              <option value="كركوك">كركوك</option>
+              <option value="الأنبار">الأنبار</option>
+              <option value="ذي قار">ذي قار (الناصرية)</option>
+              <option value="ديالى">ديالى</option>
+              <option value="صلاح الدين">صلاح الدين</option>
+              <option value="ميسان">ميسان (العمارة)</option>
+              <option value="واسط">واسط (الكوت)</option>
+              <option value="القادسية">القادسية (الديوانية)</option>
+              <option value="المثنى">المثنى (السماوة)</option>
+            </select>
           </div>
         </div>
 
@@ -692,14 +732,14 @@
             <input type="text" id="propLocation" required placeholder="حي الغدير" />
           </div>
           <div class="form-group" style="flex:1;">
-            <label>المساحة</label>
+            <label>المساحة (مثال: 200 م²)</label>
             <input type="text" id="propArea" required placeholder="200 م²" />
           </div>
         </div>
 
         <div style="display:flex; gap:8px;">
           <div class="form-group" style="flex:1;">
-            <label>غرف النوم</label>
+            <label>عدد الغرف</label>
             <input type="number" id="propBeds" placeholder="4" />
           </div>
           <div class="form-group" style="flex:1;">
@@ -714,7 +754,7 @@
 
         <div style="display:flex; gap:8px;">
           <div class="form-group" style="flex:1;">
-            <label>السعر</label>
+            <label>السعر / مبلغ الرهن</label>
             <input type="text" id="propPrice" required placeholder="180,000,000 د.ع" />
           </div>
           <div class="form-group" style="flex:1;">
@@ -812,8 +852,8 @@
           </select>
         </div>
         <div class="form-group">
-          <label>الموقع والمنطقة</label>
-          <input type="text" id="clientLocation" required placeholder="النجف - حي الغدير" />
+          <label>المحافظة والمنطقة</label>
+          <input type="text" id="clientLocation" required placeholder="مثال: النجف - حي الغدير" />
         </div>
         <div class="form-group">
           <label>السعر المطلوب / مبلغ الرهن التقديري</label>
@@ -1276,7 +1316,7 @@
       }
     };
 
-    // فلترة وفرز العقارات مع القوائم المنسدلة الجديدة
+    // فلترة وفرز العقارات مع المطابقة الدقيقة للمحافظات والغرف والمساحات
     window.filterProperties = function() {
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
       const selectedType = document.getElementById("typeFilter").value;
@@ -1299,15 +1339,15 @@
         const propNumericPrice = parseNumericPrice(p.price);
         const matchesPrice = (propNumericPrice >= minPrice) && (propNumericPrice <= maxPrice);
 
-        // فلترة الغرف عبر القائمة المنسدلة
+        // مطابقة عدد الغرف المحدد بدقة (Exact Match)
         const propBeds = parseInt(p.beds) || 0;
-        const matchesBeds = (selectedBeds === "all") || (propBeds >= parseInt(selectedBeds));
+        const matchesBeds = (selectedBeds === "all") || (propBeds === parseInt(selectedBeds));
 
-        // فلترة المساحة عبر القائمة المنسدلة
+        // مطابقة المساحة المحددة بدقة (Exact Match)
         const propAreaNum = parseNumericPrice(p.area);
-        const matchesArea = (selectedArea === "all") || (propAreaNum >= parseInt(selectedArea));
+        const matchesArea = (selectedArea === "all") || (propAreaNum === parseInt(selectedArea));
 
-        // فلترة عروض VIP عبر القائمة المنسدلة
+        // عروض VIP
         const matchesVip = (selectedVip === "all") || (p.isFeatured === true);
 
         return matchesQuery && matchesType && matchesCity && matchesFav && matchesPrice && matchesBeds && matchesArea && matchesVip;
@@ -1428,7 +1468,7 @@
         const item = document.createElement("div");
         item.className = "manage-item";
         item.innerHTML = `
-          <span>${p.isFeatured ? '🌟 ' : ''}${p.title} (${p.type || 'بيع'} - ${p.status || 'متاح'})</span>
+          <span>${p.isFeatured ? '🌟 ' : ''}${p.title} (${p.city} - ${p.type || 'بيع'} - ${p.status || 'متاح'})</span>
           <div class="manage-item-actions">
             <button type="button" class="btn-edit" onclick="window.startEditProperty('${p.docId}')">✏️ تعديل</button>
             <button type="button" class="btn-del" onclick="window.deleteProperty('${p.docId}')">🗑️ حذف نهائي</button>
@@ -1446,7 +1486,7 @@
       document.getElementById("propTitle").value = p.title || "";
       document.getElementById("propType").value = p.type || "بيع";
       document.getElementById("propStatus").value = p.status || "متاح";
-      document.getElementById("propCity").value = p.city || "";
+      document.getElementById("propCity").value = p.city || "النجف";
       document.getElementById("propLocation").value = p.location || "";
       document.getElementById("propArea").value = p.area || "";
       document.getElementById("propBeds").value = p.beds || "";
