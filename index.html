@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>المهندس للتسويق العقاري</title>
 
-  <!-- وسوم المشاركة والتسويق (Open Graph & SEO) -->
   <meta name="description" content="منصة المهندس للتسويق العقاري - دليلك الموثوق لأفضل العقارات والفرص الاستثمارية في النجف والعراق." />
   <meta property="og:title" content="المهندس للتسويق العقاري" />
   <meta property="og:description" content="تصفح أحدث المنازل والشقق والأراضي المعروضة للبيع والإيجار مع تفاصيل دقيقة ومعاينة مباشرة." />
@@ -24,24 +23,62 @@
       --card-bg: #ffffff;
       --text: #1e293b;
       --text-muted: #64748b;
+      --border: #cbd5e1;
+      --box-bg: #f1f5f9;
       --whatsapp: #25d366;
       --call: #0284c7;
       --danger: #dc2626;
       --edit: #2563eb;
       --schedule: #0f766e;
+      --gold: #f59e0b;
+      --gold-border: #fbbf24;
+    }
+
+    body.dark-mode {
+      --primary: #38bdf8;
+      --secondary: #fbbf24;
+      --bg: #0b1329;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --box-bg: #0f172a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
 
     header {
-      background: linear-gradient(135deg, #0f172a, var(--primary));
+      background: linear-gradient(135deg, #070d19, #1b365d);
       color: white;
       text-align: center;
       padding: 30px 15px 22px;
+      position: relative;
     }
     header h1 { font-size: 1.85rem; margin-bottom: 5px; }
     header p { color: #cbd5e1; font-size: 0.95rem; }
+
+    /* أزرار التحكم العلوي */
+    .top-controls {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      display: flex;
+      gap: 8px;
+    }
+    .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
 
     .header-btns {
       margin-top: 15px;
@@ -65,25 +102,53 @@
 
     .container { max-width: 1140px; margin: -15px auto 40px; padding: 0 15px; }
 
-    /* صندوق البحث والفرز المتقدم */
+    /* صندوق الفلترة المتقدم */
     .filter-box {
       background: var(--card-bg);
       padding: 16px;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 22px;
+      border: 1px solid var(--border);
+    }
+    .filter-row {
+      display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 22px;
     }
     .filter-box input, .filter-box select {
       padding: 10px 12px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 0.9rem;
       outline: none;
       flex: 1;
       min-width: 130px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .quick-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .chip-btn {
+      background: var(--box-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .chip-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
     }
 
     .properties-grid {
@@ -99,6 +164,30 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .property-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* كارت VIP المميز */
+    .property-card.is-featured {
+      border: 2px solid var(--gold-border);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.2);
+    }
+    .featured-ribbon {
+      position: absolute;
+      top: 10px;
+      left: 55px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      z-index: 3;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
 
     .image-container {
@@ -114,7 +203,6 @@
       display: block;
     }
 
-    /* العلامة المائية للصور */
     .watermark-badge {
       position: absolute;
       bottom: 8px;
@@ -126,7 +214,6 @@
       border-radius: 6px;
       z-index: 3;
       pointer-events: none;
-      letter-spacing: 0.3px;
     }
     
     .status-badge {
@@ -140,7 +227,7 @@
       color: white;
       z-index: 3;
     }
-    .status-available { background: var(--primary); }
+    .status-available { background: #0284c7; }
     .status-sold { background: var(--danger); }
     .status-reserved { background: var(--secondary); }
 
@@ -191,7 +278,14 @@
     }
 
     .property-content { padding: 15px; flex: 1; display: flex; flex-direction: column; }
-    .price { color: var(--secondary); font-size: 1.25rem; font-weight: bold; margin-bottom: 4px; }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .price { color: var(--secondary); font-size: 1.25rem; font-weight: bold; }
+    .views-tag { font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 3px; }
     .title { font-size: 1.08rem; font-weight: 700; margin-bottom: 6px; }
     .location { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; }
 
@@ -199,7 +293,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      background: #f1f5f9;
+      background: var(--box-bg);
       padding: 8px 10px;
       border-radius: 8px;
       font-size: 0.8rem;
@@ -208,7 +302,6 @@
     }
     .spec-item { display: flex; align-items: center; gap: 3px; }
 
-    /* شبكة أزرار الإجراءات */
     .actions-grid {
       margin-top: auto;
       display: grid;
@@ -233,7 +326,7 @@
     .btn-wa { background: var(--whatsapp); }
     .btn-call { background: var(--call); }
     .btn-schedule { background: var(--schedule); }
-    .btn-map { background: #475569; }
+    .btn-compare { background: #8b5cf6; }
     .btn-share { background: #64748b; grid-column: span 2; }
 
     /* النوافذ المنبثقة العامة */
@@ -251,41 +344,45 @@
       padding: 15px;
     }
     .app-modal-content {
-      background: white;
+      background: var(--card-bg);
+      color: var(--text);
       width: 100%;
-      max-width: 540px;
+      max-width: 560px;
       border-radius: 12px;
       padding: 20px;
       max-height: 85vh;
       overflow-y: auto;
       position: relative;
+      border: 1px solid var(--border);
     }
     .app-modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 15px;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border);
       padding-bottom: 8px;
     }
     .app-modal-header h2 { font-size: 1.15rem; color: var(--primary); }
-    .btn-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #64748b; line-height: 1; }
+    .btn-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); line-height: 1; }
 
     .form-group { margin-bottom: 10px; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
     .form-group input, .form-group select, .form-group textarea {
       width: 100%;
       padding: 9px 10px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--border);
       border-radius: 7px;
       font-size: 0.9rem;
       outline: none;
+      background: var(--bg);
+      color: var(--text);
     }
     .form-group textarea { resize: vertical; min-height: 60px; font-family: monospace; font-size: 0.8rem; }
 
     .btn-submit {
       width: 100%;
-      background: var(--primary);
+      background: #0284c7;
       color: white;
       border: none;
       padding: 11px;
@@ -310,17 +407,32 @@
       display: none;
     }
 
+    .backup-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
     .btn-backup {
+      flex: 1;
       background: #047857;
       color: white;
       border: none;
-      padding: 8px 12px;
+      padding: 8px 10px;
       border-radius: 7px;
       font-size: 0.85rem;
       font-weight: bold;
       cursor: pointer;
-      width: 100%;
-      margin-top: 12px;
+    }
+    .btn-import {
+      flex: 1;
+      background: #475569;
+      color: white;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 7px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .admin-trigger {
@@ -347,8 +459,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 8px 10px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: var(--box-bg);
+      border: 1px solid var(--border);
       border-radius: 7px;
       margin-bottom: 6px;
       font-size: 0.85rem;
@@ -376,6 +488,20 @@
       font-size: 0.8rem;
     }
 
+    /* جدول المقارنة */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+    .compare-table th, .compare-table td {
+      border: 1px solid var(--border);
+      padding: 8px;
+      text-align: center;
+    }
+    .compare-table th { background: var(--box-bg); }
+
     /* نافذة تكبير الصور الكاملة (Lightbox) */
     .lightbox-modal {
       display: none;
@@ -399,7 +525,6 @@
       max-height: 85vh;
       object-fit: contain;
       border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .lightbox-close {
       position: absolute;
@@ -439,7 +564,7 @@
     footer {
       text-align: center;
       padding: 22px;
-      background: #0f172a;
+      background: #070d19;
       color: #94a3b8;
       font-size: 0.85rem;
     }
@@ -448,49 +573,65 @@
 <body>
 
   <header>
+    <div class="top-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="window.toggleDarkMode()" title="تبديل الوضع الليلي">🌙</button>
+    </div>
     <h1>المهندس للتسويق العقاري</h1>
     <p>دليلك الموثوق لأفضل العقارات والفرص الاستثمارية</p>
     <div class="header-btns">
       <button class="header-btn" onclick="window.openAppModal('clientModal')">📢 أعلن عن عقارك معنا</button>
       <button class="header-btn" onclick="window.openAppModal('calcModal')">🧮 حاسبة الأقساط</button>
+      <button class="header-btn" id="compareBtn" onclick="window.openCompareModal()">⚖️ مقارنة (0)</button>
       <button class="header-btn" id="favViewBtn" onclick="window.toggleFavFilter()">❤️ المفضلة (0)</button>
     </div>
   </header>
 
   <div class="container">
+    <!-- صندوق الفلترة والبحث المتقدم -->
     <div class="filter-box">
-      <input type="text" id="searchInput" oninput="window.filterProperties()" placeholder="ابحث بالاسم، الحي، أو الكود..." />
-      
-      <select id="sortFilter" onchange="window.filterProperties()">
-        <option value="newest">الأحدث أولاً</option>
-        <option value="priceAsc">السعر: من الأقل للأعلى</option>
-        <option value="priceDesc">السعر: من الأعلى للأقل</option>
-        <option value="areaDesc">المساحة: الأكبر أولاً</option>
-      </select>
+      <div class="filter-row">
+        <input type="text" id="searchInput" oninput="window.filterProperties()" placeholder="ابحث بالاسم، الحي، أو الكود..." />
+        
+        <select id="sortFilter" onchange="window.filterProperties()">
+          <option value="featured">العروض المميزة أولاً 🌟</option>
+          <option value="newest">الأحدث إضافة</option>
+          <option value="priceAsc">السعر: من الأقل للأعلى</option>
+          <option value="priceDesc">السعر: من الأعلى للأقل</option>
+          <option value="areaDesc">المساحة: الأكبر أولاً</option>
+          <option value="viewsDesc">الأكثر مشاهدة 👁️</option>
+        </select>
 
-      <select id="typeFilter" onchange="window.filterProperties()">
-        <option value="all">كل الأنواع</option>
-        <option value="بيع">بيع</option>
-        <option value="إيجار">إيجار</option>
-      </select>
+        <select id="typeFilter" onchange="window.filterProperties()">
+          <option value="all">كل الأنواع</option>
+          <option value="بيع">بيع</option>
+          <option value="إيجار">إيجار</option>
+        </select>
 
-      <select id="statusFilter" onchange="window.filterProperties()">
-        <option value="all">كل الحالات</option>
-        <option value="متاح">متاح فقط</option>
-        <option value="تم البيع">تم البيع</option>
-        <option value="محجوز">محجوز</option>
-      </select>
+        <select id="cityFilter" onchange="window.filterProperties()">
+          <option value="all">كل المحافظات</option>
+          <option value="النجف">النجف</option>
+          <option value="بغداد">بغداد</option>
+          <option value="كربلاء">كربلاء</option>
+        </select>
+      </div>
 
-      <select id="cityFilter" onchange="window.filterProperties()">
-        <option value="all">كل المحافظات</option>
-        <option value="النجف">النجف</option>
-        <option value="بغداد">بغداد</option>
-        <option value="كربلاء">كربلاء</option>
-      </select>
+      <!-- ميزانية السعر المخصصة (Min & Max Price) -->
+      <div class="filter-row">
+        <input type="number" id="minPriceInput" oninput="window.filterProperties()" placeholder="السعر الأدنى (د.ع)..." />
+        <input type="number" id="maxPriceInput" oninput="window.filterProperties()" placeholder="السعر الأعلى (د.ع)..." />
+      </div>
+
+      <!-- الفلترة السريعة (Chips) -->
+      <div class="quick-chips">
+        <button class="chip-btn" id="chipBeds3" onclick="window.toggleQuickFilter('beds3')">🛏️ +3 غرف</button>
+        <button class="chip-btn" id="chipBeds4" onclick="window.toggleQuickFilter('beds4')">🛏️ +4 غرف</button>
+        <button class="chip-btn" id="chipArea200" onclick="window.toggleQuickFilter('area200')">📐 +200 م²</button>
+        <button class="chip-btn" id="chipVipOnly" onclick="window.toggleQuickFilter('vipOnly')">🌟 عروض VIP فقط</button>
+      </div>
     </div>
 
     <div class="properties-grid" id="propertiesList">
-      <div style="grid-column:1/-1; text-align:center; padding:40px; color:#64748b;">جاري جلب العقارات من السحابة... ⏳</div>
+      <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">جاري جلب العقارات من السحابة... ⏳</div>
     </div>
   </div>
 
@@ -504,7 +645,7 @@
         <button class="btn-close" onclick="window.closeAppModal('loginModal')">&times;</button>
       </div>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">أدخل رمز المرور السري للمتابعة:</p>
-      <input type="password" id="adminPinInput" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:1.1rem; text-align:center; margin-bottom:12px;" placeholder="****" />
+      <input type="password" id="adminPinInput" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-size:1.1rem; text-align:center; margin-bottom:12px; background:var(--bg); color:var(--text);" placeholder="****" />
       <button type="button" class="btn-submit" onclick="window.verifyAdminPin()">دخول</button>
     </div>
   </div>
@@ -584,6 +725,12 @@
           </div>
         </div>
 
+        <!-- خانة عرض مميز VIP -->
+        <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin: 10px 0;">
+          <input type="checkbox" id="propIsFeatured" style="width: auto; cursor: pointer;" />
+          <label for="propIsFeatured" style="margin: 0; cursor: pointer; color: var(--gold); font-weight: bold;">🌟 تمييز هذا العقار كعرض حصري (VIP Featured)</label>
+        </div>
+
         <div class="form-group">
           <label>روابط الصور (رابط لكل سطر)</label>
           <textarea id="propImages" required placeholder="https://i.ibb.co/.../1.jpg&#10;https://i.ibb.co/.../2.jpg"></textarea>
@@ -593,13 +740,28 @@
         <button type="button" id="btnCancelEdit" class="btn-cancel-edit" onclick="window.cancelEdit()">✖️ إلغاء التعديل والعودة للإضافة</button>
       </form>
 
-      <!-- زر تحميل نسخة احتياطية من العقارات -->
-      <button type="button" class="btn-backup" onclick="window.exportBackup()">📥 تنزيل نسخة احتياطية من جميع العقارات (Backup)</button>
+      <!-- أزرار النسخ الاحتياطي والاستيراد -->
+      <div class="backup-actions">
+        <button type="button" class="btn-backup" onclick="window.exportBackup()">📥 تنزيل نسخة احتياطية</button>
+        <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="window.handleImportFile(event)" />
+        <button type="button" class="btn-import" onclick="document.getElementById('importFileInput').click()">📤 استيراد عقارات من ملف</button>
+      </div>
 
-      <div style="margin-top:20px; border-top:1px solid #e2e8f0; padding-top:10px;">
+      <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:10px;">
         <h3 style="font-size:0.95rem; margin-bottom:8px;">العقارات المنشورة (تعديل وحذف سحابي):</h3>
         <div id="adminPropertiesList"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- نافذة مقارنة العقارات -->
+  <div class="app-modal" id="compareModal">
+    <div class="app-modal-content" style="max-width: 650px;">
+      <div class="app-modal-header">
+        <h2>⚖️ مقارنة العقارات المختارة</h2>
+        <button class="btn-close" onclick="window.closeAppModal('compareModal')">&times;</button>
+      </div>
+      <div id="compareTableContainer" style="overflow-x: auto;"></div>
     </div>
   </div>
 
@@ -689,7 +851,7 @@
       </div>
       <button type="button" class="btn-submit" onclick="window.computeMortgage()">احسب القسط الشهري</button>
 
-      <div id="calcResult" style="margin-top:15px; padding:12px; background:#f1f5f9; border-radius:8px; display:none; text-align:center;">
+      <div id="calcResult" style="margin-top:15px; padding:12px; background:var(--box-bg); border-radius:8px; display:none; text-align:center;">
         <span style="font-size:0.85rem; color:var(--text-muted);">القسط الشهري التقديري:</span>
         <h3 id="calcResultVal" style="color:var(--secondary); font-size:1.3rem; margin-top:4px;"></h3>
       </div>
@@ -728,23 +890,37 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // تفعيل التخزين الكاش المحلي للعمل دون إنترنت (Offline Persistence)
     try {
       db.enablePersistence({ synchronizeTabs: true }).catch(() => {});
     } catch(e) {}
 
     let properties = [];
     let favorites = [];
+    let compareList = [];
+    let activeChips = { beds3: false, beds4: false, area200: false, vipOnly: false };
+
     try { favorites = JSON.parse(localStorage.getItem('almohandis_favs') || '[]'); } catch(e) { favorites = []; }
+    try { compareList = JSON.parse(localStorage.getItem('almohandis_compare') || '[]'); } catch(e) { compareList = []; }
 
     let showOnlyFavs = false;
     const currentSlideIndices = {};
-
-    // متغيرات الـ Lightbox
     let currentLightboxImages = [];
     let currentLightboxIndex = 0;
 
-    // جلب البيانات اللحظي
+    // تفعيل الوضع الليلي المحفوظ
+    if (localStorage.getItem('almohandis_theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) btn.textContent = '☀️';
+    }
+
+    window.toggleDarkMode = function() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      document.getElementById('themeToggleBtn').textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('almohandis_theme', isDark ? 'dark' : 'light');
+    };
+
+    // الاستماع المباشر للسحابة
     db.collection("properties").orderBy("createdAt", "desc").onSnapshot(snapshot => {
       properties = [];
       snapshot.forEach(doc => {
@@ -752,6 +928,7 @@
       });
       window.filterProperties();
       window.renderAdminList();
+      window.updateCompareCount();
     }, error => {
       console.error("Firebase Error:", error);
       document.getElementById("propertiesList").innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:#ef4444;">يرجى تفعيل صلاحيات Firestore Rules.</div>';
@@ -798,6 +975,11 @@
       if (el) el.textContent = `❤️ المفضلة (${favorites.length})`;
     }
 
+    window.updateCompareCount = function() {
+      const el = document.getElementById('compareBtn');
+      if (el) el.textContent = `⚖️ مقارنة (${compareList.length})`;
+    };
+
     window.toggleFavorite = function(id) {
       if (favorites.includes(id)) {
         favorites = favorites.filter(fId => fId !== id);
@@ -815,10 +997,98 @@
       window.filterProperties();
     };
 
-    // دوال Lightbox لتكبير الصور
+    // نظام المقارنة
+    window.toggleCompare = function(docId) {
+      if (compareList.includes(docId)) {
+        compareList = compareList.filter(id => id !== docId);
+      } else {
+        if (compareList.length >= 3) {
+          alert("يمكنك مقارنة حتى 3 عقارات كحد أقصى في وقت واحد.");
+          return;
+        }
+        compareList.push(docId);
+      }
+      try { localStorage.setItem('almohandis_compare', JSON.stringify(compareList)); } catch(e){}
+      window.updateCompareCount();
+      window.filterProperties();
+    };
+
+    window.openCompareModal = function() {
+      if (compareList.length === 0) {
+        alert("يرجى اختيار عقار أو عقارين أولاً بالضغط على زر (⚖️ مقارنة) في بطاقة العقار.");
+        return;
+      }
+      const selectedProps = properties.filter(p => compareList.includes(p.docId));
+      let html = `
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>المواصفة</th>
+              ${selectedProps.map(p => `<th>${p.title}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>السعر</strong></td>
+              ${selectedProps.map(p => `<td style="color:var(--secondary); font-weight:bold;">${p.price}</td>`).join('')}
+            </tr>
+            <tr>
+              <td><strong>الموقع</strong></td>
+              ${selectedProps.map(p => `<td>${p.city} - ${p.location}</td>`).join('')}
+            </tr>
+            <tr>
+              <td><strong>المساحة</strong></td>
+              ${selectedProps.map(p => `<td>${p.area}</td>`).join('')}
+            </tr>
+            <tr>
+              <td><strong>الغرف</strong></td>
+              ${selectedProps.map(p => `<td>${p.beds || '-'} غرف</td>`).join('')}
+            </tr>
+            <tr>
+              <td><strong>الحمامات</strong></td>
+              ${selectedProps.map(p => `<td>${p.baths || '-'}</td>`).join('')}
+            </tr>
+            <tr>
+              <td><strong>السند</strong></td>
+              ${selectedProps.map(p => `<td>${p.deed || '-'}</td>`).join('')}
+            </tr>
+            <tr>
+              <td><strong>الحالة</strong></td>
+              ${selectedProps.map(p => `<td>${p.status || 'متاح'}</td>`).join('')}
+            </tr>
+          </tbody>
+        </table>
+      `;
+      document.getElementById('compareTableContainer').innerHTML = html;
+      window.openAppModal('compareModal');
+    };
+
+    // الفلاتر السريعة (Chips)
+    window.toggleQuickFilter = function(type) {
+      activeChips[type] = !activeChips[type];
+      const chipEl = document.getElementById({
+        beds3: 'chipBeds3',
+        beds4: 'chipBeds4',
+        area200: 'chipArea200',
+        vipOnly: 'chipVipOnly'
+      }[type]);
+      if (chipEl) chipEl.classList.toggle('active', activeChips[type]);
+      window.filterProperties();
+    };
+
+    // زيادة المشاهدات عند الفتح
+    window.incrementViews = function(docId) {
+      try {
+        db.collection("properties").doc(docId).update({
+          views: firebase.firestore.FieldValue.increment(1)
+        });
+      } catch(e) {}
+    };
+
     window.openLightbox = function(docId) {
       const prop = properties.find(p => p.docId === docId);
       if (!prop) return;
+      window.incrementViews(docId);
       currentLightboxImages = getImagesList(prop);
       currentLightboxIndex = currentSlideIndices[docId] || 0;
       document.getElementById("lightboxImg").src = currentLightboxImages[currentLightboxIndex];
@@ -845,7 +1115,7 @@
       const propertiesList = document.getElementById("propertiesList");
       propertiesList.innerHTML = "";
       if (items.length === 0) {
-        propertiesList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#64748b;">لا توجد عقارات حالياً مطابقة لخيارات الفرز.</div>';
+        propertiesList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">لا توجد عقارات حالياً مطابقة لخيارات الفرز.</div>';
         return;
       }
 
@@ -854,6 +1124,7 @@
         if (!(p.docId in currentSlideIndices)) currentSlideIndices[p.docId] = 0;
         const currentIdx = currentSlideIndices[p.docId];
         const isFav = favorites.includes(p.docId);
+        const isCompared = compareList.includes(p.docId);
 
         let statusClass = "status-available";
         if (p.status === "تم البيع") statusClass = "status-sold";
@@ -869,9 +1140,10 @@
         ` : '';
 
         const card = document.createElement("div");
-        card.className = "property-card";
+        card.className = `property-card ${p.isFeatured ? 'is-featured' : ''}`;
         card.innerHTML = `
           <div class="image-container" onclick="window.openLightbox('${p.docId}')" title="اضغط لتكبير الصورة">
+            ${p.isFeatured ? `<span class="featured-ribbon">🌟 عرض مميز</span>` : ''}
             <span class="status-badge ${statusClass}">${p.status || p.type}</span>
             <button class="fav-btn" onclick="event.stopPropagation(); window.toggleFavorite('${p.docId}')">
               ${isFav ? '❤️' : '🤍'}
@@ -881,7 +1153,10 @@
             ${sliderControls}
           </div>
           <div class="property-content">
-            <div class="price">${p.price}</div>
+            <div class="price-row">
+              <div class="price">${p.price}</div>
+              <div class="views-tag">👁️ ${p.views || 1}</div>
+            </div>
             <div class="title">${p.title}</div>
             <div class="location">📍 ${p.city} - ${p.location}</div>
             
@@ -893,11 +1168,11 @@
             </div>
 
             <div class="actions-grid">
-              <a href="${waLink}" target="_blank" class="btn-action btn-wa">💬 واتساب</a>
+              <a href="${waLink}" target="_blank" class="btn-action btn-wa" onclick="window.incrementViews('${p.docId}')">💬 واتساب</a>
               <a href="tel:${CALL_PHONE}" class="btn-action btn-call">📞 اتصال</a>
               <button class="btn-action btn-schedule" onclick="window.openScheduleModal('${p.title.replace(/'/g, "")}')">📅 حجز معاينة</button>
-              ${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" class="btn-action btn-map">📍 خريطة</a>` : `<button class="btn-action btn-map" style="opacity:0.4; cursor:not-allowed;">📍 خريطة</button>`}
-              <button class="btn-action btn-share" onclick="window.shareProperty('${p.docId}')">🔗 مشاركة العرض</button>
+              <button class="btn-action btn-compare" onclick="window.toggleCompare('${p.docId}')">${isCompared ? '✔️ بالمقارنة' : '⚖️ مقارنة'}</button>
+              <button class="btn-action btn-share" onclick="window.shareProperty('${p.docId}')">🔗 مشاركة العرض / حالة واتساب</button>
             </div>
           </div>
         `;
@@ -923,21 +1198,26 @@
       const prop = properties.find(p => p.docId === docId);
       const title = prop ? prop.title : "عقار مميز";
       const shareUrl = window.location.href;
+      const shareText = `🏡 ${title}%0A💰 السعر: ${prop ? prop.price : ''}%0A📍 الموقع: ${prop ? prop.city + ' - ' + prop.location : ''}%0A📲 للتواصل: ${CALL_PHONE}%0A${shareUrl}`;
+      
       if (navigator.share) {
-        navigator.share({ title: title, url: shareUrl });
+        navigator.share({ title: title, text: `عقار مميز من المهندس للتسويق العقاري: ${title}`, url: shareUrl });
       } else {
         navigator.clipboard.writeText(shareUrl);
-        alert("تم نسخ رابط المنصة للمشاركة!");
+        alert("تم نسخ رابط العقار للمشاركة بنجاح!");
       }
     };
 
-    // فلترة وفرز العقارات
+    // فلترة وفرز العقارات المتطورة
     window.filterProperties = function() {
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
       const selectedType = document.getElementById("typeFilter").value;
       const selectedStatus = document.getElementById("statusFilter").value;
       const selectedCity = document.getElementById("cityFilter").value;
       const sortBy = document.getElementById("sortFilter").value;
+
+      const minPrice = parseFloat(document.getElementById("minPriceInput").value) || 0;
+      const maxPrice = parseFloat(document.getElementById("maxPriceInput").value) || Infinity;
 
       let filtered = properties.filter(p => {
         const matchesQuery = (p.title && p.title.toLowerCase().includes(query)) || (p.location && p.location.toLowerCase().includes(query));
@@ -946,16 +1226,31 @@
         const matchesCity = (selectedCity === "all") || (p.city === selectedCity);
         const matchesFav = !showOnlyFavs || favorites.includes(p.docId);
 
-        return matchesQuery && matchesType && matchesStatus && matchesCity && matchesFav;
+        const propNumericPrice = parseNumericPrice(p.price);
+        const matchesPrice = (propNumericPrice >= minPrice) && (propNumericPrice <= maxPrice);
+
+        // فلاتر الشرائح (Chips)
+        const propBeds = parseInt(p.beds) || 0;
+        const propAreaNum = parseNumericPrice(p.area);
+        const matchesBeds3 = !activeChips.beds3 || (propBeds >= 3);
+        const matchesBeds4 = !activeChips.beds4 || (propBeds >= 4);
+        const matchesArea200 = !activeChips.area200 || (propAreaNum >= 200);
+        const matchesVip = !activeChips.vipOnly || (p.isFeatured === true);
+
+        return matchesQuery && matchesType && matchesStatus && matchesCity && matchesFav && matchesPrice && matchesBeds3 && matchesBeds4 && matchesArea200 && matchesVip;
       });
 
       // منطق الفرز
-      if (sortBy === "priceAsc") {
+      if (sortBy === "featured") {
+        filtered.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
+      } else if (sortBy === "priceAsc") {
         filtered.sort((a, b) => parseNumericPrice(a.price) - parseNumericPrice(b.price));
       } else if (sortBy === "priceDesc") {
         filtered.sort((a, b) => parseNumericPrice(b.price) - parseNumericPrice(a.price));
       } else if (sortBy === "areaDesc") {
         filtered.sort((a, b) => parseNumericPrice(b.area) - parseNumericPrice(a.area));
+      } else if (sortBy === "viewsDesc") {
+        filtered.sort((a, b) => (b.views || 0) - (a.views || 0));
       } else {
         filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
       }
@@ -963,7 +1258,6 @@
       displayProperties(filtered);
     };
 
-    // حجز موعد معاينة
     window.openScheduleModal = function(title) {
       document.getElementById("schedulePropTitle").value = title;
       window.openAppModal('scheduleModal');
@@ -1013,7 +1307,6 @@
       document.getElementById('calcResultVal').textContent = `${monthly.toLocaleString()} د.ع / شهرياً`;
     };
 
-    // تصدير نسخة احتياطية
     window.exportBackup = function() {
       if (properties.length === 0) {
         alert("لا توجد عقارات حالياً لتصديرها.");
@@ -1028,19 +1321,43 @@
       downloadAnchor.remove();
     };
 
+    // استيراد العقارات من ملف JSON
+    window.handleImportFile = function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async function(event) {
+        try {
+          const imported = JSON.parse(event.target.result);
+          if (!Array.isArray(imported)) throw new Error("صيغة الملف غير صالحة");
+          if (!confirm(`سيتم استيراد ${imported.length} عقار وإضافتها للسحابة. هل أنت متأكد؟`)) return;
+
+          for (const item of imported) {
+            delete item.docId;
+            item.createdAt = item.createdAt || Date.now();
+            await db.collection("properties").add(item);
+          }
+          alert("تم استيراد العقارات بنجاح!");
+        } catch(err) {
+          alert("فشل استيراد الملف: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    };
+
     window.renderAdminList = function() {
       const list = document.getElementById("adminPropertiesList");
       if (!list) return;
       list.innerHTML = "";
       if (properties.length === 0) {
-        list.innerHTML = "<p style='color:#94a3b8; font-size:0.85rem;'>لا توجد عقارات مضافة في السحابة.</p>";
+        list.innerHTML = "<p style='color:var(--text-muted); font-size:0.85rem;'>لا توجد عقارات مضافة في السحابة.</p>";
         return;
       }
       properties.forEach(p => {
         const item = document.createElement("div");
         item.className = "manage-item";
         item.innerHTML = `
-          <span>${p.title} (${p.status || 'متاح'})</span>
+          <span>${p.isFeatured ? '🌟 ' : ''}${p.title} (${p.status || 'متاح'})</span>
           <div class="manage-item-actions">
             <button type="button" class="btn-edit" onclick="window.startEditProperty('${p.docId}')">✏️ تعديل</button>
             <button type="button" class="btn-del" onclick="window.deleteProperty('${p.docId}')">🗑️ حذف نهائي</button>
@@ -1066,6 +1383,7 @@
       document.getElementById("propDeed").value = p.deed || "";
       document.getElementById("propPrice").value = p.price || "";
       document.getElementById("propMap").value = p.mapUrl || "";
+      document.getElementById("propIsFeatured").checked = !!p.isFeatured;
 
       const imgs = getImagesList(p);
       document.getElementById("propImages").value = imgs.join("\n");
@@ -1089,10 +1407,11 @@
       document.getElementById("propPrice").value = "";
       document.getElementById("propMap").value = "";
       document.getElementById("propImages").value = "";
+      document.getElementById("propIsFeatured").checked = false;
 
       document.getElementById("adminFormHeading").textContent = "لوحة التحكم المباشرة (Firebase)";
       document.getElementById("btnSubmitProp").textContent = "💾 حفظ العقار في السحابة فوراً";
-      document.getElementById("btnSubmitProp").style.background = "var(--primary)";
+      document.getElementById("btnSubmitProp").style.background = "#0284c7";
       document.getElementById("btnCancelEdit").style.display = "none";
     };
 
@@ -1120,6 +1439,7 @@
         deed: document.getElementById("propDeed").value,
         price: document.getElementById("propPrice").value,
         mapUrl: document.getElementById("propMap").value,
+        isFeatured: document.getElementById("propIsFeatured").checked,
         images: imgUrls.length > 0 ? imgUrls : ["https://via.placeholder.com/600x400?text=No+Image"]
       };
 
@@ -1129,6 +1449,7 @@
           alert("✅ تم تحديث بيانات العقار في السحابة بنجاح!");
         } else {
           propData.createdAt = Date.now();
+          propData.views = 1;
           await db.collection("properties").add(propData);
           alert("✅ تم حفظ العقار في السحابة وظهر في الموقع والتطبيق فوراً!");
         }
