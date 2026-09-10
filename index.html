@@ -20,6 +20,7 @@
       --whatsapp: #25d366;
       --call: #0284c7;
       --danger: #dc2626;
+      --edit: #2563eb;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -211,7 +212,7 @@
     .app-modal-content {
       background: white;
       width: 100%;
-      max-width: 520px;
+      max-width: 540px;
       border-radius: 12px;
       padding: 20px;
       max-height: 85vh;
@@ -252,6 +253,21 @@
       font-weight: bold;
       cursor: pointer;
       margin-top: 5px;
+      transition: background 0.2s;
+    }
+
+    .btn-cancel-edit {
+      width: 100%;
+      background: #64748b;
+      color: white;
+      border: none;
+      padding: 9px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 6px;
+      display: none;
     }
 
     .admin-trigger {
@@ -283,6 +299,11 @@
       border-radius: 7px;
       margin-bottom: 6px;
       font-size: 0.85rem;
+      gap: 6px;
+    }
+    .manage-item-actions {
+      display: flex;
+      gap: 5px;
     }
     .btn-del {
       background: #fee2e2;
@@ -292,6 +313,17 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 0.8rem;
+    }
+    .btn-edit {
+      background: #dbeafe;
+      color: var(--edit);
+      border: 1px solid #93c5fd;
+      padding: 4px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8rem;
     }
 
     footer {
@@ -357,15 +389,18 @@
     </div>
   </div>
 
-  <!-- نافذة لوحة التحكم المتقدمة -->
+  <!-- نافذة لوحة التحكم المتقدمة (إضافة + تعديل + حذف) -->
   <div class="app-modal" id="adminModal">
-    <div class="app-modal-content">
+    <div class="app-modal-content" id="adminModalContent">
       <div class="app-modal-header">
-        <h2>لوحة التحكم المباشرة (Firebase)</h2>
+        <h2 id="adminFormHeading">لوحة التحكم المباشرة (Firebase)</h2>
         <button class="btn-close" onclick="window.closeAppModal('adminModal')">&times;</button>
       </div>
       
-      <form onsubmit="window.handleAddProperty(event)">
+      <!-- معرّف مخفي للتحقق هل العملية إضافة جديدة أم تعديل -->
+      <input type="hidden" id="editDocId" value="" />
+
+      <form onsubmit="window.handleSaveProperty(event)">
         <div class="form-group">
           <label>عنوان العقار</label>
           <input type="text" id="propTitle" required placeholder="مثال: بيت حديث طابقين بناء درجة أولى" />
@@ -436,10 +471,11 @@
         </div>
 
         <button type="submit" id="btnSubmitProp" class="btn-submit">💾 حفظ العقار في السحابة فوراً</button>
+        <button type="button" id="btnCancelEdit" class="btn-cancel-edit" onclick="window.cancelEdit()">✖️ إلغاء التعديل والعودة للإضافة</button>
       </form>
 
       <div style="margin-top:20px; border-top:1px solid #e2e8f0; padding-top:10px;">
-        <h3 style="font-size:0.95rem; margin-bottom:8px;">العقارات المنشورة (حذف سحابي مباشر):</h3>
+        <h3 style="font-size:0.95rem; margin-bottom:8px;">العقارات المنشورة (تعديل وحذف سحابي):</h3>
         <div id="adminPropertiesList"></div>
       </div>
     </div>
@@ -521,7 +557,6 @@
     const CALL_PHONE = "07805599252";
     const ADMIN_PIN = "1234";
 
-    // تهيئة Firebase ببياناتك المباشرة
     const firebaseConfig = {
       apiKey: "AIzaSyBVAMFeTYb4LjJXRniwnX-0u8a5jAovJt0",
       authDomain: "almohandis-b17ca.firebaseapp.com",
@@ -542,7 +577,6 @@
     let showOnlyFavs = false;
     const currentSlideIndices = {};
 
-    // الاستماع الحي لقاعدة البيانات (Realtime Listener)
     db.collection("properties").orderBy("createdAt", "desc").onSnapshot(snapshot => {
       properties = [];
       snapshot.forEach(doc => {
@@ -552,7 +586,7 @@
       window.renderAdminList();
     }, error => {
       console.error("Firebase Error:", error);
-      document.getElementById("propertiesList").innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:#ef4444;">يرجى تفعيل صلاحيات القراءة والكتابة في Firebase Rules (allow read, write: if true;).</div>';
+      document.getElementById("propertiesList").innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:#ef4444;">يرجى تفعيل صلاحيات Firestore Rules.</div>';
     });
 
     window.openAppModal = function(modalId) {
@@ -765,22 +799,79 @@
         item.className = "manage-item";
         item.innerHTML = `
           <span>${p.title} (${p.status || 'متاح'})</span>
-          <button type="button" class="btn-del" onclick="window.deleteProperty('${p.docId}')">حذف نهائي</button>
+          <div class="manage-item-actions">
+            <button type="button" class="btn-edit" onclick="window.startEditProperty('${p.docId}')">✏️ تعديل</button>
+            <button type="button" class="btn-del" onclick="window.deleteProperty('${p.docId}')">🗑️ حذف نهائي</button>
+          </div>
         `;
         list.appendChild(item);
       });
     };
 
-    window.handleAddProperty = async function(e) {
+    // بدء وضع التعديل وملء البيانات في الاستمارة
+    window.startEditProperty = function(docId) {
+      const p = properties.find(item => item.docId === docId);
+      if (!p) return;
+
+      document.getElementById("editDocId").value = p.docId;
+      document.getElementById("propTitle").value = p.title || "";
+      document.getElementById("propType").value = p.type || "بيع";
+      document.getElementById("propStatus").value = p.status || "متاح";
+      document.getElementById("propCity").value = p.city || "";
+      document.getElementById("propLocation").value = p.location || "";
+      document.getElementById("propArea").value = p.area || "";
+      document.getElementById("propBeds").value = p.beds || "";
+      document.getElementById("propBaths").value = p.baths || "";
+      document.getElementById("propDeed").value = p.deed || "";
+      document.getElementById("propPrice").value = p.price || "";
+      document.getElementById("propMap").value = p.mapUrl || "";
+
+      const imgs = getImagesList(p);
+      document.getElementById("propImages").value = imgs.join("\n");
+
+      // تعديل حالة أزرار الاستمارة
+      document.getElementById("adminFormHeading").textContent = "✏️ تعديل العقار الحالي";
+      document.getElementById("btnSubmitProp").textContent = "💾 حفظ التعديلات في السحابة";
+      document.getElementById("btnSubmitProp").style.background = "#2563eb";
+      document.getElementById("btnCancelEdit").style.display = "block";
+
+      // الصعود لأعلى النافذة للبدء بالتعديل
+      document.getElementById("adminModalContent").scrollTop = 0;
+    };
+
+    // إلغاء التعديل وتفريغ الحقول
+    window.cancelEdit = function() {
+      document.getElementById("editDocId").value = "";
+      document.getElementById("propTitle").value = "";
+      document.getElementById("propLocation").value = "";
+      document.getElementById("propArea").value = "";
+      document.getElementById("propBeds").value = "";
+      document.getElementById("propBaths").value = "";
+      document.getElementById("propDeed").value = "";
+      document.getElementById("propPrice").value = "";
+      document.getElementById("propMap").value = "";
+      document.getElementById("propImages").value = "";
+
+      document.getElementById("adminFormHeading").textContent = "لوحة التحكم المباشرة (Firebase)";
+      document.getElementById("btnSubmitProp").textContent = "💾 حفظ العقار في السحابة فوراً";
+      document.getElementById("btnSubmitProp").style.background = "var(--primary)";
+      document.getElementById("btnCancelEdit").style.display = "none";
+    };
+
+    // حفظ عقار (سواء كان إضافة جديدة أو تعديلاً لعقار سابق)
+    window.handleSaveProperty = async function(e) {
       e.preventDefault();
       const btn = document.getElementById("btnSubmitProp");
+      const editDocId = document.getElementById("editDocId").value.trim();
+      const isEditing = !!editDocId;
+
       btn.disabled = true;
-      btn.textContent = "جاري الحفظ في السحابة... ⏳";
+      btn.textContent = isEditing ? "جاري تحديث التعديلات... ⏳" : "جاري الحفظ في السحابة... ⏳";
 
       const rawUrls = document.getElementById("propImages").value;
       const imgUrls = rawUrls.split(/[\n,]+/).map(u => u.trim()).filter(u => u.length > 0);
 
-      const newProp = {
+      const propData = {
         title: document.getElementById("propTitle").value,
         type: document.getElementById("propType").value,
         status: document.getElementById("propStatus").value,
@@ -792,24 +883,30 @@
         deed: document.getElementById("propDeed").value,
         price: document.getElementById("propPrice").value,
         mapUrl: document.getElementById("propMap").value,
-        images: imgUrls.length > 0 ? imgUrls : ["https://via.placeholder.com/600x400?text=No+Image"],
-        createdAt: Date.now()
+        images: imgUrls.length > 0 ? imgUrls : ["https://via.placeholder.com/600x400?text=No+Image"]
       };
 
       try {
-        await db.collection("properties").add(newProp);
-        alert("✅ تم حفظ العقار في السحابة وظهر في الموقع والتطبيق فوراً!");
-        document.getElementById("propTitle").value = "";
-        document.getElementById("propLocation").value = "";
-        document.getElementById("propArea").value = "";
-        document.getElementById("propPrice").value = "";
-        document.getElementById("propImages").value = "";
+        if (isEditing) {
+          // تحديث عقار موجود
+          await db.collection("properties").doc(editDocId).update(propData);
+          alert("✅ تم تحديث بيانات العقار في السحابة بنجاح!");
+        } else {
+          // إضافة عقار جديد
+          propData.createdAt = Date.now();
+          await db.collection("properties").add(propData);
+          alert("✅ تم حفظ العقار في السحابة وظهر في الموقع والتطبيق فوراً!");
+        }
+
+        window.cancelEdit();
         window.closeAppModal('adminModal');
       } catch (err) {
-        alert("حدث خطأ في الحفظ: " + err.message);
+        alert("حدث خطأ: " + err.message);
       } finally {
         btn.disabled = false;
-        btn.textContent = "💾 حفظ العقار في السحابة فوراً";
+        if (!isEditing) {
+          btn.textContent = "💾 حفظ العقار في السحابة فوراً";
+        }
       }
     };
 
