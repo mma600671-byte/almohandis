@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>المهندس للتسويق العقاري</title>
 
+  <!-- وسوم المشاركة والتسويق (Open Graph & SEO) -->
+  <meta name="description" content="منصة المهندس للتسويق العقاري - دليلك الموثوق لأفضل العقارات والفرص الاستثمارية في النجف والعراق." />
+  <meta property="og:title" content="المهندس للتسويق العقاري" />
+  <meta property="og:description" content="تصفح أحدث المنازل والشقق والأراضي المعروضة للبيع والإيجار مع تفاصيل دقيقة ومعاينة مباشرة." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&auto=format&fit=crop&q=80" />
+
   <!-- مكتبات Firebase السحابية الرسمية -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -21,6 +28,7 @@
       --call: #0284c7;
       --danger: #dc2626;
       --edit: #2563eb;
+      --schedule: #0f766e;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -30,9 +38,9 @@
       background: linear-gradient(135deg, #0f172a, var(--primary));
       color: white;
       text-align: center;
-      padding: 30px 15px 20px;
+      padding: 30px 15px 22px;
     }
-    header h1 { font-size: 1.8rem; margin-bottom: 5px; }
+    header h1 { font-size: 1.85rem; margin-bottom: 5px; }
     header p { color: #cbd5e1; font-size: 0.95rem; }
 
     .header-btns {
@@ -51,19 +59,22 @@
       cursor: pointer;
       font-size: 0.85rem;
       font-weight: 600;
+      transition: background 0.2s;
     }
+    .header-btn:hover { background: rgba(255, 255, 255, 0.25); }
 
-    .container { max-width: 1100px; margin: -15px auto 40px; padding: 0 15px; }
+    .container { max-width: 1140px; margin: -15px auto 40px; padding: 0 15px; }
 
+    /* صندوق البحث والفرز المتقدم */
     .filter-box {
       background: var(--card-bg);
-      padding: 15px;
+      padding: 16px;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
     .filter-box input, .filter-box select {
       padding: 10px 12px;
@@ -77,7 +88,7 @@
 
     .properties-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 20px;
     }
     .property-card {
@@ -90,8 +101,33 @@
       position: relative;
     }
 
-    .image-container { position: relative; height: 210px; background: #0f172a; }
-    .image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .image-container {
+      position: relative;
+      height: 220px;
+      background: #0f172a;
+      cursor: pointer;
+    }
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* العلامة المائية للصور */
+    .watermark-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, 0.75);
+      color: #f1f5f9;
+      font-size: 0.68rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      z-index: 3;
+      pointer-events: none;
+      letter-spacing: 0.3px;
+    }
     
     .status-badge {
       position: absolute;
@@ -102,7 +138,7 @@
       font-size: 0.75rem;
       font-weight: bold;
       color: white;
-      z-index: 2;
+      z-index: 3;
     }
     .status-available { background: var(--primary); }
     .status-sold { background: var(--danger); }
@@ -123,7 +159,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 2;
+      z-index: 3;
     }
 
     .slider-btn {
@@ -137,10 +173,11 @@
       height: 32px;
       border-radius: 50%;
       cursor: pointer;
-      z-index: 2;
+      z-index: 3;
     }
     .slider-btn.prev { right: 8px; }
     .slider-btn.next { left: 8px; }
+
     .photo-counter {
       position: absolute;
       bottom: 8px;
@@ -149,13 +186,13 @@
       color: white;
       padding: 2px 7px;
       border-radius: 10px;
-      font-size: 0.75rem;
-      z-index: 2;
+      font-size: 0.72rem;
+      z-index: 3;
     }
 
     .property-content { padding: 15px; flex: 1; display: flex; flex-direction: column; }
     .price { color: var(--secondary); font-size: 1.25rem; font-weight: bold; margin-bottom: 4px; }
-    .title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .title { font-size: 1.08rem; font-weight: 700; margin-bottom: 6px; }
     .location { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; }
 
     .specs-grid {
@@ -171,11 +208,12 @@
     }
     .spec-item { display: flex; align-items: center; gap: 3px; }
 
+    /* شبكة أزرار الإجراءات */
     .actions-grid {
       margin-top: auto;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 5px;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
     }
     .btn-action {
       border: none;
@@ -190,12 +228,15 @@
       cursor: pointer;
       color: white;
       text-align: center;
+      gap: 4px;
     }
     .btn-wa { background: var(--whatsapp); }
     .btn-call { background: var(--call); }
+    .btn-schedule { background: var(--schedule); }
     .btn-map { background: #475569; }
-    .btn-share { background: #64748b; }
+    .btn-share { background: #64748b; grid-column: span 2; }
 
+    /* النوافذ المنبثقة العامة */
     .app-modal {
       display: none;
       position: fixed;
@@ -253,7 +294,6 @@
       font-weight: bold;
       cursor: pointer;
       margin-top: 5px;
-      transition: background 0.2s;
     }
 
     .btn-cancel-edit {
@@ -268,6 +308,19 @@
       cursor: pointer;
       margin-top: 6px;
       display: none;
+    }
+
+    .btn-backup {
+      background: #047857;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 7px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
     }
 
     .admin-trigger {
@@ -301,10 +354,7 @@
       font-size: 0.85rem;
       gap: 6px;
     }
-    .manage-item-actions {
-      display: flex;
-      gap: 5px;
-    }
+    .manage-item-actions { display: flex; gap: 5px; }
     .btn-del {
       background: #fee2e2;
       color: var(--danger);
@@ -325,6 +375,66 @@
       font-weight: bold;
       font-size: 0.8rem;
     }
+
+    /* نافذة تكبير الصور الكاملة (Lightbox) */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 100000;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-prev { right: 15px; }
+    .lightbox-next { left: 15px; }
 
     footer {
       text-align: center;
@@ -350,17 +460,27 @@
   <div class="container">
     <div class="filter-box">
       <input type="text" id="searchInput" oninput="window.filterProperties()" placeholder="ابحث بالاسم، الحي، أو الكود..." />
+      
+      <select id="sortFilter" onchange="window.filterProperties()">
+        <option value="newest">الأحدث أولاً</option>
+        <option value="priceAsc">السعر: من الأقل للأعلى</option>
+        <option value="priceDesc">السعر: من الأعلى للأقل</option>
+        <option value="areaDesc">المساحة: الأكبر أولاً</option>
+      </select>
+
       <select id="typeFilter" onchange="window.filterProperties()">
         <option value="all">كل الأنواع</option>
         <option value="بيع">بيع</option>
         <option value="إيجار">إيجار</option>
       </select>
+
       <select id="statusFilter" onchange="window.filterProperties()">
         <option value="all">كل الحالات</option>
         <option value="متاح">متاح فقط</option>
         <option value="تم البيع">تم البيع</option>
         <option value="محجوز">محجوز</option>
       </select>
+
       <select id="cityFilter" onchange="window.filterProperties()">
         <option value="all">كل المحافظات</option>
         <option value="النجف">النجف</option>
@@ -389,7 +509,7 @@
     </div>
   </div>
 
-  <!-- نافذة لوحة التحكم المتقدمة (إضافة + تعديل + حذف) -->
+  <!-- نافذة لوحة التحكم المتقدمة -->
   <div class="app-modal" id="adminModal">
     <div class="app-modal-content" id="adminModalContent">
       <div class="app-modal-header">
@@ -397,7 +517,6 @@
         <button class="btn-close" onclick="window.closeAppModal('adminModal')">&times;</button>
       </div>
       
-      <!-- معرّف مخفي للتحقق هل العملية إضافة جديدة أم تعديل -->
       <input type="hidden" id="editDocId" value="" />
 
       <form onsubmit="window.handleSaveProperty(event)">
@@ -474,10 +593,39 @@
         <button type="button" id="btnCancelEdit" class="btn-cancel-edit" onclick="window.cancelEdit()">✖️ إلغاء التعديل والعودة للإضافة</button>
       </form>
 
+      <!-- زر تحميل نسخة احتياطية من العقارات -->
+      <button type="button" class="btn-backup" onclick="window.exportBackup()">📥 تنزيل نسخة احتياطية من جميع العقارات (Backup)</button>
+
       <div style="margin-top:20px; border-top:1px solid #e2e8f0; padding-top:10px;">
         <h3 style="font-size:0.95rem; margin-bottom:8px;">العقارات المنشورة (تعديل وحذف سحابي):</h3>
         <div id="adminPropertiesList"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- نافذة حجز موعد معاينة ميدانية -->
+  <div class="app-modal" id="scheduleModal">
+    <div class="app-modal-content" style="max-width: 440px;">
+      <div class="app-modal-header">
+        <h2>📅 حجز موعد لمعاينة العقار</h2>
+        <button class="btn-close" onclick="window.closeAppModal('scheduleModal')">&times;</button>
+      </div>
+      <form onsubmit="window.handleScheduleSubmit(event)">
+        <input type="hidden" id="schedulePropTitle" />
+        <div class="form-group">
+          <label>اسمك الكريم</label>
+          <input type="text" id="scheduleName" required placeholder="الاسم الكامل" />
+        </div>
+        <div class="form-group">
+          <label>التاريخ المقترح للمعاينة</label>
+          <input type="date" id="scheduleDate" required />
+        </div>
+        <div class="form-group">
+          <label>الوقت المفضل</label>
+          <input type="time" id="scheduleTime" required />
+        </div>
+        <button type="submit" class="btn-submit" style="background:var(--schedule)">📲 تأكيد الحجز عبر واتساب</button>
+      </form>
     </div>
   </div>
 
@@ -548,6 +696,16 @@
     </div>
   </div>
 
+  <!-- نافذة تكبير الصور الكاملة (Lightbox) -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <button class="lightbox-close" onclick="window.closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="window.changeLightbox(-1)">❮</button>
+    <button class="lightbox-nav lightbox-next" onclick="window.changeLightbox(1)">❯</button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="صورة العقار مكبرة" />
+    </div>
+  </div>
+
   <footer>
     <p>جميع الحقوق محفوظة &copy; <span id="year"></span> - المهندس للتسويق العقاري</p>
   </footer>
@@ -570,6 +728,11 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
+    // تفعيل التخزين الكاش المحلي للعمل دون إنترنت (Offline Persistence)
+    try {
+      db.enablePersistence({ synchronizeTabs: true }).catch(() => {});
+    } catch(e) {}
+
     let properties = [];
     let favorites = [];
     try { favorites = JSON.parse(localStorage.getItem('almohandis_favs') || '[]'); } catch(e) { favorites = []; }
@@ -577,6 +740,11 @@
     let showOnlyFavs = false;
     const currentSlideIndices = {};
 
+    // متغيرات الـ Lightbox
+    let currentLightboxImages = [];
+    let currentLightboxIndex = 0;
+
+    // جلب البيانات اللحظي
     db.collection("properties").orderBy("createdAt", "desc").onSnapshot(snapshot => {
       properties = [];
       snapshot.forEach(doc => {
@@ -647,11 +815,37 @@
       window.filterProperties();
     };
 
+    // دوال Lightbox لتكبير الصور
+    window.openLightbox = function(docId) {
+      const prop = properties.find(p => p.docId === docId);
+      if (!prop) return;
+      currentLightboxImages = getImagesList(prop);
+      currentLightboxIndex = currentSlideIndices[docId] || 0;
+      document.getElementById("lightboxImg").src = currentLightboxImages[currentLightboxIndex];
+      document.getElementById("lightboxModal").style.display = "flex";
+    };
+
+    window.closeLightbox = function() {
+      document.getElementById("lightboxModal").style.display = "none";
+    };
+
+    window.changeLightbox = function(step) {
+      if (currentLightboxImages.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex + step + currentLightboxImages.length) % currentLightboxImages.length;
+      document.getElementById("lightboxImg").src = currentLightboxImages[currentLightboxIndex];
+    };
+
+    function parseNumericPrice(str) {
+      if (!str) return 0;
+      const num = str.replace(/[^0-9]/g, '');
+      return parseFloat(num) || 0;
+    }
+
     function displayProperties(items) {
       const propertiesList = document.getElementById("propertiesList");
       propertiesList.innerHTML = "";
       if (items.length === 0) {
-        propertiesList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#64748b;">لا توجد عقارات حالياً. استخدم لوحة التحكم لإضافة عقار جديد.</div>';
+        propertiesList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#64748b;">لا توجد عقارات حالياً مطابقة لخيارات الفرز.</div>';
         return;
       }
 
@@ -669,20 +863,21 @@
         const waLink = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
 
         const sliderControls = imgs.length > 1 ? `
-          <button class="slider-btn prev" onclick="window.changeSlide('${p.docId}', -1)">❮</button>
-          <button class="slider-btn next" onclick="window.changeSlide('${p.docId}', 1)">❯</button>
+          <button class="slider-btn prev" onclick="event.stopPropagation(); window.changeSlide('${p.docId}', -1)">❮</button>
+          <button class="slider-btn next" onclick="event.stopPropagation(); window.changeSlide('${p.docId}', 1)">❯</button>
           <span class="photo-counter" id="counter-${p.docId}">${currentIdx + 1}/${imgs.length}</span>
         ` : '';
 
         const card = document.createElement("div");
         card.className = "property-card";
         card.innerHTML = `
-          <div class="image-container">
+          <div class="image-container" onclick="window.openLightbox('${p.docId}')" title="اضغط لتكبير الصورة">
             <span class="status-badge ${statusClass}">${p.status || p.type}</span>
-            <button class="fav-btn" onclick="window.toggleFavorite('${p.docId}')">
+            <button class="fav-btn" onclick="event.stopPropagation(); window.toggleFavorite('${p.docId}')">
               ${isFav ? '❤️' : '🤍'}
             </button>
             <img id="img-${p.docId}" src="${imgs[currentIdx]}" alt="${p.title}" loading="lazy" />
+            <span class="watermark-badge">المهندس للتسويق العقاري</span>
             ${sliderControls}
           </div>
           <div class="property-content">
@@ -700,8 +895,9 @@
             <div class="actions-grid">
               <a href="${waLink}" target="_blank" class="btn-action btn-wa">💬 واتساب</a>
               <a href="tel:${CALL_PHONE}" class="btn-action btn-call">📞 اتصال</a>
+              <button class="btn-action btn-schedule" onclick="window.openScheduleModal('${p.title.replace(/'/g, "")}')">📅 حجز معاينة</button>
               ${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" class="btn-action btn-map">📍 خريطة</a>` : `<button class="btn-action btn-map" style="opacity:0.4; cursor:not-allowed;">📍 خريطة</button>`}
-              <button class="btn-action btn-share" onclick="window.shareProperty('${p.docId}')">🔗 مشاركة</button>
+              <button class="btn-action btn-share" onclick="window.shareProperty('${p.docId}')">🔗 مشاركة العرض</button>
             </div>
           </div>
         `;
@@ -735,13 +931,15 @@
       }
     };
 
+    // فلترة وفرز العقارات
     window.filterProperties = function() {
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
       const selectedType = document.getElementById("typeFilter").value;
       const selectedStatus = document.getElementById("statusFilter").value;
       const selectedCity = document.getElementById("cityFilter").value;
+      const sortBy = document.getElementById("sortFilter").value;
 
-      const filtered = properties.filter(p => {
+      let filtered = properties.filter(p => {
         const matchesQuery = (p.title && p.title.toLowerCase().includes(query)) || (p.location && p.location.toLowerCase().includes(query));
         const matchesType = (selectedType === "all") || (p.type === selectedType);
         const matchesStatus = (selectedStatus === "all") || (p.status === selectedStatus);
@@ -751,7 +949,36 @@
         return matchesQuery && matchesType && matchesStatus && matchesCity && matchesFav;
       });
 
+      // منطق الفرز
+      if (sortBy === "priceAsc") {
+        filtered.sort((a, b) => parseNumericPrice(a.price) - parseNumericPrice(b.price));
+      } else if (sortBy === "priceDesc") {
+        filtered.sort((a, b) => parseNumericPrice(b.price) - parseNumericPrice(a.price));
+      } else if (sortBy === "areaDesc") {
+        filtered.sort((a, b) => parseNumericPrice(b.area) - parseNumericPrice(a.area));
+      } else {
+        filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      }
+
       displayProperties(filtered);
+    };
+
+    // حجز موعد معاينة
+    window.openScheduleModal = function(title) {
+      document.getElementById("schedulePropTitle").value = title;
+      window.openAppModal('scheduleModal');
+    };
+
+    window.handleScheduleSubmit = function(e) {
+      e.preventDefault();
+      const title = document.getElementById("schedulePropTitle").value;
+      const name = document.getElementById("scheduleName").value;
+      const date = document.getElementById("scheduleDate").value;
+      const time = document.getElementById("scheduleTime").value;
+
+      const msg = `مرحباً المهندس للتسويق العقاري، أود حجز موعد لمعاينة العقار:%0A🏠 العقار: ${title}%0A👤 الاسم: ${name}%0A📅 التاريخ: ${date}%0A⏰ الوقت: ${time}`;
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${msg}`, '_blank');
+      window.closeAppModal('scheduleModal');
     };
 
     window.handleClientSubmit = function(e) {
@@ -786,6 +1013,21 @@
       document.getElementById('calcResultVal').textContent = `${monthly.toLocaleString()} د.ع / شهرياً`;
     };
 
+    // تصدير نسخة احتياطية
+    window.exportBackup = function() {
+      if (properties.length === 0) {
+        alert("لا توجد عقارات حالياً لتصديرها.");
+        return;
+      }
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(properties, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `almohandis_backup_${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    };
+
     window.renderAdminList = function() {
       const list = document.getElementById("adminPropertiesList");
       if (!list) return;
@@ -808,7 +1050,6 @@
       });
     };
 
-    // بدء وضع التعديل وملء البيانات في الاستمارة
     window.startEditProperty = function(docId) {
       const p = properties.find(item => item.docId === docId);
       if (!p) return;
@@ -829,17 +1070,14 @@
       const imgs = getImagesList(p);
       document.getElementById("propImages").value = imgs.join("\n");
 
-      // تعديل حالة أزرار الاستمارة
       document.getElementById("adminFormHeading").textContent = "✏️ تعديل العقار الحالي";
       document.getElementById("btnSubmitProp").textContent = "💾 حفظ التعديلات في السحابة";
       document.getElementById("btnSubmitProp").style.background = "#2563eb";
       document.getElementById("btnCancelEdit").style.display = "block";
 
-      // الصعود لأعلى النافذة للبدء بالتعديل
       document.getElementById("adminModalContent").scrollTop = 0;
     };
 
-    // إلغاء التعديل وتفريغ الحقول
     window.cancelEdit = function() {
       document.getElementById("editDocId").value = "";
       document.getElementById("propTitle").value = "";
@@ -858,7 +1096,6 @@
       document.getElementById("btnCancelEdit").style.display = "none";
     };
 
-    // حفظ عقار (سواء كان إضافة جديدة أو تعديلاً لعقار سابق)
     window.handleSaveProperty = async function(e) {
       e.preventDefault();
       const btn = document.getElementById("btnSubmitProp");
@@ -888,11 +1125,9 @@
 
       try {
         if (isEditing) {
-          // تحديث عقار موجود
           await db.collection("properties").doc(editDocId).update(propData);
           alert("✅ تم تحديث بيانات العقار في السحابة بنجاح!");
         } else {
-          // إضافة عقار جديد
           propData.createdAt = Date.now();
           await db.collection("properties").add(propData);
           alert("✅ تم حفظ العقار في السحابة وظهر في الموقع والتطبيق فوراً!");
