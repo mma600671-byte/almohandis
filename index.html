@@ -7,7 +7,7 @@
 
   <meta name="description" content="منصة المهندس للتسويق العقاري - دليلك الموثوق لأفضل العقارات والفرص الاستثمارية في النجف والعراق." />
   <meta property="og:title" content="المهندس للتسويق العقاري" />
-  <meta property="og:description" content="تصفح أحدث المنازل والشقق والأراضي المعروضة للبيع والإيجار مع تفاصيل دقيقة ومعاينة مباشرة." />
+  <meta property="og:description" content="تصفح أحدث المنازل والشقق والأراضي المعروضة للبيع والإيجار والرهن مع تفاصيل دقيقة ومعاينة مباشرة." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&auto=format&fit=crop&q=80" />
 
@@ -101,9 +101,10 @@
 
     .container { max-width: 1140px; margin: -15px auto 40px; padding: 0 15px; }
 
+    /* صندوق الفلترة المتطور بالقوائم المنسدلة */
     .filter-box {
       background: var(--card-bg);
-      padding: 16px;
+      padding: 18px;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
       display: flex;
@@ -113,8 +114,8 @@
       border: 1px solid var(--border);
     }
     .filter-row {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 10px;
     }
     .filter-box input, .filter-box select {
@@ -123,29 +124,11 @@
       border-radius: 8px;
       font-size: 0.9rem;
       outline: none;
-      flex: 1;
-      min-width: 130px;
+      width: 100%;
       background: var(--bg);
       color: var(--text);
     }
-
-    .quick-chips {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .chip-btn {
-      background: var(--box-bg);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 5px 12px;
-      border-radius: 15px;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-    .chip-btn.active {
-      background: var(--primary);
-      color: white;
+    .filter-box input:focus, .filter-box select:focus {
       border-color: var(--primary);
     }
 
@@ -326,6 +309,7 @@
     .btn-compare { background: #8b5cf6; }
     .btn-share { background: #64748b; grid-column: span 2; }
 
+    /* النوافذ المنبثقة العامة */
     .app-modal {
       display: none;
       position: fixed;
@@ -581,9 +565,11 @@
   </header>
 
   <div class="container">
+    <!-- شريط البحث والفلترة الجديد بالقوائم المنسدلة -->
     <div class="filter-box">
+      <!-- السطر الأول: البحث والترتيب والنوع والمحافظة -->
       <div class="filter-row">
-        <input type="text" id="searchInput" oninput="window.filterProperties()" placeholder="ابحث بالاسم، الحي، أو الكود..." />
+        <input type="text" id="searchInput" oninput="window.filterProperties()" placeholder="ابحث بالاسم، الحي، أو الكود..." style="grid-column: span 2;" />
         
         <select id="sortFilter" onchange="window.filterProperties()">
           <option value="featured">العروض المميزة أولاً 🌟</option>
@@ -596,8 +582,10 @@
 
         <select id="typeFilter" onchange="window.filterProperties()">
           <option value="all">كل الأنواع</option>
-          <option value="بيع">بيع</option>
-          <option value="إيجار">إيجار</option>
+          <option value="بيع">1- بيع</option>
+          <option value="إيجار">2- إيجار</option>
+          <option value="رهن">3- رهن</option>
+          <option value="أقساط">4- أقساط</option>
         </select>
 
         <select id="cityFilter" onchange="window.filterProperties()">
@@ -608,16 +596,35 @@
         </select>
       </div>
 
+      <!-- السطر الثاني: القوائم المنسدلة للغرف والمساحة وVIP والسعر -->
       <div class="filter-row">
+        <!-- قائمة الغرف -->
+        <select id="bedsFilter" onchange="window.filterProperties()">
+          <option value="all">كل الغرف</option>
+          <option value="2">2 غرف فأكثر</option>
+          <option value="3">3 غرف فأكثر</option>
+          <option value="4">4 غرف فأكثر</option>
+          <option value="5">5 غرف فأكثر</option>
+        </select>
+
+        <!-- قائمة المساحة -->
+        <select id="areaFilter" onchange="window.filterProperties()">
+          <option value="all">كل المساحات</option>
+          <option value="100">100 م² فأكثر</option>
+          <option value="200">200 م² فأكثر</option>
+          <option value="300">300 م² فأكثر</option>
+          <option value="400">400 م² فأكثر</option>
+        </select>
+
+        <!-- قائمة عروض VIP -->
+        <select id="vipFilter" onchange="window.filterProperties()">
+          <option value="all">كل العروض</option>
+          <option value="vip">عروض VIP فقط 🌟</option>
+        </select>
+
+        <!-- حدود الأسعار -->
         <input type="number" id="minPriceInput" oninput="window.filterProperties()" placeholder="السعر الأدنى (د.ع)..." />
         <input type="number" id="maxPriceInput" oninput="window.filterProperties()" placeholder="السعر الأعلى (د.ع)..." />
-      </div>
-
-      <div class="quick-chips">
-        <button class="chip-btn" id="chipBeds3" onclick="window.toggleQuickFilter('beds3')">🛏️ +3 غرف</button>
-        <button class="chip-btn" id="chipBeds4" onclick="window.toggleQuickFilter('beds4')">🛏️ +4 غرف</button>
-        <button class="chip-btn" id="chipArea200" onclick="window.toggleQuickFilter('area200')">📐 +200 م²</button>
-        <button class="chip-btn" id="chipVipOnly" onclick="window.toggleQuickFilter('vipOnly')">🌟 عروض VIP فقط</button>
       </div>
     </div>
 
@@ -661,6 +668,8 @@
             <select id="propType">
               <option value="بيع">بيع</option>
               <option value="إيجار">إيجار</option>
+              <option value="رهن">رهن</option>
+              <option value="أقساط">أقساط</option>
             </select>
           </div>
           <div class="form-group" style="flex:1;">
@@ -778,7 +787,7 @@
     </div>
   </div>
 
-  <!-- نافذة أعلن معنا -->
+  <!-- نافذة أعلن معنا (محدثة لتشمل طلبات الرهن) -->
   <div class="app-modal" id="clientModal">
     <div class="app-modal-content">
       <div class="app-modal-header">
@@ -797,7 +806,9 @@
           <select id="clientType">
             <option value="عرض بيع">لدي عقار أريد بيعه</option>
             <option value="عرض إيجار">لدي عقار أريد تأجيره</option>
+            <option value="عرض رهن عقار">لدي عقار أريد رهنه</option>
             <option value="طلب شراء">أبحث عن عقار للشراء</option>
+            <option value="طلب استئجار / رهن عقار">أبحث عن عقار للإيجار أو الرهن</option>
           </select>
         </div>
         <div class="form-group">
@@ -805,12 +816,12 @@
           <input type="text" id="clientLocation" required placeholder="النجف - حي الغدير" />
         </div>
         <div class="form-group">
-          <label>السعر المطلوب / التقديري</label>
-          <input type="text" id="clientPrice" required placeholder="مثال: 150 مليون" />
+          <label>السعر المطلوب / مبلغ الرهن التقديري</label>
+          <input type="text" id="clientPrice" required placeholder="مثال: 150 مليون / 30 مليون رهن" />
         </div>
         <div class="form-group">
           <label>تفاصيل ومواصفات العقار</label>
-          <textarea id="clientNotes" placeholder="المساحة، عدد الغرف، أي ملاحظات إضافية..."></textarea>
+          <textarea id="clientNotes" placeholder="المساحة، عدد الغرف، شروط الرهن أو الإيجار، أي ملاحظات إضافية..."></textarea>
         </div>
         <button type="submit" class="btn-submit" style="background:var(--whatsapp)">📲 إرسال التفاصيل عبر واتساب</button>
       </form>
@@ -877,7 +888,6 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // عقارات افتراضية جاهزة تظهر فوراً لضمان عدم توقف الواجهة
     const initialDefaultProperties = [
       {
         docId: "default_1",
@@ -890,10 +900,10 @@
         beds: 4,
         baths: 3,
         deed: "طابو ملك صرف",
-        price: "180,000,000 د.ع",
+        price: "240,000,000 د.ع",
         mapUrl: "https://maps.google.com",
         isFeatured: true,
-        views: 24,
+        views: 28,
         createdAt: Date.now(),
         images: [
           "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format&fit=crop&q=60",
@@ -922,6 +932,26 @@
       },
       {
         docId: "default_3",
+        title: "دار سكني معروض للرهن موقع مميز",
+        type: "رهن",
+        status: "متاح",
+        city: "النجف",
+        location: "حي السلام",
+        area: "150 م²",
+        beds: 3,
+        baths: 2,
+        deed: "طابو سكني",
+        price: "35,000,000 د.ع رهن",
+        mapUrl: "",
+        isFeatured: true,
+        views: 31,
+        createdAt: Date.now() - 15000,
+        images: [
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=60"
+        ]
+      },
+      {
+        docId: "default_4",
         title: "قطعة أرض ركن موقع تجاري سكني",
         type: "بيع",
         status: "تم البيع",
@@ -945,7 +975,6 @@
     let properties = [...initialDefaultProperties];
     let favorites = [];
     let compareList = [];
-    let activeChips = { beds3: false, beds4: false, area200: false, vipOnly: false };
 
     try { favorites = JSON.parse(localStorage.getItem('almohandis_favs') || '[]'); } catch(e) { favorites = []; }
     try { compareList = JSON.parse(localStorage.getItem('almohandis_compare') || '[]'); } catch(e) { compareList = []; }
@@ -967,7 +996,6 @@
       localStorage.setItem('almohandis_theme', isDark ? 'dark' : 'light');
     };
 
-    // جلب العقارات من Firestore دون التوقف إذا كانت المجموعة فارغة
     try {
       db.collection("properties").onSnapshot(snapshot => {
         if (!snapshot.empty) {
@@ -1080,8 +1108,12 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>السعر</strong></td>
+              <td><strong>السعر / الرهن</strong></td>
               ${selectedProps.map(p => `<td style="color:var(--secondary); font-weight:bold;">${p.price}</td>`).join('')}
+            </tr>
+            <tr>
+              <td><strong>النوع</strong></td>
+              ${selectedProps.map(p => `<td>${p.type || 'بيع'}</td>`).join('')}
             </tr>
             <tr>
               <td><strong>الموقع</strong></td>
@@ -1112,18 +1144,6 @@
       `;
       document.getElementById('compareTableContainer').innerHTML = html;
       window.openAppModal('compareModal');
-    };
-
-    window.toggleQuickFilter = function(type) {
-      activeChips[type] = !activeChips[type];
-      const chipEl = document.getElementById({
-        beds3: 'chipBeds3',
-        beds4: 'chipBeds4',
-        area200: 'chipArea200',
-        vipOnly: 'chipVipOnly'
-      }[type]);
-      if (chipEl) chipEl.classList.toggle('active', activeChips[type]);
-      window.filterProperties();
     };
 
     window.incrementViews = function(docId) {
@@ -1179,7 +1199,7 @@
         if (p.status === "تم البيع") statusClass = "status-sold";
         if (p.status === "محجوز") statusClass = "status-reserved";
 
-        const message = encodeURIComponent(`مرحباً المهندس للتسويق العقاري، أستفسر عن العقار: "${p.title}"`);
+        const message = encodeURIComponent(`مرحباً المهندس للتسويق العقاري، أستفسر عن العقار: "${p.title}" (${p.type || 'بيع'})`);
         const waLink = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
 
         const sliderControls = imgs.length > 1 ? `
@@ -1207,7 +1227,7 @@
               <div class="views-tag">👁️ ${p.views || 1}</div>
             </div>
             <div class="title">${p.title}</div>
-            <div class="location">📍 ${p.city} - ${p.location}</div>
+            <div class="location">📍 ${p.city} - ${p.location} | <span style="color:var(--primary); font-weight:bold;">${p.type || 'بيع'}</span></div>
             
             <div class="specs-grid">
               <div class="spec-item">📐 <strong>${p.area}</strong></div>
@@ -1247,6 +1267,7 @@
       const prop = properties.find(p => p.docId === docId);
       const title = prop ? prop.title : "عقار مميز";
       const shareUrl = window.location.href;
+      
       if (navigator.share) {
         navigator.share({ title: title, text: `عقار مميز من المهندس للتسويق العقاري: ${title}`, url: shareUrl });
       } else {
@@ -1255,11 +1276,16 @@
       }
     };
 
+    // فلترة وفرز العقارات مع القوائم المنسدلة الجديدة
     window.filterProperties = function() {
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
       const selectedType = document.getElementById("typeFilter").value;
       const selectedCity = document.getElementById("cityFilter").value;
       const sortBy = document.getElementById("sortFilter").value;
+
+      const selectedBeds = document.getElementById("bedsFilter").value;
+      const selectedArea = document.getElementById("areaFilter").value;
+      const selectedVip = document.getElementById("vipFilter").value;
 
       const minPrice = parseFloat(document.getElementById("minPriceInput").value) || 0;
       const maxPrice = parseFloat(document.getElementById("maxPriceInput").value) || Infinity;
@@ -1273,14 +1299,18 @@
         const propNumericPrice = parseNumericPrice(p.price);
         const matchesPrice = (propNumericPrice >= minPrice) && (propNumericPrice <= maxPrice);
 
+        // فلترة الغرف عبر القائمة المنسدلة
         const propBeds = parseInt(p.beds) || 0;
-        const propAreaNum = parseNumericPrice(p.area);
-        const matchesBeds3 = !activeChips.beds3 || (propBeds >= 3);
-        const matchesBeds4 = !activeChips.beds4 || (propBeds >= 4);
-        const matchesArea200 = !activeChips.area200 || (propAreaNum >= 200);
-        const matchesVip = !activeChips.vipOnly || (p.isFeatured === true);
+        const matchesBeds = (selectedBeds === "all") || (propBeds >= parseInt(selectedBeds));
 
-        return matchesQuery && matchesType && matchesCity && matchesFav && matchesPrice && matchesBeds3 && matchesBeds4 && matchesArea200 && matchesVip;
+        // فلترة المساحة عبر القائمة المنسدلة
+        const propAreaNum = parseNumericPrice(p.area);
+        const matchesArea = (selectedArea === "all") || (propAreaNum >= parseInt(selectedArea));
+
+        // فلترة عروض VIP عبر القائمة المنسدلة
+        const matchesVip = (selectedVip === "all") || (p.isFeatured === true);
+
+        return matchesQuery && matchesType && matchesCity && matchesFav && matchesPrice && matchesBeds && matchesArea && matchesVip;
       });
 
       if (sortBy === "featured") {
@@ -1325,7 +1355,7 @@
       const price = document.getElementById("clientPrice").value;
       const notes = document.getElementById("clientNotes").value;
 
-      const msg = `📢 طلب إعلان جديد من المنصة:%0A👤 الاسم: ${name}%0A🏷️ نوع الطلب: ${type}%0A📍 الموقع: ${loc}%0A💰 السعر: ${price}%0A📝 ملاحظات: ${notes}`;
+      const msg = `📢 طلب إعلان جديد من المنصة:%0A👤 الاسم: ${name}%0A🏷️ نوع الطلب: ${type}%0A📍 الموقع: ${loc}%0A💰 السعر / الرهن التقديري: ${price}%0A📝 ملاحظات وتفاصيل: ${notes}`;
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${msg}`, '_blank');
       window.closeAppModal('clientModal');
     };
@@ -1398,7 +1428,7 @@
         const item = document.createElement("div");
         item.className = "manage-item";
         item.innerHTML = `
-          <span>${p.isFeatured ? '🌟 ' : ''}${p.title} (${p.status || 'متاح'})</span>
+          <span>${p.isFeatured ? '🌟 ' : ''}${p.title} (${p.type || 'بيع'} - ${p.status || 'متاح'})</span>
           <div class="manage-item-actions">
             <button type="button" class="btn-edit" onclick="window.startEditProperty('${p.docId}')">✏️ تعديل</button>
             <button type="button" class="btn-del" onclick="window.deleteProperty('${p.docId}')">🗑️ حذف نهائي</button>
