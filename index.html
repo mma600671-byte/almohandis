@@ -2,331 +2,422 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>المهندس للتسويق العقاري</title>
-
-<meta name="description" content="المهندس للتسويق العقاري - منصة عالمية لبيع وشراء وتأجير العقارات">
+<title>المهندس | للتسويق العقاري</title>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Tahoma,sans-serif;
+    font-family:Arial,Tahoma,sans-serif
+}
+
+:root{
+    --primary:#087f68;
+    --dark:#10231f;
+    --light:#f5f7f6;
+    --white:#fff;
+    --gray:#66736f;
+    --border:#e4e9e7;
 }
 
 body{
-    background:#f6f7f9;
-    color:#172033;
+    background:var(--light);
+    color:var(--dark);
 }
 
 /* NAVBAR */
-nav{
-    height:75px;
-    background:#fff;
+
+header{
+    background:white;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.nav{
+    max-width:1250px;
+    margin:auto;
+    padding:16px 22px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 6%;
-    box-shadow:0 2px 15px rgba(0,0,0,.06);
-    position:sticky;
-    top:0;
-    z-index:100;
+    gap:20px;
 }
 
 .logo{
-    font-size:23px;
-    font-weight:bold;
-    color:#0d6b58;
+    font-size:24px;
+    font-weight:900;
+    color:var(--primary);
+    white-space:nowrap;
 }
 
 .logo span{
-    color:#172033;
+    color:var(--dark);
 }
 
-.nav-links{
+nav{
     display:flex;
-    gap:30px;
-    list-style:none;
+    gap:24px;
 }
 
-.nav-links a{
+nav a{
     text-decoration:none;
-    color:#172033;
-    font-size:15px;
-}
-
-.nav-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.btn{
-    border:none;
-    padding:11px 18px;
-    border-radius:8px;
-    cursor:pointer;
+    color:var(--dark);
+    font-size:14px;
     font-weight:bold;
 }
 
-.btn-outline{
-    background:white;
-    border:1px solid #ddd;
+.actions{
+    display:flex;
+    gap:8px;
 }
 
-.btn-main{
-    background:#0d6b58;
+button{
+    cursor:pointer;
+}
+
+.btn{
+    border:0;
+    border-radius:9px;
+    padding:11px 17px;
+    font-weight:bold;
+}
+
+.primary{
+    background:var(--primary);
     color:white;
 }
 
+.secondary{
+    background:white;
+    color:var(--dark);
+    border:1px solid var(--border);
+}
+
 /* HERO */
+
 .hero{
-    min-height:600px;
-    background:
-    linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.25)),
-    url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80");
-    background-size:cover;
-    background-position:center;
+    min-height:620px;
     display:flex;
     align-items:center;
-    padding:60px 7%;
+    background:
+    linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.2)),
+    url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85");
+    background-size:cover;
+    background-position:center;
     color:white;
 }
 
 .hero-content{
-    max-width:700px;
+    width:min(1250px,90%);
+    margin:auto;
 }
 
 .hero h1{
     font-size:58px;
+    max-width:720px;
     line-height:1.15;
-    margin-bottom:20px;
+    margin-bottom:18px;
 }
 
 .hero p{
-    font-size:20px;
+    font-size:19px;
     line-height:1.8;
-    margin-bottom:35px;
+    max-width:650px;
+    margin-bottom:30px;
 }
 
 /* SEARCH */
-.search-box{
+
+.search{
     background:white;
-    color:#222;
-    padding:18px;
-    border-radius:14px;
+    padding:16px;
+    border-radius:15px;
+    max-width:1050px;
+    color:var(--dark);
     display:grid;
-    grid-template-columns:1.2fr 1fr 1fr 1fr auto;
-    gap:10px;
-    box-shadow:0 10px 35px rgba(0,0,0,.2);
+    grid-template-columns:1fr 1fr 1fr 1fr auto;
+    gap:9px;
+    box-shadow:0 15px 45px rgba(0,0,0,.25);
 }
 
-.search-box select,
-.search-box input{
-    border:1px solid #ddd;
-    padding:14px;
-    border-radius:8px;
-    outline:none;
+.field{
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:13px;
     background:white;
 }
 
-.search-btn{
-    background:#0d6b58;
+.search button{
+    border:0;
+    background:var(--primary);
     color:white;
-    border:none;
     padding:0 25px;
-    border-radius:8px;
-    cursor:pointer;
+    border-radius:9px;
     font-weight:bold;
 }
 
-/* SECTION */
+/* CONTENT */
+
+.container{
+    width:min(1250px,90%);
+    margin:auto;
+}
+
 section{
-    padding:80px 7%;
+    padding:75px 0;
 }
 
-.section-title{
-    text-align:center;
-    margin-bottom:45px;
+.title{
+    margin-bottom:35px;
 }
 
-.section-title h2{
-    font-size:35px;
-    margin-bottom:12px;
+.title h2{
+    font-size:34px;
+    margin-bottom:9px;
 }
 
-.section-title p{
-    color:#777;
+.title p{
+    color:var(--gray);
 }
 
-/* CARDS */
-.properties{
+/* FILTER */
+
+.filters{
+    background:white;
+    border:1px solid var(--border);
+    padding:18px;
+    border-radius:14px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.filters select,
+.filters input{
+    padding:11px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    min-width:150px;
+}
+
+/* PROPERTY GRID */
+
+.grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:25px;
+    gap:22px;
 }
 
-.card{
+.property{
     background:white;
     border-radius:15px;
     overflow:hidden;
-    box-shadow:0 5px 25px rgba(0,0,0,.07);
-    transition:.3s;
+    border:1px solid var(--border);
+    transition:.25s;
 }
 
-.card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
+.property:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
 }
 
-.card-img{
+.photo{
     height:230px;
     position:relative;
 }
 
-.card-img img{
+.photo img{
     width:100%;
     height:100%;
     object-fit:cover;
 }
 
-.badge{
+.tag{
     position:absolute;
-    top:15px;
-    right:15px;
-    background:#0d6b58;
+    right:14px;
+    top:14px;
+    background:var(--primary);
     color:white;
-    padding:7px 12px;
+    padding:7px 11px;
     border-radius:6px;
-    font-size:13px;
+    font-size:12px;
 }
 
-.favorite{
+.heart{
     position:absolute;
-    top:15px;
-    left:15px;
-    background:white;
-    width:38px;
-    height:38px;
+    left:14px;
+    top:14px;
+    width:40px;
+    height:40px;
+    border:0;
     border-radius:50%;
-    border:none;
-    cursor:pointer;
-    font-size:18px;
+    background:white;
+    font-size:20px;
 }
 
-.card-body{
-    padding:20px;
+.body{
+    padding:19px;
 }
 
-.card-body h3{
-    margin-bottom:10px;
+.body h3{
+    margin-bottom:9px;
 }
 
 .location{
-    color:#777;
-    margin-bottom:18px;
+    color:var(--gray);
+    font-size:14px;
+    margin-bottom:15px;
 }
 
 .price{
-    color:#0d6b58;
+    color:var(--primary);
+    font-weight:900;
     font-size:21px;
-    font-weight:bold;
-    margin-bottom:18px;
+    margin-bottom:17px;
 }
 
-.details{
+.specs{
     display:flex;
     justify-content:space-between;
-    border-top:1px solid #eee;
-    padding-top:15px;
-    color:#666;
-    font-size:14px;
+    border-top:1px solid var(--border);
+    padding-top:14px;
+    color:var(--gray);
+    font-size:13px;
 }
 
-/* FEATURES */
-.features{
+/* SERVICES */
+
+.services{
     background:white;
 }
 
-.feature-grid{
+.service-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:25px;
+    gap:20px;
 }
 
-.feature{
+.service{
     text-align:center;
     padding:30px 20px;
+    border:1px solid var(--border);
+    border-radius:14px;
 }
 
-.feature-icon{
-    width:65px;
-    height:65px;
-    background:#e8f5f1;
-    color:#0d6b58;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 20px;
-    font-size:27px;
+.icon{
+    font-size:35px;
+    margin-bottom:17px;
 }
 
-.feature h3{
-    margin-bottom:10px;
+.service h3{
+    margin-bottom:9px;
 }
 
-.feature p{
-    color:#777;
+.service p{
+    color:var(--gray);
     line-height:1.7;
 }
 
+/* ADD PROPERTY */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:2000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-box{
+    background:white;
+    width:min(600px,100%);
+    max-height:90vh;
+    overflow:auto;
+    border-radius:16px;
+    padding:25px;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:22px;
+}
+
+.close{
+    border:0;
+    background:none;
+    font-size:25px;
+}
+
+.form{
+    display:grid;
+    gap:12px;
+}
+
+.form input,
+.form select,
+.form textarea{
+    padding:13px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    width:100%;
+}
+
+.form textarea{
+    height:100px;
+    resize:none;
+}
+
 /* CTA */
+
 .cta{
-    background:#0d6b58;
+    background:var(--primary);
     color:white;
-    text-align:center;
     border-radius:20px;
-    margin:70px 7%;
-    padding:70px 20px;
+    padding:65px 25px;
+    text-align:center;
+    margin:70px auto;
 }
 
 .cta h2{
-    font-size:40px;
+    font-size:38px;
     margin-bottom:15px;
 }
 
 .cta p{
-    margin-bottom:30px;
-    font-size:18px;
-}
-
-.cta .btn{
-    background:white;
-    color:#0d6b58;
+    margin-bottom:25px;
 }
 
 /* FOOTER */
+
 footer{
-    background:#111827;
+    background:#101917;
     color:white;
-    padding:60px 7% 25px;
+    padding:55px 0 20px;
 }
 
 .footer-grid{
     display:grid;
     grid-template-columns:2fr 1fr 1fr 1fr;
-    gap:40px;
+    gap:35px;
 }
 
 footer h3{
-    margin-bottom:20px;
+    margin-bottom:17px;
 }
 
 footer p,
 footer li{
-    color:#aeb6c2;
+    color:#aab6b1;
     line-height:2;
 }
 
@@ -334,43 +425,39 @@ footer ul{
     list-style:none;
 }
 
-.copyright{
-    border-top:1px solid #293241;
-    margin-top:40px;
-    padding-top:20px;
+.copy{
+    border-top:1px solid #27332f;
+    margin-top:35px;
+    padding-top:18px;
     text-align:center;
-    color:#8c95a3;
+    color:#89948f;
 }
 
 /* MOBILE */
+
 @media(max-width:900px){
 
-    .nav-links{
+    nav{
         display:none;
     }
 
-    .hero{
-        min-height:650px;
-        padding:50px 5%;
-    }
-
     .hero h1{
-        font-size:40px;
+        font-size:42px;
     }
 
-    .search-box{
+    .search{
         grid-template-columns:1fr;
     }
 
-    .search-btn{
+    .search button{
         padding:14px;
     }
 
-    .properties{
-        grid-template-columns:1fr;
+    .grid{
+        grid-template-columns:1fr 1fr;
     }
 
-    .feature-grid{
+    .service-grid{
         grid-template-columns:1fr 1fr;
     }
 
@@ -381,27 +468,35 @@ footer ul{
 
 @media(max-width:550px){
 
-    nav{
-        padding:0 5%;
+    .nav{
+        padding:13px;
     }
 
-    .nav-buttons .btn-outline{
+    .logo{
+        font-size:20px;
+    }
+
+    .actions .secondary{
         display:none;
     }
 
+    .hero{
+        min-height:650px;
+    }
+
     .hero h1{
-        font-size:34px;
+        font-size:35px;
     }
 
     .hero p{
         font-size:16px;
     }
 
-    section{
-        padding:55px 5%;
+    .grid{
+        grid-template-columns:1fr;
     }
 
-    .feature-grid{
+    .service-grid{
         grid-template-columns:1fr;
     }
 
@@ -409,12 +504,8 @@ footer ul{
         grid-template-columns:1fr;
     }
 
-    .cta{
-        margin:40px 5%;
-    }
-
-    .cta h2{
-        font-size:30px;
+    section{
+        padding:55px 0;
     }
 }
 </style>
@@ -422,27 +513,29 @@ footer ul{
 
 <body>
 
-<!-- NAVBAR -->
+<header>
 
-<nav>
+<div class="nav">
 
 <div class="logo">
 المهندس <span>للتسويق العقاري</span>
 </div>
 
-<ul class="nav-links">
-<li><a href="#home">الرئيسية</a></li>
-<li><a href="#properties">العقارات</a></li>
-<li><a href="#services">خدماتنا</a></li>
-<li><a href="#contact">تواصل معنا</a></li>
-</ul>
+<nav>
+<a href="#home">الرئيسية</a>
+<a href="#properties">العقارات</a>
+<a href="#services">الخدمات</a>
+<a href="#contact">تواصل معنا</a>
+</nav>
 
-<div class="nav-buttons">
-<button class="btn btn-outline">تسجيل الدخول</button>
-<button class="btn btn-main" onclick="addProperty()">أضف عقارك</button>
+<div class="actions">
+<button class="btn secondary">دخول</button>
+<button class="btn primary" onclick="openModal()">+ أضف عقارك</button>
 </div>
 
-</nav>
+</div>
+
+</header>
 
 
 <!-- HERO -->
@@ -452,38 +545,40 @@ footer ul{
 <div class="hero-content">
 
 <h1>
-اعثر على<br>
-عقارك المثالي
+اكتشف العقار<br>
+الذي تبحث عنه
 </h1>
 
 <p>
-منصة حديثة لتسويق وبيع وتأجير العقارات
+منصة حديثة لتسويق العقارات وبيعها وتأجيرها
 بسهولة واحترافية.
 </p>
 
-<div class="search-box">
+<div class="search">
 
-<select id="type">
+<select class="field" id="searchType">
 <option value="">نوع العقار</option>
-<option>منزل</option>
-<option>شقة</option>
-<option>أرض</option>
-<option>فيلا</option>
-<option>محل تجاري</option>
-<option>مكتب</option>
+<option value="منزل">منزل</option>
+<option value="شقة">شقة</option>
+<option value="فيلا">فيلا</option>
+<option value="أرض">أرض</option>
+<option value="محل">محل</option>
 </select>
 
-<input id="city" type="text" placeholder="المدينة أو المنطقة">
+<input class="field" id="searchLocation"
+placeholder="المدينة أو المنطقة">
 
-<select id="purpose">
-<option value="">الغرض</option>
-<option>بيع</option>
-<option>إيجار</option>
+<select class="field" id="searchPurpose">
+<option value="">بيع أو إيجار</option>
+<option value="بيع">بيع</option>
+<option value="إيجار">إيجار</option>
 </select>
 
-<input id="price" type="number" placeholder="أقصى سعر">
+<input class="field" id="searchPrice"
+type="number"
+placeholder="السعر الأقصى">
 
-<button class="search-btn" onclick="searchProperty()">
+<button onclick="searchProperties()">
 بحث
 </button>
 
@@ -497,37 +592,72 @@ footer ul{
 
 <section id="properties">
 
-<div class="section-title">
+<div class="container">
+
+<div class="title">
 
 <h2>عقارات مميزة</h2>
 
 <p>
-اكتشف مجموعة مختارة من أفضل العقارات المعروضة
+أفضل العقارات المعروضة حالياً
 </p>
 
 </div>
 
 
-<div class="properties" id="propertyList">
+<div class="filters">
+
+<select id="filterType" onchange="filterProperties()">
+<option value="">كل الأنواع</option>
+<option>منزل</option>
+<option>شقة</option>
+<option>فيلا</option>
+<option>أرض</option>
+<option>محل</option>
+</select>
+
+<select id="filterPurpose" onchange="filterProperties()">
+<option value="">بيع وإيجار</option>
+<option>بيع</option>
+<option>إيجار</option>
+</select>
+
+<select id="filterCity" onchange="filterProperties()">
+<option value="">كل المدن</option>
+<option>النجف</option>
+<option>بغداد</option>
+<option>كربلاء</option>
+<option>البصرة</option>
+</select>
+
+</div>
 
 
-<!-- CARD 1 -->
+<div class="grid" id="propertyGrid">
 
-<div class="card" data-city="النجف" data-type="منزل">
 
-<div class="card-img">
+<!-- PROPERTY -->
 
-<img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80">
+<div class="property"
+data-type="منزل"
+data-purpose="بيع"
+data-city="النجف"
+data-price="250000000">
 
-<span class="badge">مميز</span>
+<div class="photo">
 
-<button class="favorite" onclick="favorite(this)">
+<img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=85">
+
+<span class="tag">مميز</span>
+
+<button class="heart"
+onclick="toggleFavorite(this)">
 ♡
 </button>
 
 </div>
 
-<div class="card-body">
+<div class="body">
 
 <h3>منزل عصري فاخر</h3>
 
@@ -539,9 +669,9 @@ footer ul{
 250,000,000 د.ع
 </div>
 
-<div class="details">
+<div class="specs">
 <span>🛏 4 غرف</span>
-<span>🚿 3 حمام</span>
+<span>🚿 3</span>
 <span>📐 200 م²</span>
 </div>
 
@@ -549,25 +679,30 @@ footer ul{
 </div>
 
 
-<!-- CARD 2 -->
+<!-- PROPERTY -->
 
-<div class="card" data-city="بغداد" data-type="فيلا">
+<div class="property"
+data-type="فيلا"
+data-purpose="بيع"
+data-city="بغداد"
+data-price="480000000">
 
-<div class="card-img">
+<div class="photo">
 
-<img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80">
+<img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=85">
 
-<span class="badge">للبيع</span>
+<span class="tag">للبيع</span>
 
-<button class="favorite" onclick="favorite(this)">
+<button class="heart"
+onclick="toggleFavorite(this)">
 ♡
 </button>
 
 </div>
 
-<div class="card-body">
+<div class="body">
 
-<h3>فيلا راقية</h3>
+<h3>فيلا فاخرة</h3>
 
 <div class="location">
 📍 بغداد - المنصور
@@ -577,9 +712,9 @@ footer ul{
 480,000,000 د.ع
 </div>
 
-<div class="details">
+<div class="specs">
 <span>🛏 5 غرف</span>
-<span>🚿 4 حمام</span>
+<span>🚿 4</span>
 <span>📐 350 م²</span>
 </div>
 
@@ -587,25 +722,30 @@ footer ul{
 </div>
 
 
-<!-- CARD 3 -->
+<!-- PROPERTY -->
 
-<div class="card" data-city="كربلاء" data-type="أرض">
+<div class="property"
+data-type="أرض"
+data-purpose="بيع"
+data-city="كربلاء"
+data-price="120000000">
 
-<div class="card-img">
+<div class="photo">
 
-<img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80">
+<img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=85">
 
-<span class="badge">فرصة</span>
+<span class="tag">فرصة</span>
 
-<button class="favorite" onclick="favorite(this)">
+<button class="heart"
+onclick="toggleFavorite(this)">
 ♡
 </button>
 
 </div>
 
-<div class="card-body">
+<div class="body">
 
-<h3>قطعة أرض سكنية</h3>
+<h3>أرض سكنية</h3>
 
 <div class="location">
 📍 كربلاء - حي الحسين
@@ -615,13 +755,16 @@ footer ul{
 120,000,000 د.ع
 </div>
 
-<div class="details">
+<div class="specs">
 <span>📐 300 م²</span>
-<span>📍 سكني</span>
-<span>🏗 قابل للبناء</span>
+<span>🏗 سكني</span>
+<span>📍 شارع رئيسي</span>
 </div>
 
 </div>
+</div>
+
+
 </div>
 
 </div>
@@ -631,69 +774,40 @@ footer ul{
 
 <!-- SERVICES -->
 
-<section class="features" id="services">
+<section class="services" id="services">
 
-<div class="section-title">
+<div class="container">
 
-<h2>لماذا المهندس؟</h2>
-
-<p>
-نقدم تجربة عقارية حديثة وسهلة
-</p>
-
+<div class="title">
+<h2>خدماتنا</h2>
+<p>أكثر من مجرد نشر إعلان</p>
 </div>
 
+<div class="service-grid">
 
-<div class="feature-grid">
-
-<div class="feature">
-
-<div class="feature-icon">🏠</div>
-
-<h3>عقارات متنوعة</h3>
-
-<p>
-منازل، شقق، أراضي، فلل، محلات ومكاتب.
-</p>
-
+<div class="service">
+<div class="icon">🏠</div>
+<h3>تسويق العقار</h3>
+<p>عرض عقارك بطريقة احترافية للوصول إلى المشترين.</p>
 </div>
 
-
-<div class="feature">
-
-<div class="feature-icon">🔎</div>
-
-<h3>بحث ذكي</h3>
-
-<p>
-ابحث حسب الموقع والسعر ونوع العقار.
-</p>
-
+<div class="service">
+<div class="icon">📸</div>
+<h3>تصوير احترافي</h3>
+<p>تحسين صور العقار وإظهار تفاصيله بأفضل شكل.</p>
 </div>
 
-
-<div class="feature">
-
-<div class="feature-icon">📸</div>
-
-<h3>تسويق احترافي</h3>
-
-<p>
-نعرض عقارك بطريقة احترافية تصل إلى أكبر عدد من العملاء.
-</p>
-
+<div class="service">
+<div class="icon">📱</div>
+<h3>إعلانات رقمية</h3>
+<p>تسويق العقار عبر منصات التواصل الاجتماعي.</p>
 </div>
 
-
-<div class="feature">
-
-<div class="feature-icon">🌍</div>
-
+<div class="service">
+<div class="icon">🌍</div>
 <h3>وصول عالمي</h3>
-
-<p>
-اجعل عقارك متاحاً للعملاء من أي مكان.
-</p>
+<p>إتاحة العقار للعملاء من مختلف المناطق والدول.</p>
+</div>
 
 </div>
 
@@ -704,17 +818,21 @@ footer ul{
 
 <!-- CTA -->
 
+<div class="container">
+
 <div class="cta">
 
-<h2>لديك عقار للبيع أو الإيجار؟</h2>
+<h2>هل لديك عقار للبيع أو الإيجار؟</h2>
 
 <p>
-أضف عقارك الآن وابدأ بالوصول إلى العملاء.
+أضف عقارك وابدأ في الوصول إلى العملاء.
 </p>
 
-<button class="btn" onclick="addProperty()">
-+ أضف عقارك
+<button class="btn secondary" onclick="openModal()">
++ أضف عقارك الآن
 </button>
+
+</div>
 
 </div>
 
@@ -723,150 +841,280 @@ footer ul{
 
 <footer id="contact">
 
+<div class="container">
+
 <div class="footer-grid">
 
 <div>
-
 <h3>المهندس للتسويق العقاري</h3>
-
 <p>
 منصة متخصصة في تسويق العقارات
-بطريقة عصرية واحترافية.
+بطريقة حديثة واحترافية.
 </p>
-
 </div>
 
-
 <div>
-
-<h3>روابط</h3>
-
-<ul>
-<li>الرئيسية</li>
-<li>العقارات</li>
-<li>خدماتنا</li>
-<li>من نحن</li>
-</ul>
-
-</div>
-
-
-<div>
-
 <h3>العقارات</h3>
-
 <ul>
 <li>للبيع</li>
 <li>للإيجار</li>
 <li>الأراضي</li>
 <li>العقارات التجارية</li>
 </ul>
-
 </div>
 
+<div>
+<h3>الخدمات</h3>
+<ul>
+<li>تسويق العقارات</li>
+<li>تصوير العقار</li>
+<li>الإعلانات</li>
+<li>التسويق الرقمي</li>
+</ul>
+</div>
 
 <div>
-
-<h3>تواصل معنا</h3>
-
+<h3>تواصل</h3>
 <ul>
 <li>📞 اتصال</li>
 <li>💬 WhatsApp</li>
 <li>📷 Instagram</li>
 <li>📘 Facebook</li>
 </ul>
-
 </div>
 
 </div>
 
-
-<div class="copyright">
-
-© 2026 المهندس للتسويق العقاري - جميع الحقوق محفوظة
+<div class="copy">
+© 2026 المهندس للتسويق العقاري
+</div>
 
 </div>
 
 </footer>
 
 
+<!-- ADD PROPERTY MODAL -->
+
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>إضافة عقار</h2>
+
+<button class="close" onclick="closeModal()">×</button>
+
+</div>
+
+<form class="form" onsubmit="submitProperty(event)">
+
+<input id="ownerName"
+placeholder="اسم المعلن"
+required>
+
+<input id="propertyTitle"
+placeholder="عنوان العقار"
+required>
+
+<select id="propertyType" required>
+<option value="">نوع العقار</option>
+<option>منزل</option>
+<option>شقة</option>
+<option>فيلا</option>
+<option>أرض</option>
+<option>محل</option>
+</select>
+
+<select id="propertyPurpose" required>
+<option value="">بيع أو إيجار</option>
+<option>بيع</option>
+<option>إيجار</option>
+</select>
+
+<input id="propertyCity"
+placeholder="المدينة والمنطقة"
+required>
+
+<input id="propertyPrice"
+type="number"
+placeholder="السعر"
+required>
+
+<input id="propertyArea"
+type="number"
+placeholder="المساحة بالمتر">
+
+<textarea id="propertyDescription"
+placeholder="وصف العقار"></textarea>
+
+<button class="btn primary">
+إرسال العقار
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
 <script>
 
-/* SEARCH */
+/* MODAL */
 
-function searchProperty(){
+function openModal(){
 
-    const city =
-    document.getElementById("city").value
-    .trim()
-    .toLowerCase();
+document.getElementById("modal").style.display="flex";
 
-    const type =
-    document.getElementById("type").value;
+}
 
-    const cards =
-    document.querySelectorAll(".card");
+function closeModal(){
 
-    let found = 0;
+document.getElementById("modal").style.display="none";
 
-    cards.forEach(card => {
-
-        const cardCity =
-        card.dataset.city.toLowerCase();
-
-        const cardType =
-        card.dataset.type;
-
-        let show = true;
-
-        if(city && !cardCity.includes(city)){
-            show = false;
-        }
-
-        if(type && cardType !== type){
-            show = false;
-        }
-
-        card.style.display =
-        show ? "block" : "none";
-
-        if(show) found++;
-
-    });
-
-    document.getElementById("properties")
-    .scrollIntoView({
-        behavior:"smooth"
-    });
-
-    if(found === 0){
-        alert("لم يتم العثور على عقارات مطابقة للبحث.");
-    }
 }
 
 
 /* FAVORITE */
 
-function favorite(button){
+function toggleFavorite(button){
 
-    if(button.innerHTML === "♡"){
-        button.innerHTML = "♥";
-        button.style.color = "#0d6b58";
-    }else{
-        button.innerHTML = "♡";
-        button.style.color = "#172033";
-    }
+if(button.innerHTML==="♡"){
+
+button.innerHTML="♥";
+
+}else{
+
+button.innerHTML="♡";
+
+}
+
+}
+
+
+/* FILTER */
+
+function filterProperties(){
+
+const type =
+document.getElementById("filterType").value;
+
+const purpose =
+document.getElementById("filterPurpose").value;
+
+const city =
+document.getElementById("filterCity").value;
+
+const cards =
+document.querySelectorAll(".property");
+
+cards.forEach(card=>{
+
+let show=true;
+
+if(type && card.dataset.type!==type)
+show=false;
+
+if(purpose && card.dataset.purpose!==purpose)
+show=false;
+
+if(city && card.dataset.city!==city)
+show=false;
+
+card.style.display=show?"block":"none";
+
+});
+
+}
+
+
+/* SEARCH */
+
+function searchProperties(){
+
+const type =
+document.getElementById("searchType").value;
+
+const purpose =
+document.getElementById("searchPurpose").value;
+
+const location =
+document.getElementById("searchLocation").value
+.toLowerCase();
+
+const price =
+Number(document.getElementById("searchPrice").value);
+
+const cards =
+document.querySelectorAll(".property");
+
+let found=0;
+
+cards.forEach(card=>{
+
+let show=true;
+
+if(type && card.dataset.type!==type)
+show=false;
+
+if(purpose && card.dataset.purpose!==purpose)
+show=false;
+
+if(location &&
+!card.dataset.city.toLowerCase().includes(location))
+show=false;
+
+if(price &&
+Number(card.dataset.price)>price)
+show=false;
+
+card.style.display=show?"block":"none";
+
+if(show) found++;
+
+});
+
+document
+.getElementById("properties")
+.scrollIntoView({behavior:"smooth"});
+
+if(found===0){
+
+setTimeout(()=>{
+alert("لم يتم العثور على عقار مطابق.");
+},400);
+
+}
 
 }
 
 
 /* ADD PROPERTY */
 
-function addProperty(){
+function submitProperty(event){
 
-    alert(
-    "سيتم فتح نموذج إضافة العقار في النسخة القادمة."
-    );
+event.preventDefault();
+
+const title =
+document.getElementById("propertyTitle").value;
+
+const city =
+document.getElementById("propertyCity").value;
+
+alert(
+"تم استلام طلب إضافة العقار:\n\n"+
+title+
+"\n"+
+city+
+"\n\n"+
+"سيتم ربط هذه العملية بقاعدة بيانات Firebase في المرحلة القادمة."
+);
+
+closeModal();
+
+event.target.reset();
 
 }
 
